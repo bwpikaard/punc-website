@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-<?php
+<?php 
     session_start();
-    require('./db.php');
-    require('./configuration.php');
-?>
+    require_once('../app/members.php'); ?>
 
 <html lang="en">
     <head>
@@ -15,7 +13,7 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="/assets/style.css">
+        <link rel="stylesheet" href="/assets/css/style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css">
 
         <title>Nano Cooperative</title>
@@ -35,20 +33,20 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/">Home</a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="/conference">Conference</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="/members">Members</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <?php if ($_SESSION["id"] && $_SESSION["administrator"] == 1) { ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="/panel" tabindex="-1">Admin Panel</a>
+                            <a class="nav-link" href="/admin" tabindex="-1">Admin</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/panel/posts" tabindex="-1">Posts</a>
+                            <a class="nav-link" href="/admin/posts" tabindex="-1">Posts</a>
                         </li>
                     <?php } ?>
                     <li class="nav-item">
@@ -61,39 +59,32 @@
                 </ul>
             </div>
         </nav>
-        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="carousel-text-container">
-                        <p class="carousel-text">Nano Cooperative<span>Upcoming Conference</span></p>
-                    </div>
-                    <img src="/assets/images/roanokecollegecampus.jpg" class="d-block w-100" alt="...">
+        <div class="container-fluid members-display">
+            <div class="input-group md-form form-sm form-1 pl-0">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-text1"><i class="fas fa-search" aria-hidden="true"></i></span>
                 </div>
+                <input class="form-control my-0 py-1" type="text" onkeyup="searchMembers()" id="search-members" placeholder="Search by name" aria-label="Search">
             </div>
-        </div>
-        <div class="container-fluid home">
-            <div class="column">
-                <div class="col-lg-4 information">
-                    <i class="<?php echo getConfiguration("index-information-1-icon"); ?>"></i>
-                    <div class="content-container">
-                        <p class="title">Box 1</p>
-                        <p class="content">Box description 1.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 information">
-                    <i class="<?php echo getConfiguration("index-information-2-icon"); ?>"></i>
-                    <div class="content-container">
-                        <p class="title">Box 2</p>
-                        <p class="content">Box description 2.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 information">
-                    <i class="<?php echo getConfiguration("index-information-3-icon"); ?>"></i>
-                    <div class="content-container">
-                        <p class="title">Box 3</p>
-                        <p class="content">Box description 3.</p>
-                    </div>
-                </div>
+            <div class="member-list row no-gutters">
+                <?php
+                    $result = select_members();
+
+                    while($row = $result->fetch_assoc()) { ?>
+                        <div class="member col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3" id="member-<?php echo $i; ?>">
+                            <div class="member-content">
+                                <img src="/assets/images/members/<?php echo $row["image"]; ?>" />
+                                <a class="member-field member-name" href="/member?id=<?php echo $row["id"]; ?>"><?php echo $row["name"]; ?></a>
+                                <a class="member-field member-website" href="<?php echo $row["website"]; ?>"><?php echo $row["website"]; ?></a>
+                                <p class="member-field member-institution">
+                                    <img class="member-institution-icon" src="/assets/images/institutions/<?php echo $row["institution_image"]; ?>" />
+                                    <?php echo $row["institution"]; ?>
+                                </p>
+                                <p class="member-field member-expertise"><?php echo $row["expertise"]; ?></p>
+                                <p class="member-field member-instrumentation"><?php echo $row["instrumentation"]; ?></p>
+                            </div>
+                        </div>
+                    <?php } ?>
             </div>
         </div>
     </body>
@@ -121,5 +112,3 @@
         color: #343a40;
     }
 </style>
-
-<?php mysqli_close($con); ?>

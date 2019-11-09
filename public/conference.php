@@ -1,13 +1,8 @@
 <!DOCTYPE html>
 <?php
     session_start();
-    include("../../auth.php");
-    require('../../db.php');
-
-    if ($_SESSION["administrator"] != 1) {
-        header("Location: /");
-        exit;
-    }
+    require('./db.php');
+    require('./configuration.php');
 ?>
 
 <html lang="en">
@@ -20,10 +15,8 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="/assets/style.css">
+        <link rel="stylesheet" href="/assets/css/style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
 
         <title>Nano Cooperative</title>
     </head>
@@ -42,7 +35,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/">Home</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="/conference">Conference</a>
                     </li>
                     <li class="nav-item">
@@ -52,15 +45,15 @@
                 <ul class="navbar-nav ml-auto">
                     <?php if ($_SESSION["id"] && $_SESSION["administrator"] == 1) { ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="/panel" tabindex="-1">Admin Panel</a>
+                            <a class="nav-link" href="/admin" tabindex="-1">Admin</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/panel/posts" tabindex="-1">Posts</a>
+                            <a class="nav-link" href="/admin/posts" tabindex="-1">Posts</a>
                         </li>
                     <?php } ?>
                     <li class="nav-item">
                         <?php if ($_SESSION["id"]) { ?>
-                        <a class="nav-link" href="/logout" tabindex="-1">Logout</a>
+                            <a class="nav-link" href="/logout" tabindex="-1">Logout</a>
                         <?php } else { ?>
                             <a class="nav-link" href="/login" tabindex="-1">Login</a>
                         <?php } ?>
@@ -68,79 +61,63 @@
                 </ul>
             </div>
         </nav>
-        <div class="container">
-            <p class="title">Pending Requests</p>
-            <table class="manage">
-                <tr>
-                    <th style="width: 5%;">ID</th>
-                    <th style="width: 40%;">Name</th>
-                    <th style="width: 35%;">Institution</th>
-                    <th style="width: 20%;">Actions</th>
-                </tr>
-                <?php
-                    $query = "SELECT * FROM requests";
-                    $result = mysqli_query($con, $query) or die(mysqli_error());
-
-                    if ($result) {
-                        while($row = mysqli_fetch_array($result)) { ?>
-                            <tr>
-                                <td><?php echo $row["id"]; ?></td>
-                                <td><?php echo $row["name"] ?></td>
-                                <td><?php echo $row["institution"]; ?></td>
-                                <td>
-                                    <a class="btn btn-outline-primary btn-sm" href="edit?id=<?php echo $row["id"]; ?>">Edit</a>
-                                    <a class="btn btn-outline-primary btn-sm" href="">Delete</a>
-                                </td>
-                            </tr>
-                        <?php }
-                    } else {
-                        echo "Nope!";
-                    }
-                ?>
-            </table>
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="carousel-text-container">
+                        <p class="carousel-text">Nano Cooperative<span>Upcoming Conference</span></p>
+                    </div>
+                    <img src="/assets/images/roanokecollegecampus.jpg" class="d-block w-100" alt="...">
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid home">
+            <div class="column">
+                <div class="col-lg-4 information">
+                    <i class="<?php echo getConfiguration("index-information-1-icon"); ?>"></i>
+                    <div class="content-container">
+                        <p class="title">Box 1</p>
+                        <p class="content">Box description 1.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 information">
+                    <i class="<?php echo getConfiguration("index-information-2-icon"); ?>"></i>
+                    <div class="content-container">
+                        <p class="title">Box 2</p>
+                        <p class="content">Box description 2.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 information">
+                    <i class="<?php echo getConfiguration("index-information-3-icon"); ?>"></i>
+                    <div class="content-container">
+                        <p class="title">Box 3</p>
+                        <p class="content">Box description 3.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>
 
+<script>
+    function searchMembers() {
+        const input = $("#search-members").val().toLowerCase();
+        const members = $(".member-list").children();
+
+        members.each(m => {
+            $(`.member-list .member#member-${m + 1}`).toggle(
+                $(`.member-list .member#member-${m + 1} .member-name`).html().toLowerCase().includes(input)
+            );
+        });
+    }
+</script>
+
 <style>
-    .container .title {
-        font-size: 24px;
-        font-variant: small-caps;
-    }
-    .manage {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-        color: red;
-    }
-    .manage tr {
-        border: 0;
+    .member-name {
         color: black;
     }
-    .manage td {
-        text-align: left;
-        padding: 8px;
-    }
-    .image-preview {
-        height: 60px;
-    }
-    .custom-file {
-        width: auto;
-    }
-    #image-upload input {
-        margin: 0 10px;
-    }
-    #image-upload button {
-        margin-left: 10px;
-    }
-    .divider {
-        width: 100%;
-        border-bottom: 1px solid #343a40;
-        margin: 20px 0;
-    }
-    body {
-        padding-bottom: 20px;
+    .member-name:hover {
+        text-decoration: none;
+        color: #343a40;
     }
 </style>
-
-<?php mysqli_close($con); ?>

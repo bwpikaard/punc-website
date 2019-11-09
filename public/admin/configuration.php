@@ -18,7 +18,7 @@
             $result = mysqli_query($con, $query);
                     
             if ($result) {
-                header("Location: /panel/configuration");
+                header("Location: /admin/configuration");
             } else {
                 echo mysqli_error($con);
             }
@@ -33,7 +33,7 @@
                 $result = mysqli_query($con, $query);
                         
                 if ($result) {
-                    header("Location: /panel/configuration");
+                    header("Location: /admin/configuration");
                 } else {
                     echo mysqli_error($con);
                 }
@@ -47,7 +47,7 @@
                 $result = mysqli_query($con, $query);
                         
                 if ($result) {
-                    header("Location: /panel/configuration");
+                    header("Location: /admin/configuration");
                 } else {
                     echo mysqli_error($con);
                 }
@@ -65,7 +65,7 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="/assets/style.css">
+        <link rel="stylesheet" href="/assets/css/style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
@@ -97,10 +97,10 @@
                 <ul class="navbar-nav ml-auto">
                     <?php if ($_SESSION["id"] && $_SESSION["administrator"] == 1) { ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="/panel" tabindex="-1">Admin Panel</a>
+                            <a class="nav-link" href="/admin" tabindex="-1">Admin</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/panel/posts" tabindex="-1">Posts</a>
+                            <a class="nav-link" href="/admin/posts" tabindex="-1">Posts</a>
                         </li>
                     <?php } ?>
                     <li class="nav-item">
@@ -156,7 +156,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
-                        <form action="/panel/configuration/index.php" method="post">
+                        <form action="/admin/configuration/index.php" method="post">
                             <input id="add-configuration-action" type="hidden" name="action" value="add-configuration">
                             <input id="add-configuration-id" type="hidden" name="key">
                             <div class="form-group">

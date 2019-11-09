@@ -18,5 +18,5 @@
     
     if (!move_uploaded_file($file['tmp_name'], "../../assets/images/$file_location/$file_name.$file_ext")) return header("Location: /?error=ServerError");
     
-    header("Location: /panel");
+    header("Location: /admin");
 ?>

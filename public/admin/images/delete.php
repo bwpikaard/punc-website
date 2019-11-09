@@ -13,5 +13,5 @@
         header("Location: /?exists=false");
     }
 
-    header("Location: /panel");
+    header("Location: /admin");
 ?>

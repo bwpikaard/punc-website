@@ -196,7 +196,7 @@ body {
 }
 
 .member-page .member-content .flex-column {
-    padding-right: 100px;
+    /*padding-right: 100px;*/
     text-align: right;
     display: flex;
     flex-direction: column;

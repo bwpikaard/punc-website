@@ -1,23 +1,8 @@
 <!DOCTYPE html>
 <?php
     session_start();
-    require('./db.php');
-    require('./configuration.php');
-
-    function getAuthor($id) {
-        global $con;
-
-        $query = "SELECT * FROM users WHERE `id`='$id'";
-
-        $result = mysqli_query($con, $query);
-        $value = mysqli_fetch_array($result);
-        
-        if ($result) {
-            return $value;
-        } else {
-            echo mysqli_error($con);
-        }
-    }
+    require_once('../app/posts.php');
+    require_once('../app/configuration.php');
 ?>
 
 <html lang="en">
@@ -30,7 +15,7 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="/assets/style.css">
+        <link rel="stylesheet" href="/assets/css/style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css">
 
         <title>Nano Cooperative</title>
@@ -60,10 +45,10 @@
                 <ul class="navbar-nav ml-auto">
                     <?php if ($_SESSION["id"] && $_SESSION["administrator"] == 1) { ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="/panel" tabindex="-1">Admin Panel</a>
+                            <a class="nav-link" href="/admin" tabindex="-1">Admin</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/panel/posts" tabindex="-1">Posts</a>
+                            <a class="nav-link" href="/admin/posts" tabindex="-1">Posts</a>
                         </li>
                     <?php } ?>
                     <li class="nav-item">
@@ -89,24 +74,24 @@
         <div class="container-fluid home">
             <div class="row">
                 <div class="col-lg-4 information">
-                    <i class="<?php echo getConfiguration("index-information-1-icon"); ?>"></i>
+                    <i class="<?php echo select_configuration("index-information-1-icon"); ?>"></i>
                     <div class="content-container">
-                        <p class="title"><?php echo getConfiguration("index-information-1"); ?></p>
-                        <p class="content"><?php echo getConfiguration("index-information-1-content"); ?></p>
+                        <p class="title"><?php echo select_configuration("index-information-1"); ?></p>
+                        <p class="content"><?php echo select_configuration("index-information-1-content"); ?></p>
                     </div>
                 </div>
                 <div class="col-lg-4 information">
-                    <i class="<?php echo getConfiguration("index-information-2-icon"); ?>"></i>
+                    <i class="<?php echo select_configuration("index-information-2-icon"); ?>"></i>
                     <div class="content-container">
-                        <p class="title"><?php echo getConfiguration("index-information-2"); ?></p>
-                        <p class="content"><?php echo getConfiguration("index-information-2-content"); ?></p>
+                        <p class="title"><?php echo select_configuration("index-information-2"); ?></p>
+                        <p class="content"><?php echo select_configuration("index-information-2-content"); ?></p>
                     </div>
                 </div>
                 <div class="col-lg-4 information">
-                    <i class="<?php echo getConfiguration("index-information-3-icon"); ?>"></i>
+                    <i class="<?php echo select_configuration("index-information-3-icon"); ?>"></i>
                     <div class="content-container">
-                        <p class="title"><?php echo getConfiguration("index-information-3"); ?></p>
-                        <p class="content"><?php echo getConfiguration("index-information-3-content"); ?></p>
+                        <p class="title"><?php echo select_configuration("index-information-3"); ?></p>
+                        <p class="content"><?php echo select_configuration("index-information-3-content"); ?></p>
                     </div>
                 </div>
             </div>
@@ -126,21 +111,16 @@
                 <br>
                 <div class="posts">
                     <?php
-                        $query = "SELECT * FROM posts WHERE published='1'";
-                        $result = mysqli_query($con, $query) or die(mysqli_error());
+                        $posts = select_posts();
 
-                        if ($result) {
-                            while($row = mysqli_fetch_array($result)) { ?>
+                        while($row = $posts->fetch_assoc()) {
+                    ?>
                                 <div class="post">
                                     <h2 class="title"><?php echo $row["title"]; ?></h2>
-                                    <p class="author">By <?php echo getAuthor($row["author"])["displayname"]; ?> on <?php echo $row["created"]; ?></p>
+                                    <p class="author">By <?php echo select_author($row["author"])["displayname"]; ?> on <?php echo $row["created"]; ?></p>
                                     <div class="content"><?php echo $row["content"]; ?></div>
                                 </div>
-                            <?php }
-                        } else {
-                            echo "Nope!";
-                        }
-                    ?>
+                        <?php } ?>
                 </div>
             </div>
         </div>
@@ -224,5 +204,3 @@
         
     }
 </style>
-
-<?php mysqli_close($con); ?>
