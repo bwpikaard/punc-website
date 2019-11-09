@@ -56,13 +56,13 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
 
-        <title>P.U.N.C.</title>
+        <title>Nano Cooperative</title>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="/">
                 <img class="navbar-brand-image" src="/assets/images/logo.png" alt="">
-                P.U.N.C.
+                Nano Cooperative
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -74,7 +74,7 @@
                         <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/conferences">Conferences</a>
+                        <a class="nav-link" href="/conference">Conference</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/members">Members</a>
@@ -101,7 +101,7 @@
         </nav>
         <div class="container">
             <p class="title">Edit Post</p>
-            <form action="/panel/posts/edit/index.php" method="post">
+            <form action="/panel/posts/edit/index" method="post">
                 <input type="hidden" name="id" value="<?php echo $row["id"]; ?>">
                 <input class="form-control" name="title" type="text" placeholder="Post Title" id="post-title" value="<?php echo $row["title"]; ?>" required>
                 <textarea name="content" id="summernote" required><?php echo $row["content"]; ?></textarea>

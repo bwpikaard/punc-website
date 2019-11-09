@@ -150,13 +150,13 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
 
-        <title>P.U.N.C.</title>
+        <title>Nano Cooperative</title>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="/">
                 <img class="navbar-brand-image" src="/assets/images/logo.png" alt="">
-                P.U.N.C.
+                Nano Cooperative
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -168,7 +168,7 @@
                         <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/conferences">Conferences</a>
+                        <a class="nav-link" href="/conference">Conference</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/members">Members</a>
@@ -295,14 +295,14 @@
 
                     foreach ($files as $file) { ?>
                         <tr>
-                            <td><a href="images/delete.php?file_location=members&file_name=<?php echo $file; ?>"><i class="far fa-times-circle"></i></a></td>
+                            <td><a href="images/delete?file_location=members&file_name=<?php echo $file; ?>"><i class="far fa-times-circle"></i></a></td>
                             <td><?php echo $file; ?></td>
                             <td><img class="image-preview" src="/assets/images/members/<?php echo $file; ?>" /></td>
                         </tr>
                     <?php }
                 ?>
             </table>
-            <form class="form-inline" id="image-upload" action="images/upload.php" method="post" enctype="multipart/form-data">
+            <form class="form-inline" id="image-upload" action="images/upload" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="location" value="members">
                 <input class="form-control" name="file-name" type="text" placeholder="File Name" required>
                 <div class="custom-file">
@@ -325,14 +325,14 @@
 
                     foreach ($files as $file) { ?>
                         <tr>
-                            <td><a href="images/delete.php?file_location=institutions&file_name=<?php echo $file; ?>"><i class="far fa-times-circle"></i></a></td>
+                            <td><a href="images/delete?file_location=institutions&file_name=<?php echo $file; ?>"><i class="far fa-times-circle"></i></a></td>
                             <td><?php echo $file; ?></td>
                             <td><img class="image-preview" src="/assets/images/institutions/<?php echo $file; ?>" /></td>
                         </tr>
                     <?php }
                 ?>
             </table>
-            <form class="form-inline" id="image-upload" action="images/upload.php" method="post" enctype="multipart/form-data">
+            <form class="form-inline" id="image-upload" action="images/upload" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="location" value="institutions">
                 <input class="form-control" name="file-name" type="text" placeholder="File Name" required>
                 <div class="custom-file">
@@ -352,7 +352,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
-                        <form action="/panel/index.php" method="post">
+                        <form action="/panel/index" method="post">
                             <input id="add-member-action" type="hidden" name="action" value="add-member">
                             <input id="add-member-id" type="hidden" name="id">
                             <div class="form-group">
@@ -402,7 +402,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
-                        <form action="/panel/index.php" method="post">
+                        <form action="/panel/index" method="post">
                             <input id="add-user-action" type="hidden" name="action" value="add-user">
                             <input id="add-user-id" type="hidden" name="id">
                             <div class="form-group">

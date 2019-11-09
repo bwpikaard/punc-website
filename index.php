@@ -33,13 +33,13 @@
         <link rel="stylesheet" href="/assets/style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css">
 
-        <title>P.U.N.C.</title>
+        <title>Nano Cooperative</title>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="/">
                 <img class="navbar-brand-image" src="/assets/images/logo.png" alt="">
-                P.U.N.C.
+                Nano Cooperative
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -51,7 +51,7 @@
                         <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/conferences">Conferences</a>
+                        <a class="nav-link" href="/conference">Conference</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/members">Members</a>
@@ -82,7 +82,7 @@
                     <div class="carousel-text-container">
                         <p class="carousel-text">P.U.N.C.<span>Primarily Undergraduate Nanomaterials Cooperative</span></p>
                     </div>
-                    <img src="/assets/images/roanokecollegecampus.jpg" class="d-block w-100" alt="...">
+                    <img src="/assets/images/splash.png" class="d-block w-100" alt="...">
                 </div>
             </div>
         </div>
@@ -152,7 +152,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
-                        <form action="/index.php" method="post">
+                        <form action="/" method="post">
                         <p class="note">Please have an image of yourself and your institution's logo ready upon request. File must be a png or jpg.</p>
                             <div class="form-group">
                                 <label class="col-form-label">Full Name</label>

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <?php
     session_start();
-    require('../db.php');
+    require('./db.php');
+    require('./configuration.php');
 ?>
 
 <html lang="en">
@@ -17,13 +18,13 @@
         <link rel="stylesheet" href="/assets/style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css">
 
-        <title>P.U.N.C.</title>
+        <title>Nano Cooperative</title>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="/">
                 <img class="navbar-brand-image" src="/assets/images/logo.png" alt="">
-                P.U.N.C.
+                Nano Cooperative
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -35,7 +36,7 @@
                         <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="/conferences">Conferences</a>
+                        <a class="nav-link" href="/conference">Conference</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/members">Members</a>
@@ -60,40 +61,39 @@
                 </ul>
             </div>
         </nav>
-        <div class="container-fluid members-display">
-            <div class="input-group md-form form-sm form-1 pl-0">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-text1"><i class="fas fa-search" aria-hidden="true"></i></span>
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="carousel-text-container">
+                        <p class="carousel-text">Nano Cooperative<span>Upcoming Conference</span></p>
+                    </div>
+                    <img src="/assets/images/roanokecollegecampus.jpg" class="d-block w-100" alt="...">
                 </div>
-                <input class="form-control my-0 py-1" type="text" onkeyup="searchMembers()" id="search-members" placeholder="Search by name" aria-label="Search">
             </div>
-            <div class="member-list row no-gutters">
-                <?php
-                /*
-                    $query = "SELECT * FROM members";
-                    $result = mysqli_query($con, $query) or die(mysqli_error());
-
-                    if ($result) {
-                        $i = 1;
-                        while($row = mysqli_fetch_array($result)) { ?>
-                            <div class="member col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3" id="member-<?php echo $i; ?>">
-                                <div class="member-content">
-                                    <img src="/assets/images/members/<?php echo $row["image"]; ?>" />
-                                    <a class="member-field member-name" href="/member?id=<?php echo $row["id"]; ?>"><?php echo $row["name"]; ?></a>
-                                    <a class="member-field member-website" href="<?php echo $row["website"]; ?>"><?php echo $row["website"]; ?></a>
-                                    <p class="member-field member-institution">
-                                        <img class="member-institution-icon" src="/assets/images/institutions/<?php echo $row["institution_image"]; ?>" />
-                                        <?php echo $row["institution"]; ?>
-                                    </p>
-                                    <p class="member-field member-expertise"><?php echo $row["expertise"]; ?></p>
-                                    <p class="member-field member-instrumentation"><?php echo $row["instrumentation"]; ?></p>
-                                </div>
-                            </div>
-                        <?php $i++; }
-                    } else {
-                        echo "Nope!";
-                    }*/
-                ?>
+        </div>
+        <div class="container-fluid home">
+            <div class="column">
+                <div class="col-lg-4 information">
+                    <i class="<?php echo getConfiguration("index-information-1-icon"); ?>"></i>
+                    <div class="content-container">
+                        <p class="title">Box 1</p>
+                        <p class="content">Box description 1.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 information">
+                    <i class="<?php echo getConfiguration("index-information-2-icon"); ?>"></i>
+                    <div class="content-container">
+                        <p class="title">Box 2</p>
+                        <p class="content">Box description 2.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 information">
+                    <i class="<?php echo getConfiguration("index-information-3-icon"); ?>"></i>
+                    <div class="content-container">
+                        <p class="title">Box 3</p>
+                        <p class="content">Box description 3.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </body>
