@@ -43,7 +43,7 @@
             header("Location: /login?ue=$error");
         }
     } else if (isset($_POST["register"])) {
-        if ($disabled) {
+        if ($disabled && !isset($_POST["admin-register"])) {
             header("Location: /register?error=disabled");
             exit;
         }
@@ -81,11 +81,49 @@
         $result = insert_user($username, $email, $displayname, $hpassword);
 
         if ($result) {
-            if ($_POST["return"]) {
-                header("Location: " . $_POST["return"]);
+            if (isset($_POST["callback"])) {
+                header("Location: " . $_POST["callback"]);
             } else {
                 header("Location: /login?username=$username");
             }
         }
+    } else if (isset($_POST["update"])) {
+        if ($_SESSION["administrator"] != 1) {
+            header("Location: /");
+            exit;
+        }
+
+        $id = $_POST["id"];
+        $username = $_POST["username"];
+        $email = $_POST["email"];
+        $displayname = $_POST["displayname"];
+        $password = $_POST["password"];
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $administrator = ($_POST["administrator"] == "on" ? 1 : 0);
+
+        $query = ($password ?
+            "UPDATE users SET username='$username', email='$email', displayname='$displayname', password='$hashed_password', administrator='$administrator' WHERE id=$id"
+            :
+            "UPDATE users SET username='$username', email='$email', displayname='$displayname', administrator='$administrator' WHERE id=$id"
+        );
+
+        $result = mysqli_query($con, $query);
+                
+        if ($result) {
+            header("Location: /admin");
+        } else {
+            echo mysqli_error($con);
+        }
+    } else if (isset($_GET["delete"])) {
+        if ($_SESSION["administrator"] != 1) {
+            header("Location: /");
+            exit;
+        }
+        
+        $id = $_GET["id"];
+
+        $result = delete_user($id);
+
+        header("Location: /admin#users");
     }
 ?>

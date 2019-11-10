@@ -33,6 +33,7 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="/assets/js/index.js"></script>
         <link rel="stylesheet" href="/assets/css/style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
@@ -77,19 +78,18 @@
                 </ul>
             </div>
         </nav>
-        <div class="container">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item"><a class="nav-link active" id="users-tab-control" data-toggle="tab" href="#users-tab" role="tab" aria-controls="users-tab" aria-selected="true">Users</a></li>
-                <li class="nav-item"><a class="nav-link" id="members-tab-control" data-toggle="tab" href="#members-tab" role="tab" aria-controls="members-tab" aria-selected="false">Members</a></li>
-                <li class="nav-item"><a class="nav-link" id="images-tab-control" data-toggle="tab" href="#images-tab" role="tab" aria-controls="images-tab" aria-selected="false">Images</a></li>
-                <li class="nav-item"><a class="nav-link" id="posts-tab-control" data-toggle="tab" href="#posts-tab" role="tab" aria-controls="posts-tab" aria-selected="false">Posts</a></li>
-                <li class="nav-item"><a class="nav-link" id="configuration-tab-control" data-toggle="tab" href="#configuration-tab" role="tab" aria-controls="configuration-tab" aria-selected="false">Configuration</a></li>
+        <div class="container-fluid admin">
+            <ul class="nav nav-pills" id="myTab" role="tablist">
+                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#users" role="tab" aria-controls="home" aria-selected="true">Users</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#members" role="tab" aria-controls="profile" aria-selected="false">Members</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#images" role="tab" aria-controls="profile" aria-selected="false">Images</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#posts" role="tab" aria-controls="profile" aria-selected="false">Posts</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#configuration" role="tab" aria-controls="contact" aria-selected="false">Configuration</a></li>
             </ul>
-            <br>
-            <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="users-tab" role="tabpanel" aria-labelledby="users-tab">
+            <div class="container tab-content" id="myTabContent">
+                <div class="tab-pane fade show active table-responsive-md" id="users" role="tabpanel" aria-labelledby="users-tab">
                     <p class="title">Users</p>
-                    <table class="manage">
+                    <table class="table table-borderless table-hover manage">
                         <tr>
                             <th style="width: 5%;">ID</th>
                             <th style="width: 20%;">Display Name</th>
@@ -118,16 +118,16 @@
                                             data-displayname="<?php echo $row["displayname"]; ?>"
                                             data-administrator="<?php echo $row["administrator"]; ?>"
                                         >Edit</a>
-                                        <a class="btn btn-outline-primary btn-sm<?php if ($row["administrator"] == 1) echo " disabled"; ?>" href="/utilities?delete-user&id=<?php echo $row["id"]; ?>">Remove</a>
+                                        <a class="btn btn-outline-primary btn-sm<?php if ($row["administrator"] == 1) echo " disabled"; ?>" href="/utilities/user?delete&id=<?php echo $row["id"]; ?>">Remove</a>
                                     </td>
                                 </tr>
                             <?php } ?>
                     </table>
                     <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#addUser">Add User</button>
                 </div>
-                <div class="tab-pane fade" id="members-tab" role="tabpanel" aria-labelledby="members-tab">
+                <div class="tab-pane fade table-responsive-md" id="members" role="tabpanel" aria-labelledby="members-tab">
                     <p class="title">Organization Members</p>
-                    <table class="manage">
+                    <table class="table table-borderless table-hover manage">
                         <tr>
                             <th style="width: 20%;">Name</th>
                             <th style="width: 30%;">Institution</th>
@@ -156,16 +156,16 @@
                                             data-instrumentation="<?php echo $row["instrumentation"]; ?>"
                                             data-biography="<?php echo $row["biography"]; ?>"
                                         >Edit</a>
-                                        <a class="btn btn-outline-primary btn-sm" href="/utilities?delete-member&id=<?php echo $row["id"]; ?>">Remove</a>
+                                        <a class="btn btn-outline-primary btn-sm" href="/utilities/admin?delete-member&id=<?php echo $row["id"]; ?>">Remove</a>
                                     </td>
                                 </tr>
                             <?php } ?>
                     </table>
                     <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#addMember">Add Member</button>
                 </div>
-                <div class="tab-pane fade" id="images-tab" role="tabpanel" aria-labelledby="images-tab">
+                <div class="tab-pane fade table-responsive-md" id="images" role="tabpanel" aria-labelledby="images-tab">
                     <p class="title">Images</p>
-                    <table class="manage">
+                    <table class="table table-borderless table-hover manage">
                         <tr>
                             <th style="width: 5%;"></th>
                             <th style="width: 30%;">Name</th>
@@ -195,7 +195,7 @@
                     </form>
                     <div class="divider"></div>
                     <p class="title">Institution Images</p>
-                    <table class="manage">
+                    <table class="table table-borderless table-hover manage">
                         <tr>
                             <th style="width: 5%;"></th>
                             <th style="width: 30%;">Name</th>
@@ -224,9 +224,9 @@
                         <button type="submit" class="btn btn-outline-primary btn-sm">Upload Image</button>
                     </form>
                 </div>
-                <div class="tab-pane fade" id="posts-tab" role="tabpanel" aria-labelledby="posts-tab">
+                <div class="tab-pane fade table-responsive-md" id="posts" role="tabpanel" aria-labelledby="posts-tab">
                     <p class="title">Existing Posts</p>
-                    <table class="manage">
+                    <table class="table table-borderless table-hover manage">
                         <tr>
                             <th style="width: 5%;">ID</th>
                             <th style="width: 10%;">Published</th>
@@ -263,9 +263,9 @@
                         <button type="submit" class="btn btn-outline-primary btn-sm" id="post-submit">Create</button>
                     </form>
                 </div>
-                <div class="tab-pane fade" id="configuration-tab" role="tabpanel" aria-labelledby="configuration-tab">
+                <div class="tab-pane fade table-responsive-md" id="configuration" role="tabpanel" aria-labelledby="configuration-tab">
                     <p class="title">Website Configuration</p>
-                    <table class="manage">
+                    <table class="table table-borderless table-hover manage">
                         <tr>
                             <th style="width: 20%;">Key</th>
                             <th style="width: 60%;">Value</th>
@@ -304,8 +304,7 @@
                     </div>
                     <div class="modal-body">
                         <form action="/utilities/admin" method="post">
-                            <input type="hidden" name="add-member">
-                            <input id="add-member-action" type="hidden" name="action" value="add-member">
+                            <input type="hidden" id="member-action" name="add-member">
                             <input id="add-member-id" type="hidden" name="id">
                             <div class="form-group">
                                 <label class="col-form-label">Name</label>
@@ -350,37 +349,53 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">User Management</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
-                        <form action="/utilities/admin" method="post">
-                            <input type="hidden" name="add-user">
-                            <input id="add-user-action" type="hidden" name="action" value="add-user">
-                            <input id="add-user-id" type="hidden" name="id">
+                        <form class="needs-validation" action="/utilities/users" method="post" novalidate>
+                            <input type="hidden" name="admin-register">
+                            <input type="hidden" name="callback" value="/admin#users">
+                            <input type="hidden" id="user-action" name="register">
+                            <input id="user-id" type="hidden" name="id">
                             <div class="form-group">
-                                <label class="col-form-label">Username</label>
-                                <input name="username" id="add-user-username" type="text" class="form-control">
+                                <label for="username">Username</label>
+                                <input name="username" type="text" class="form-control" id="username" placeholder="Username" data-toggle="popover" data-content="Popover" data-trigger="manual" required>
+                                <div class="invalid-feedback">
+                                    Please enter a username.
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-form-label">Email</label>
-                                <input name="email" id="add-user-email" type="text" class="form-control">
+                                <label for="displayname">Display Name</label>
+                                <input name="displayname" type="text" class="form-control" id="displayname" placeholder="Display Name" data-toggle="popover" data-content="Popover" data-trigger="manual" required>
+                                <div class="invalid-feedback">
+                                    Please enter a display name.
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-form-label">Display Name</label>
-                                <input name="displayname" id="add-user-displayname" type="text" class="form-control">
+                                <label for="email">Email</label>
+                                <input name="email" type="email" class="form-control" id="email" placeholder="Email" data-toggle="popover" data-content="Popover" data-trigger="manual" required>
+                                <div class="invalid-feedback">
+                                    Please enter a valid email.
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-form-label">Password</label>
-                                <input name="password" id="add-user-password" type="text" class="form-control">
+                                <label for="password">Password</label>
+                                <input name="password" type="password" class="form-control" id="password" minlength="6" maxlength="20" placeholder="Password" data-toggle="popover" data-content="Popover" data-trigger="manual">
+                                <small id="passwordHelpBlock" class="form-text text-muted">Your password must be between 6 and 20 characters.</small>
+                                <div class="invalid-feedback">
+                                    Please enter your password.
+                                </div>
                             </div>
-                            <div class="custom-control custom-switch">
-                                <input name="administrator" type="checkbox" class="custom-control-input" id="add-user-administrator" disabled>
-                                <label class="custom-control-label" for="add-user-administrator">Administrator</label>
+                            <div class="form-group">
+                                <div class="custom-control custom-switch">
+                                    <input name="administrator" type="checkbox" class="custom-control-input" id="administrator">
+                                    <label class="custom-control-label" for="administrator">Administrator</label>
+                                </div>
                             </div>
                             <br>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary" id="add-user-submit">Add User</button>
+                            <button type="submit" class="btn btn-primary" id="submit">Add User</button>
                         </form>
                     </div>
                 </div>
@@ -412,7 +427,7 @@
         modal.find("#add-member-expertise").val(expertise);
         modal.find("#add-member-instrumentation").val(instrumentation);
         modal.find("#add-member-biography").val(biography);
-        modal.find("#add-member-action").val(name ? "update-member" : "add-member");
+        modal.find("#member-action").attr("name", name ? "update-member" : "add-member");
         modal.find("#add-member-submit").html(name ? "Update Member" : "Add Member");
     })
     $('#addUser').on('shown.bs.modal', function (event) {
@@ -424,14 +439,14 @@
         const administrator = button.data("administrator") === 1;
 
         const modal = $(this);
-        modal.find("#add-user-id").val(id);
-        modal.find("#add-user-username").val(username);
-        modal.find("#add-user-email").val(email);
-        modal.find("#add-user-displayname").val(displayname);
-        modal.find("#add-user-administrator").prop("checked", administrator);
-        modal.find("#add-user-administrator").prop("disabled", !username);
-        modal.find("#add-user-action").val(username ? "update-user" : "add-user");
-        modal.find("#add-user-submit").html(username ? "Update User" : "Add User");
+        modal.find("#user-id").val(id);
+        modal.find("#username").val(username);
+        modal.find("#email").val(email);
+        modal.find("#displayname").val(displayname);
+        modal.find("#administrator").prop("checked", administrator);
+        //modal.find("#add-user-administrator").prop("disabled", !username);
+        modal.find("#action").attr("name", name ? "update" : "register");
+        modal.find("#submit").html(username ? "Update User" : "Add User");
     })
     
     $(document).ready(function() {
@@ -448,6 +463,16 @@
             placeholder: "Write your article here.",
             codeviewFilter: true,
             codeviewIframeFilter: true
+        });
+
+        var hash = window.location.hash;
+        hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+
+        $('.nav-pills a').click(function (e) {
+            $(this).tab('show');
+            var scrollmem = $('body').scrollTop();
+            window.location.hash = this.hash;
+            $('html,body').scrollTop(scrollmem);
         });
     });
 </script>

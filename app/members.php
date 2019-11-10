@@ -40,4 +40,13 @@
 
 
     }
+
+    function delete_member($id) {
+        global $con;
+
+        $stmt = "DELETE FROM members WHERE id='$id'";
+        $result = $con->query($stmt);
+        
+        return $result;
+    }
 ?>

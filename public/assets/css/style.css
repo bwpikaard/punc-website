@@ -2,6 +2,8 @@ body {
     font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+/* -----------------------------[ NAVBAR ]----------------------------- */
+
 .navbar {
     background-color: #1D1C28 !important;
 }
@@ -15,6 +17,8 @@ body {
     float: left;
     margin-right: 10px;
 }
+
+/* -----------------------------[ CONTAINER ]----------------------------- */
 
 .container {
     margin-top: 50px;
@@ -56,6 +60,8 @@ body {
     width: 80% !important;
     margin-top: 50px;
 }
+
+/* -----------------------------[ CONTAINER ]----------------------------- */
 
 .information {
     display: flex;
@@ -105,6 +111,15 @@ body {
         width: 80% !important;
     }
 }
+
+.divider {
+    height: 6px;
+    width: 100%;
+    background-color: #1D1C28;
+    margin: 20px 0;
+}
+
+/* -----------------------------[ MEMBERS DISPLAY ]----------------------------- */
 
 .members-display .member-list {}
 
@@ -157,6 +172,8 @@ body {
 }
 
 .members-display .member-list .member .member-content .member-field.member-instrumentation {}
+
+/* -----------------------------[ MEMBER PAGE ]----------------------------- */
 
 .member-page {
     width: 100% !important;
@@ -234,6 +251,8 @@ body {
     margin: 0;
 }
 
+/* -----------------------------[ LOGIN ]----------------------------- */
+
 .login {
     display: flex;
     justify-content: center;
@@ -259,9 +278,49 @@ body {
     font-weight: bold;
 }
 
-.divider {
-    height: 6px;
-    width: 100%;
+/* -----------------------------[ ADMIN ]----------------------------- */
+
+.container-fluid.admin {
+    padding: 0;
+    margin: 0;
+}
+
+.admin .nav-pills {
+    background-color: #3f3f3f;
+    border: none;
+}
+
+.admin .nav-pills .nav-item a {
+    color: white;
+    border-radius: 0;
+    border: none;
+}
+
+.admin .nav-pills .nav-item a.active {
     background-color: #1D1C28;
-    margin: 20px 0;
+}
+
+.admin .manage {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    color: black;
+}
+
+.admin .manage tr {
+    border: 0;
+    color: black;
+}
+
+.admin .manage td {
+    text-align: left;
+    padding: 8px;
+}
+
+.admin .image-preview {
+    height: 60px;
+}
+
+.admin .custom-file {
+    width: auto;
 }
