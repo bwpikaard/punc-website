@@ -254,10 +254,6 @@ body {
     border-radius: 3px;
 }
 
-.login .frame input, .login .frame button, .login .frame a {
-    margin-top: 20px;
-}
-
 .login .frame .title {
     font-size: 18px;
     font-weight: bold;

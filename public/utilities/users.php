@@ -1,5 +1,8 @@
 <?php
+    session_start();
     require_once("../../app/users.php");
+
+    $disabled = true;
 
     if (isset($_POST["login"])) {
         $username = trim($_POST["username"]);
@@ -40,8 +43,15 @@
             header("Location: /login?ue=$error");
         }
     } else if (isset($_POST["register"])) {
+        if ($disabled) {
+            header("Location: /register?error=disabled");
+            exit;
+        }
+
         $username = trim($_POST["username"]);
         $password = trim($_POST["password"]);
+        $displayname = trim($_POST["displayname"]);
+        $email = trim($_POST["email"]);
 
         if (empty($username)) {
             $error = urlencode("Please enter a email.");
@@ -68,10 +78,7 @@
         
         $hpassword = mysqli_real_escape_string($con, password_hash($password, PASSWORD_DEFAULT));
 
-        $email = "email";
-        $displayname = $username;
-
-        $result = insert_user($username, $email, $displayname, $password);
+        $result = insert_user($username, $email, $displayname, $hpassword);
 
         if ($result) {
             if ($_POST["return"]) {

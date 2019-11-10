@@ -1,146 +1,34 @@
-<!DOCTYPE html>
 <?php
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+
     session_start();
-    include("../utilities/auth.php");
-    require('../../app/database.php');
+    require_once("../utilities/auth.php");
+    require_once('../../app/users.php');
+    require_once('../../app/members.php');
+    require_once('../../app/posts.php');
+    require_once('../../app/configuration.php');
 
     if ($_SESSION["administrator"] != 1) {
         header("Location: /");
         exit;
     }
-
-    if (isset($_GET["action"])) {
-        if ($_GET["action"] === "delete-member") {
-            $id = $_GET["id"];
-
-            $query = "DELETE FROM `members` WHERE id=$id";
-
-            $result = mysqli_query($con, $query);
-                    
-            if ($result) {
-                header("Location: /admin");
-            } else {
-                echo mysqli_error($con);
-            }
-        } else if ($_GET["action"] === "delete-user") {
-            $id = $_GET["id"];
-
-            $query = "DELETE FROM `users` WHERE id=$id";
-
-            $result = mysqli_query($con, $query);
-                        
-            if ($result) {
-               header("Location: /admin");
-            } else {
-                echo mysqli_error($con);
-            }
-        }
-    } else if (isset($_POST["action"])) {
-        if ($_POST["action"] === "add-member") {
-            $name = $_POST["name"];
-            $image = $_POST["image"];
-            $website = $_POST["website"];
-            $institution = $_POST["institution"];
-            $institution_image = $_POST["institution_image"];
-            $expertise = $_POST["expertise"];
-            $instrumentation = mysqli_real_escape_string($con, $_POST["instrumentation"]);
-            $biography = mysqli_real_escape_string($con, $_POST["biography"]);
-            
-            $query = "INSERT into members (name, image, website, institution, institution_image, expertise, instrumentation, biography) VALUES ('$name', '$image', '$website', '$institution', '$institution_image', '$expertise', '$instrumentation', '$biography')";
-
-            $result = mysqli_query($con, $query);
-                    
-            if ($result) {
-                header("Location: /admin");
-            } else {
-                echo mysqli_error($con);
-            }
-        } else if ($_POST["action"] === "update-member") {
-            $id = $_POST["id"];
-            $name = $_POST["name"];
-            $image = $_POST["image"];
-            $website = $_POST["website"];
-            $institution = $_POST["institution"];
-            $institution_image = $_POST["institution_image"];
-            $expertise = $_POST["expertise"];
-            $instrumentation = mysqli_real_escape_string($con, $_POST["instrumentation"]);
-            $biography = mysqli_real_escape_string($con, $_POST["biography"]);
-
-            $query = "UPDATE members SET name='$name', image='$image', website='$website', institution='$institution', institution_image='$institution_image', expertise='$expertise', instrumentation='$instrumentation', biography='$biography' WHERE id=$id";
-
-            $result = mysqli_query($con, $query);
-                    
-            if ($result) {
-                header("Location: /admin");
-            } else {
-                echo mysqli_error($con);
-            }
-        } else if ($_POST["action"] === "add-user") {
-            $username = trim($_POST["username"]);
-            $email = trim($_POST["email"]);
-            $displayname = trim($_POST["displayname"]);
-            $password = trim($_POST["password"]);
-
-            if (empty($username)) $username_err = "Please enter a email.";
-            else if (empty($password)) $password_err = "Please enter a password.";
-            else if (strlen($password) < 6) $password_err = "Password must have at least 6 characters.";
-
-            if (empty($username_err) && empty($password_err)) {
-                $username = mysqli_real_escape_string($con, $username);
-                $email = mysqli_real_escape_string($con, $email);
-                $displayname = mysqli_real_escape_string($con, $displayname);
-                $user_stmt = "SELECT * FROM users WHERE username='$username'";
-                $user_result = mysqli_query($con, $user_stmt);
-                $user = mysqli_fetch_array($user_result);
-
-                if ($user) {
-                    $username_err = "An account with that email already exists.";
-                } else {
-                    $hpassword = mysqli_real_escape_string($con, password_hash($password, PASSWORD_DEFAULT));
-                    $created = date("Y-m-d H:i:s");
-
-                    $create_stmt = "INSERT INTO users (username, email, displayname, password, administrator, created) VALUES ('$username', '$email', '$displayname', '$hpassword', '0', '$created')";
-                    $create_result = mysqli_query($con, $create_stmt);
-
-                    if ($create_result) {
-                        header("Location: /admin");
-                    } else {
-                        echo mysqli_error($con);
-                    }
-                }
-            }
-        } else if ($_POST["action"] === "update-user") {
-            $id = $_POST["id"];
-            $username = $_POST["username"];
-            $email = $_POST["email"];
-            $displayname = $_POST["displayname"];
-            $password = $_POST["password"];
-            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-            $administrator = ($_POST["administrator"] == "on" ? 1 : 0);
-
-            $query = ($password ?
-                "UPDATE users SET username='$username', email='$email', displayname='$displayname', password='$hashed_password', administrator='$administrator' WHERE id=$id"
-                :
-                "UPDATE users SET username='$username', email='$email', displayname='$displayname', administrator='$administrator' WHERE id=$id"
-            );
-
-            $result = mysqli_query($con, $query);
-                    
-            if ($result) {
-                header("Location: /admin");
-            } else {
-                echo mysqli_error($con);
-            }
-        }
-    }
 ?>
+
+<!DOCTYPE html>
 
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+        <meta charset="utf-8">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://nanocooperative.com">
+        <meta property="og:title" content="Nano Cooperative">
+        <meta property="og:description" content="Primarily Undergraduate Nanomaterials Cooperative (PUNK)">
+        <meta property="og:site_name" content="Nano Cooperative">
+        <meta property="og:image" content="https://nanocooperative.com/assets/images/icon.png">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link href="/assets/images/icon.png" rel="icon" type="image/x-icon">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -149,7 +37,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
-
         <title>Nano Cooperative</title>
     </head>
     <body>
@@ -179,9 +66,6 @@
                         <li class="nav-item active">
                             <a class="nav-link" href="/admin" tabindex="-1">Admin</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/admin/posts" tabindex="-1">Posts</a>
-                        </li>
                     <?php } ?>
                     <li class="nav-item">
                         <?php if ($_SESSION["id"]) { ?>
@@ -194,153 +78,221 @@
             </div>
         </nav>
         <div class="container">
-            <a class="btn btn-outline-primary btn-sm" href="configuration">Website Configuration</a>
-            <div class="divider"></div>
-            <p class="title">Users</p>
-            <table class="manage">
-                <tr>
-                    <th style="width: 5%;">ID</th>
-                    <th style="width: 20%;">Display Name</th>
-                    <th style="width: 15%;">Username</th>
-                    <th style="width: 25%;">Email</th>
-                    <th style="width: 15%;">Administrator</th>
-                    <th style="width: 20%;">Actions</th>
-                </tr>
-                <?php
-                    $query = "SELECT * FROM `users`";
-                    $result = mysqli_query($con, $query) or die(mysqli_error());
-
-                    if ($result) {
-                        while($row = mysqli_fetch_array($result)) { ?>
-                            <tr>
-                                <td><?php echo $row["id"]; ?></td>
-                                <td><?php echo $row["displayname"]; ?></td>
-                                <td><?php echo $row["username"]; ?></td>
-                                <td><?php echo $row["email"]; ?></td>
-                                <td><?php if ($row["administrator"] == 1) echo "True"; else echo "False"; ?></td>
-                                <td>
-                                    <a class="btn btn-outline-primary btn-sm" href="#"
-                                        data-toggle="modal"
-                                        data-target="#addUser"
-                                        data-id="<?php echo $row["id"]; ?>"
-                                        data-username="<?php echo $row["username"]; ?>"
-                                        data-email="<?php echo $row["email"]; ?>"
-                                        data-displayname="<?php echo $row["displayname"]; ?>"
-                                        data-administrator="<?php echo $row["administrator"]; ?>"
-                                    >Edit</a>
-                                    <a class="btn btn-outline-primary btn-sm<?php if ($row["administrator"] == 1) echo " disabled"; ?>" href="?action=delete-user&id=<?php echo $row["id"]; ?>">Remove</a>
-                                </td>
-                            </tr>
-                        <?php }
-                    } else {
-                        echo "Nope!";
-                    }
-                ?>
-            </table>
-            <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#addUser">Add User</button>
-            <div class="divider"></div>
-            <p class="title">Organization Members</p>
-            <table class="manage">
-                <tr>
-                    <th style="width: 20%;">Name</th>
-                    <th style="width: 30%;">Institution</th>
-                    <th style="width: 30%;">Expertise</th>
-                    <th style="width: 20%;">Actions</th>
-                </tr>
-                <?php
-                    $query = "SELECT * FROM members";
-                    $result = mysqli_query($con, $query) or die(mysqli_error());
-
-                    if ($result) {
-                        while($row = mysqli_fetch_array($result)) { ?>
-                            <tr>
-                                <td><?php echo $row["name"]; ?></td>
-                                <td><?php echo $row["institution"]; ?></td>
-                                <td><?php echo $row["expertise"]; ?></td>
-                                <td>
-                                    <a class="btn btn-outline-primary btn-sm" href="#"
-                                        data-toggle="modal"
-                                        data-target="#addMember"
-                                        data-id="<?php echo $row["id"]; ?>"
-                                        data-name="<?php echo $row["name"]; ?>"
-                                        data-image="<?php echo $row["image"]; ?>"
-                                        data-website="<?php echo $row["website"]; ?>"
-                                        data-institution="<?php echo $row["institution"]; ?>"
-                                        data-institution_image="<?php echo $row["institution_image"]; ?>"
-                                        data-expertise="<?php echo $row["expertise"]; ?>"
-                                        data-instrumentation="<?php echo $row["instrumentation"]; ?>"
-                                        data-biography="<?php echo $row["biography"]; ?>"
-                                    >Edit</a>
-                                    <a class="btn btn-outline-primary btn-sm" href="?action=delete-member&id=<?php echo $row["id"]; ?>">Remove</a>
-                                </td>
-                            </tr>
-                        <?php }
-                    } else {
-                        echo "Nope!";
-                    }
-                ?>
-            </table>
-            <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#addMember">Add Member</button>
-            <div class="divider"></div>
-            <p class="title">Images</p>
-            <table class="manage">
-                <tr>
-                    <th style="width: 5%;"></th>
-                    <th style="width: 30%;">Name</th>
-                    <th style="width: 65%;">Image</th>
-                </tr>
-                <?php
-                    $files = array_diff(scandir("../assets/images/members", 1), array('..', '.'));
-
-                    foreach ($files as $file) { ?>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item"><a class="nav-link active" id="users-tab-control" data-toggle="tab" href="#users-tab" role="tab" aria-controls="users-tab" aria-selected="true">Users</a></li>
+                <li class="nav-item"><a class="nav-link" id="members-tab-control" data-toggle="tab" href="#members-tab" role="tab" aria-controls="members-tab" aria-selected="false">Members</a></li>
+                <li class="nav-item"><a class="nav-link" id="images-tab-control" data-toggle="tab" href="#images-tab" role="tab" aria-controls="images-tab" aria-selected="false">Images</a></li>
+                <li class="nav-item"><a class="nav-link" id="posts-tab-control" data-toggle="tab" href="#posts-tab" role="tab" aria-controls="posts-tab" aria-selected="false">Posts</a></li>
+                <li class="nav-item"><a class="nav-link" id="configuration-tab-control" data-toggle="tab" href="#configuration-tab" role="tab" aria-controls="configuration-tab" aria-selected="false">Configuration</a></li>
+            </ul>
+            <br>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="users-tab" role="tabpanel" aria-labelledby="users-tab">
+                    <p class="title">Users</p>
+                    <table class="manage">
                         <tr>
-                            <td><a href="images/delete?file_location=members&file_name=<?php echo $file; ?>"><i class="far fa-times-circle"></i></a></td>
-                            <td><?php echo $file; ?></td>
-                            <td><img class="image-preview" src="/assets/images/members/<?php echo $file; ?>" /></td>
+                            <th style="width: 5%;">ID</th>
+                            <th style="width: 20%;">Display Name</th>
+                            <th style="width: 15%;">Username</th>
+                            <th style="width: 25%;">Email</th>
+                            <th style="width: 15%;">Administrator</th>
+                            <th style="width: 20%;">Actions</th>
                         </tr>
-                    <?php }
-                ?>
-            </table>
-            <form class="form-inline" id="image-upload" action="images/upload" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="location" value="members">
-                <input class="form-control" name="file-name" type="text" placeholder="File Name" required>
-                <div class="custom-file">
-                    <input name="file" type="file" class="custom-file-input" id="validatedCustomFile" required>
-                    <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-                    <div class="invalid-feedback">Example invalid custom file feedback</div>
-                </div>
-                <button type="submit" class="btn btn-outline-primary btn-sm">Upload Image</button>
-            </form>
-            <div class="divider"></div>
-            <p class="title">Institution Images</p>
-            <table class="manage">
-                <tr>
-                    <th style="width: 5%;"></th>
-                    <th style="width: 30%;">Name</th>
-                    <th style="width: 65%;">Image</th>
-                </tr>
-                <?php
-                    $files = array_diff(scandir("../assets/images/institutions", 1), array('..', '.'));
+                        <?php
+                            $result = select_users();
 
-                    foreach ($files as $file) { ?>
-                        <tr>
-                            <td><a href="images/delete?file_location=institutions&file_name=<?php echo $file; ?>"><i class="far fa-times-circle"></i></a></td>
-                            <td><?php echo $file; ?></td>
-                            <td><img class="image-preview" src="/assets/images/institutions/<?php echo $file; ?>" /></td>
-                        </tr>
-                    <?php }
-                ?>
-            </table>
-            <form class="form-inline" id="image-upload" action="images/upload" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="location" value="institutions">
-                <input class="form-control" name="file-name" type="text" placeholder="File Name" required>
-                <div class="custom-file">
-                    <input name="file" type="file" class="custom-file-input" id="validatedCustomFile" required>
-                    <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-                    <div class="invalid-feedback">Example invalid custom file feedback</div>
+                            while($row = $result->fetch_assoc()) { ?>
+                                <tr>
+                                    <td><?php echo $row["id"]; ?></td>
+                                    <td><?php echo $row["displayname"]; ?></td>
+                                    <td><?php echo $row["username"]; ?></td>
+                                    <td><?php echo $row["email"]; ?></td>
+                                    <td><?php if ($row["administrator"] == 1) echo "True"; else echo "False"; ?></td>
+                                    <td>
+                                        <a class="btn btn-outline-primary btn-sm" href="#"
+                                            data-toggle="modal"
+                                            data-target="#addUser"
+                                            data-id="<?php echo $row["id"]; ?>"
+                                            data-username="<?php echo $row["username"]; ?>"
+                                            data-email="<?php echo $row["email"]; ?>"
+                                            data-displayname="<?php echo $row["displayname"]; ?>"
+                                            data-administrator="<?php echo $row["administrator"]; ?>"
+                                        >Edit</a>
+                                        <a class="btn btn-outline-primary btn-sm<?php if ($row["administrator"] == 1) echo " disabled"; ?>" href="/utilities?delete-user&id=<?php echo $row["id"]; ?>">Remove</a>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                    </table>
+                    <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#addUser">Add User</button>
                 </div>
-                <button type="submit" class="btn btn-outline-primary btn-sm">Upload Image</button>
-            </form>
+                <div class="tab-pane fade" id="members-tab" role="tabpanel" aria-labelledby="members-tab">
+                    <p class="title">Organization Members</p>
+                    <table class="manage">
+                        <tr>
+                            <th style="width: 20%;">Name</th>
+                            <th style="width: 30%;">Institution</th>
+                            <th style="width: 30%;">Expertise</th>
+                            <th style="width: 20%;">Actions</th>
+                        </tr>
+                        <?php
+                            $result = select_members();
+
+                            while($row = $result->fetch_assoc()) { ?>
+                                <tr>
+                                    <td><?php echo $row["name"]; ?></td>
+                                    <td><?php echo $row["institution"]; ?></td>
+                                    <td><?php echo $row["expertise"]; ?></td>
+                                    <td>
+                                        <a class="btn btn-outline-primary btn-sm" href="#"
+                                            data-toggle="modal"
+                                            data-target="#addMember"
+                                            data-id="<?php echo $row["id"]; ?>"
+                                            data-name="<?php echo $row["name"]; ?>"
+                                            data-image="<?php echo $row["image"]; ?>"
+                                            data-website="<?php echo $row["website"]; ?>"
+                                            data-institution="<?php echo $row["institution"]; ?>"
+                                            data-institution_image="<?php echo $row["institution_image"]; ?>"
+                                            data-expertise="<?php echo $row["expertise"]; ?>"
+                                            data-instrumentation="<?php echo $row["instrumentation"]; ?>"
+                                            data-biography="<?php echo $row["biography"]; ?>"
+                                        >Edit</a>
+                                        <a class="btn btn-outline-primary btn-sm" href="/utilities?delete-member&id=<?php echo $row["id"]; ?>">Remove</a>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                    </table>
+                    <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#addMember">Add Member</button>
+                </div>
+                <div class="tab-pane fade" id="images-tab" role="tabpanel" aria-labelledby="images-tab">
+                    <p class="title">Images</p>
+                    <table class="manage">
+                        <tr>
+                            <th style="width: 5%;"></th>
+                            <th style="width: 30%;">Name</th>
+                            <th style="width: 65%;">Image</th>
+                        </tr>
+                        <?php
+                            $files = array_diff(scandir("../assets/images/members", 1), array('..', '.'));
+
+                            foreach ($files as $file) { ?>
+                                <tr>
+                                    <td><a href="images/delete?file_location=members&file_name=<?php echo $file; ?>"><i class="far fa-times-circle"></i></a></td>
+                                    <td><?php echo $file; ?></td>
+                                    <td><img class="image-preview" src="/assets/images/members/<?php echo $file; ?>" /></td>
+                                </tr>
+                            <?php }
+                        ?>
+                    </table>
+                    <form class="form-inline" id="image-upload" action="images/upload" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="location" value="members">
+                        <input class="form-control" name="file-name" type="text" placeholder="File Name" required>
+                        <div class="custom-file">
+                            <input name="file" type="file" class="custom-file-input" id="validatedCustomFile" required>
+                            <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                            <div class="invalid-feedback">Example invalid custom file feedback</div>
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary btn-sm">Upload Image</button>
+                    </form>
+                    <div class="divider"></div>
+                    <p class="title">Institution Images</p>
+                    <table class="manage">
+                        <tr>
+                            <th style="width: 5%;"></th>
+                            <th style="width: 30%;">Name</th>
+                            <th style="width: 65%;">Image</th>
+                        </tr>
+                        <?php
+                            $files = array_diff(scandir("../assets/images/institutions", 1), array('..', '.'));
+
+                            foreach ($files as $file) { ?>
+                                <tr>
+                                    <td><a href="images/delete?file_location=institutions&file_name=<?php echo $file; ?>"><i class="far fa-times-circle"></i></a></td>
+                                    <td><?php echo $file; ?></td>
+                                    <td><img class="image-preview" src="/assets/images/institutions/<?php echo $file; ?>" /></td>
+                                </tr>
+                            <?php }
+                        ?>
+                    </table>
+                    <form class="form-inline" id="image-upload" action="images/upload" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="location" value="institutions">
+                        <input class="form-control" name="file-name" type="text" placeholder="File Name" required>
+                        <div class="custom-file">
+                            <input name="file" type="file" class="custom-file-input" id="validatedCustomFile" required>
+                            <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                            <div class="invalid-feedback">Example invalid custom file feedback</div>
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary btn-sm">Upload Image</button>
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="posts-tab" role="tabpanel" aria-labelledby="posts-tab">
+                    <p class="title">Existing Posts</p>
+                    <table class="manage">
+                        <tr>
+                            <th style="width: 5%;">ID</th>
+                            <th style="width: 10%;">Published</th>
+                            <th style="width: 40%;">Title</th>
+                            <th style="width: 25%;">Author</th>
+                            <th style="width: 20%;">Actions</th>
+                        </tr>
+                        <?php
+                            $result = select_posts();
+
+                            while($row = $result->fetch_assoc()) { ?>
+                                <tr>
+                                    <td><?php echo $row["id"]; ?></td>
+                                    <td><?php if ($row["published"] == 1) echo "True"; else echo "False"; ?></td>
+                                    <td><?php echo $row["title"]; ?></td>
+                                    <td><?php echo select_author($row["author"])["displayname"]; ?></td>
+                                    <td>
+                                        <a class="btn btn-outline-primary btn-sm" href="edit?id=<?php echo $row["id"]; ?>">Edit</a>
+                                        <?php if ($row["published"] == 1) { ?>
+                                            <a class="btn btn-outline-primary btn-sm" href="?id=<?php echo $row["id"]; ?>&action=unpublish" href="#">Unpublish</a>
+                                        <?php } else { ?>
+                                            <a class="btn btn-outline-primary btn-sm" href="?id=<?php echo $row["id"]; ?>&action=publish" href="#">Publish</a>
+                                        <?php } ?>
+                                        <a class="btn btn-outline-primary btn-sm" href="?id=<?php echo $row["id"]; ?>&action=delete">Delete</a>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                    </table>
+                    <div class="divider"></div>
+                    <p class="title">Compose a Draft</p>
+                    <form action="/admin/posts/index" method="post">
+                        <input class="form-control" name="title" type="text" placeholder="Post Title" id="post-title" required>
+                        <textarea name="content" id="summernote" required></textarea>
+                        <button type="submit" class="btn btn-outline-primary btn-sm" id="post-submit">Create</button>
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="configuration-tab" role="tabpanel" aria-labelledby="configuration-tab">
+                    <p class="title">Website Configuration</p>
+                    <table class="manage">
+                        <tr>
+                            <th style="width: 20%;">Key</th>
+                            <th style="width: 60%;">Value</th>
+                            <th style="width: 20%;">Actions</th>
+                        </tr>
+                        <?php
+                            $result = select_configurations();
+
+                            while($row = mysqli_fetch_array($result)) { ?>
+                                <tr>
+                                    <td><?php echo $row["key"]; ?></td>
+                                    <td><?php echo $row["value"] ?></td>
+                                    <td>
+                                        <a class="btn btn-outline-primary btn-sm" href="#"
+                                            data-toggle="modal"
+                                            data-target="#addConfiguration"
+                                            data-key="<?php echo $row["key"]; ?>"
+                                            data-value="<?php echo $row["value"]; ?>"
+                                        >Edit</a>
+                                        <a class="btn btn-outline-primary btn-sm" href="?action=delete&key=<?php echo $row["key"]; ?>">Delete</a>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                    </table>
+                    <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#addConfiguration">Add Configuration</button>
+                </div>
+            </div>
         </div>
 
         <div class="modal fade" id="addMember" tabindex="-1" role="dialog">
@@ -351,7 +303,8 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
-                        <form action="/admin/index" method="post">
+                        <form action="/utilities/admin" method="post">
+                            <input type="hidden" name="add-member">
                             <input id="add-member-action" type="hidden" name="action" value="add-member">
                             <input id="add-member-id" type="hidden" name="id">
                             <div class="form-group">
@@ -401,7 +354,8 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
-                        <form action="/admin/index" method="post">
+                        <form action="/utilities/admin" method="post">
+                            <input type="hidden" name="add-user">
                             <input id="add-user-action" type="hidden" name="action" value="add-user">
                             <input id="add-user-id" type="hidden" name="id">
                             <div class="form-group">
@@ -479,6 +433,23 @@
         modal.find("#add-user-action").val(username ? "update-user" : "add-user");
         modal.find("#add-user-submit").html(username ? "Update User" : "Add User");
     })
+    
+    $(document).ready(function() {
+        $('#summernote').summernote({
+            toolbar: [
+                ["do", ["undo", "redo"]],
+                ["style1", ["fontname", "fontsize", "height", "color"]],
+                ["style2", ["bold","italic","underline", "strikethrough", "superscript", "subscript", "clear"]],
+                ["style3", ["style", "ol", "ul", "paragraph"]],
+                ["insert", ["picture", "link", "video", "table", "hr"]],
+                ["misc", ["fullscreen"/*, "codeview"*/]],
+                ["help", ["help"]]
+            ],
+            placeholder: "Write your article here.",
+            codeviewFilter: true,
+            codeviewIframeFilter: true
+        });
+    });
 </script>
 
 <style>
@@ -521,5 +492,3 @@
         padding-bottom: 20px;
     }
 </style>
-
-<?php mysqli_close($con); ?>

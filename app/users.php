@@ -10,6 +10,15 @@
 
         return $stmt->get_result();
     }
+    
+    function select_users() {
+        global $con;
+
+        $stmt = "SELECT * FROM users";
+        $result = $con->query($stmt);
+
+        return $result;
+    }
 
     function insert_user($username, $email, $displayname, $password) {
         global $con;
@@ -27,9 +36,31 @@
         return $rows >= 1;
     }
 
-    function update_user() {
+    function update_user($id, $username, $email, $displayname, $password) {
         global $con;
 
+        if ($password) {
+            $stmt = $con->prepare("UPDATE users SET username=?, email=?, displayname=?, password=? WHERE id='$id'");
+            $stmt->bind_param("ssss", $username, $email, $displayname, $password);
+        } else {
+            $stmt = $con->prepare("UPDATE users SET username=?, email=?, displayname=? WHERE id='$id'");
+            $stmt->bind_param("sss", $username, $email, $displayname);
+        }
+        $stmt->execute();
+        
+        $rows = $stmt->affected_rows;
 
+        $stmt->close();
+
+        return $rows >= 1;
+    }
+
+    function delete_user($id) {
+        global $con;
+
+        $stmt = "DELETE FROM users WHERE id='$id'";
+        $result = $con->query($stmt);
+        
+        return $result->affected_rows >= 1;
     }
 ?>

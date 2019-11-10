@@ -35,7 +35,7 @@
         return $rows >= 1;
     }
 
-    function update_user() {
+    function update_member() {
         global $con;
 
 

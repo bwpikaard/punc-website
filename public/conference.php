@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <?php
     session_start();
-    require('./db.php');
-    require('./configuration.php');
+    require('../app/database.php');
+    require('../app/configuration.php');
 ?>
 
 <html lang="en">
@@ -46,9 +46,6 @@
                     <?php if ($_SESSION["id"] && $_SESSION["administrator"] == 1) { ?>
                         <li class="nav-item">
                             <a class="nav-link" href="/admin" tabindex="-1">Admin</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/admin/posts" tabindex="-1">Posts</a>
                         </li>
                     <?php } ?>
                     <li class="nav-item">

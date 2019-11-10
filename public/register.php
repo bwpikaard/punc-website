@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-
 <?php
     session_start();
     
@@ -7,7 +5,11 @@
         header("Location: /");
         exit;
     }
+
+    $disabled = true;
 ?>
+
+<!DOCTYPE html>
 
 <html lang="en">
     <head>
@@ -51,9 +53,6 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/admin" tabindex="-1">Admin</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/admin/posts" tabindex="-1">Posts</a>
-                        </li>
                     <?php } ?>
                     <li class="nav-item">
                         <?php if ($_SESSION["id"]) { ?>
@@ -67,12 +66,42 @@
         </nav>
         <div class="login">
             <div class="frame">
-                <form action="/utilities/users" method="post">
+                <?php if ($disabled) { ?>
+                    <label style="color: red;">Registration Disabled</label>
+                <?php } ?>
+                <form class="needs-validation" action="/utilities/users" method="post" novalidate>
                     <input type="hidden" name="register">
                     <label class="title">Create an Account</label>
-                    <input <?php //if ($disabled) echo "disabled"; ?> name="username" type="text" class="form-control" id="login-email" placeholder="Email" data-toggle="popover" data-content="Popover title" data-trigger="manual">
-                    <input <?php //if ($disabled) echo "disabled"; ?> name="password" type="password" class="form-control" id="login-password" placeholder="Password" data-toggle="popover" data-content="Popover title" data-trigger="manual">
-                    <button <?php //if ($disabled) echo "disabled"; ?> type="submit" class="btn btn-outline-primary btn-sm">Register</button>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input <?php if ($disabled) echo "disabled "; ?>name="username" type="text" class="form-control" id="username" placeholder="Username" data-toggle="popover" data-content="Popover" data-trigger="manual" <?php if ($username) echo "value=\"$username\""; ?> required>
+                        <div class="invalid-feedback">
+                            Please enter a username.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="displayname">Display Name</label>
+                        <input <?php if ($disabled) echo "disabled "; ?>name="displayname" type="text" class="form-control" id="displayname" placeholder="Display Name" data-toggle="popover" data-content="Popover" data-trigger="manual" <?php if ($username) echo "value=\"$username\""; ?> required>
+                        <div class="invalid-feedback">
+                            Please enter a display name.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input <?php if ($disabled) echo "disabled "; ?>name="email" type="email" class="form-control" id="email" placeholder="Email" data-toggle="popover" data-content="Popover" data-trigger="manual" <?php if ($username) echo "value=\"$username\""; ?> required>
+                        <div class="invalid-feedback">
+                            Please enter a valid email.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input <?php if ($disabled) echo "disabled "; ?>name="password" type="password" class="form-control" id="password" minlength="6" maxlength="20" placeholder="Password" data-toggle="popover" data-content="Popover" data-trigger="manual" required>
+                        <small id="passwordHelpBlock" class="form-text text-muted">Your password must be between 6 and 20 characters.</small>
+                        <div class="invalid-feedback">
+                            Please enter your password.
+                        </div>
+                    </div>
+                    <button <?php if ($disabled) echo "disabled "; ?>type="submit" class="btn btn-outline-primary btn-sm">Register</button>
                     <a class="btn btn-outline-light btn-sm" href="/login">Already have an account?</a>
                 </form>
             </div>
@@ -81,13 +110,11 @@
 </html>
 
 <script>
-    $(function () {
-        $("[data-toggle=\"popover\"]").popover();
-    })
-    <?php if ($username_err) { ?>
-        $("#login-email").attr("data-content", "<?php echo $username_err; ?>").popover("show");
-    <?php } ?>
-    <?php if ($password_err) { ?>
-        $("#login-password").attr("data-content", "<?php echo $password_err; ?>").popover("show");
-    <?php } ?>
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.has("ue")) {
+        $("#username").addClass("is-invalid").parent().find(".invalid-feedback").html(params.get("ue"));
+    } else if (params.has("pe")) {
+        $("#password").addClass("is-invalid").parent().find(".invalid-feedback").html(params.get("pe"));
+    }
 </script>

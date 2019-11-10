@@ -128,49 +128,7 @@
             </div>
         </nav>
         <div class="container">
-            <p class="title">Compose a Draft</p>
-            <form action="/admin/posts/index" method="post">
-                <input class="form-control" name="title" type="text" placeholder="Post Title" id="post-title" required>
-                <textarea name="content" id="summernote" required></textarea>
-                <button type="submit" class="btn btn-outline-primary btn-sm" id="post-submit">Create</button>
-            </form>
-            <div class="divider"></div>
-            <p class="title">Existing Posts</p>
-            <table class="manage">
-                <tr>
-                    <th style="width: 5%;">ID</th>
-                    <th style="width: 10%;">Published</th>
-                    <th style="width: 40%;">Title</th>
-                    <th style="width: 25%;">Author</th>
-                    <th style="width: 20%;">Actions</th>
-                </tr>
-                <?php
-                    $query = "SELECT * FROM posts";
-                    $result = mysqli_query($con, $query) or die(mysqli_error());
-
-                    if ($result) {
-                        while($row = mysqli_fetch_array($result)) { ?>
-                            <tr>
-                                <td><?php echo $row["id"]; ?></td>
-                                <td><?php if ($row["published"] == 1) echo "True"; else echo "False"; ?></td>
-                                <td><?php echo $row["title"]; ?></td>
-                                <td><?php echo getAuthor($row["author"])["displayname"]; ?></td>
-                                <td>
-                                    <a class="btn btn-outline-primary btn-sm" href="edit?id=<?php echo $row["id"]; ?>">Edit</a>
-                                    <?php if ($row["published"] == 1) { ?>
-                                        <a class="btn btn-outline-primary btn-sm" href="?id=<?php echo $row["id"]; ?>&action=unpublish" href="#">Unpublish</a>
-                                    <?php } else { ?>
-                                        <a class="btn btn-outline-primary btn-sm" href="?id=<?php echo $row["id"]; ?>&action=publish" href="#">Publish</a>
-                                    <?php } ?>
-                                    <a class="btn btn-outline-primary btn-sm" href="?id=<?php echo $row["id"]; ?>&action=delete">Delete</a>
-                                </td>
-                            </tr>
-                        <?php }
-                    } else {
-                        echo "Nope!";
-                    }
-                ?>
-            </table>
+            
         </div>
     </body>
 </html>

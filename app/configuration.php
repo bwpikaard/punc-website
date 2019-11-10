@@ -10,4 +10,21 @@
 
         return $stmt->get_result()->fetch_assoc()["value"];
     }
+
+    function select_configurations() {
+        global $con;
+
+        $stmt = "SELECT * FROM configuration";
+        $result = $con->query($stmt);
+
+        return $result;
+    }
+
+    function update_configuration() {
+
+    }
+
+    function delete_configuration() {
+        
+    }
 ?>

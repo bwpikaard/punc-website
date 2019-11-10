@@ -47,9 +47,6 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/admin" tabindex="-1">Admin</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/admin/posts" tabindex="-1">Posts</a>
-                        </li>
                     <?php } ?>
                     <li class="nav-item">
                         <?php if ($_SESSION["id"]) { ?>
