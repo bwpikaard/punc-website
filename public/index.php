@@ -1,11 +1,18 @@
-<!DOCTYPE html>
 <?php
     session_start();
-    require_once('../app/posts.php');
-    require_once('../app/configuration.php');
+    require_once('../handlers/posts.php');
+    require_once('../handlers/configuration.php');
+
+    $banner = [
+        "title" => "P.U.N.C.",
+        "text" => "Primarily Undergraduate Nanomaterials Cooperative",
+        "image" => "/assets/images/splash.png"
+    ]
 ?>
 
-<html lang="en">
+<!DOCTYPE html>
+
+<html>
     <head>
         <meta charset="utf-8">
         <meta property="og:type" content="website">
@@ -17,92 +24,47 @@
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <link href="/assets/images/icon.png" rel="icon" type="image/x-icon">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
+        <link rel="stylesheet" href="/assets/css/style.css">
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <script src="/assets/js/index.js"></script>
-        <link rel="stylesheet" href="/assets/css/style.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+        <script src="/assets/js/index.js"></script>
         <title>Nano Cooperative</title>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="/">
-                <img class="navbar-brand-image" src="/assets/images/logo.png" alt="">
-                Nano Cooperative
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/conference">Conference</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/members">Members</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ml-auto">
-                    <?php if ($_SESSION["id"] && $_SESSION["administrator"] == 1) { ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/admin" tabindex="-1">Admin</a>
-                        </li>
-                    <?php } ?>
-                    <li class="nav-item">
-                        <?php if ($_SESSION["id"]) { ?>
-                        <a class="nav-link" href="/logout" tabindex="-1">Logout</a>
-                        <?php } else { ?>
-                            <a class="nav-link" href="/login" tabindex="-1">Login</a>
-                        <?php } ?>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="carousel-text-container">
-                        <p class="carousel-text">P.U.N.C.<span>Primarily Undergraduate Nanomaterials Cooperative</span></p>
-                    </div>
-                    <img src="/assets/images/splash.png" class="d-block w-100" alt="...">
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid home">
-            <div class="row">
-                <div class="col-lg-4 information">
+        <?php include "../resources/templates/navbar.php"; ?>
+        <?php include "../resources/templates/banner.php"; ?>
+        <div class="container index">
+            <div class="row information">
+                <div class="col-lg-4">
                     <i class="<?php echo select_configuration("index-information-1-icon"); ?>"></i>
-                    <div class="content-container">
+                    <div class="flex-content">
                         <p class="title"><?php echo select_configuration("index-information-1"); ?></p>
                         <p class="content"><?php echo select_configuration("index-information-1-content"); ?></p>
                     </div>
                 </div>
-                <div class="col-lg-4 information">
+                <div class="col-lg-4">
                     <i class="<?php echo select_configuration("index-information-2-icon"); ?>"></i>
-                    <div class="content-container">
+                    <div class="flex-content">
                         <p class="title"><?php echo select_configuration("index-information-2"); ?></p>
                         <p class="content"><?php echo select_configuration("index-information-2-content"); ?></p>
                     </div>
                 </div>
-                <div class="col-lg-4 information">
+                <div class="col-lg-4">
                     <i class="<?php echo select_configuration("index-information-3-icon"); ?>"></i>
-                    <div class="content-container">
+                    <div class="flex-content">
                         <p class="title"><?php echo select_configuration("index-information-3"); ?></p>
                         <p class="content"><?php echo select_configuration("index-information-3-content"); ?></p>
                     </div>
                 </div>
             </div>
             <br><br>
-            <div class="row justify-content-center">
-                <div class="col-lg-5 information">
-                    <div class="content-container text-center">
+            <div class="row information justify-content-center">
+                <div class="col-lg-5">
+                    <div class="flex-content center">
                         <p class="title" style="font-size: 24px;">Becoming a Member</p>
                         <p class="content">Fill out the form below to request membership. It will be submitted to the organization managers and you will be notified when a decision is made.</p>
                         <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#membership-request" style="margin-top: 10px;">Request Membership</button>
@@ -110,10 +72,10 @@
                 </div>
             </div>
             <div class="divider"></div>
-            <div class="posts-container">
+            <div class="posts">
                 <p class="title">Recent Posts</p>
                 <br>
-                <div class="posts">
+                <div class="frame">
                     <?php
                         $posts = select_posts();
 
@@ -128,83 +90,5 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="membership-request" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Request Membership</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="/" method="post">
-                        <p class="note">Please have an image of yourself and your institution's logo ready upon request. File must be a png or jpg.</p>
-                            <div class="form-group">
-                                <label class="col-form-label">Full Name</label>
-                                <input name="name" id="add-member-name" type="text" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label class="col-form-label">Contact Email</label>
-                                <input name="name" id="add-member-email" type="text" class="form-control">
-                            </div>
-                            <!--<div class="form-group">
-                                <label class="col-form-label">Image Name</label>
-                                <input name="image" id="add-member-image" type="text" class="form-control">
-                            </div>-->
-                            <div class="form-group">
-                                <label class="col-form-label">Website</label>
-                                <input name="website" id="add-member-website" type="text" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label class="col-form-label">Institution</label>
-                                <input name="institution" id="add-member-institution" type="text" class="form-control">
-                            </div>
-                            <!--<div class="form-group">
-                                <label class="col-form-label">Institution Image Name</label>
-                                <input name="institution_image" id="add-member-institution-image" type="text" class="form-control">
-                            </div>-->
-                            <div class="form-group">
-                                <label class="col-form-label">Expertise</label>
-                                <input name="expertise" id="add-member-expertise" type="text" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label class="col-form-label">Instrumentation</label>
-                                <textarea name="instrumentation" id="add-member-instrumentation" class="form-control"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-form-label">Biography</label>
-                                <textarea name="biography" id="add-member-biography" class="form-control"></textarea>
-                            </div>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary" id="add-member-submit">Send Request</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
     </body>
 </html>
-
-<style>
-    .posts-container > .title {
-        font-size: 24px;
-        font-variant: small-caps;
-        margin: 0;
-    }
-    .recent-posts {
-        font-size: 24px;
-    }
-    .posts-container .posts .post {
-        padding: 10px 20px;
-        border-left: 4px solid #343a40;
-        margin: 10px 0;
-    }
-    .posts-container .posts .post .title {
-        font-weight: bold;
-    }
-    .posts-container .posts .post .author {
-        font-style: italic;
-    }
-    .posts-container .posts .post .content {
-        
-    }
-</style>

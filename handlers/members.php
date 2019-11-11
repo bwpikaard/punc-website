@@ -35,10 +35,18 @@
         return $rows >= 1;
     }
 
-    function update_member() {
+    function update_member($id, $name, $image, $website, $institution, $institution_image, $expertise, $instrumentation, $biography) {
         global $con;
+        
+        $stmt = $con->prepare("UPDATE members SET name=?, image=?, website=?, institution=?, institution_image=?, expertise=?, instrumentation=?, biography=? WHERE id='$id'");
+        $stmt->bind_param("ssssssss", $name, $image, $website, $institution, $institution_image, $expertise, $institution, $biography);
+        $stmt->execute();
+        
+        $rows = $stmt->affected_rows;
 
+        $stmt->close();
 
+        return $rows >= 1;
     }
 
     function delete_member($id) {
