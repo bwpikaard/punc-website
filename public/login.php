@@ -31,15 +31,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
         <script src="/assets/js/index.js"></script>
-        <script>
-            const params = new URLSearchParams(window.location.search);
-
-            if (params.has("ue")) {
-                $("#username").addClass("is-invalid").parent().find(".invalid-feedback").html(params.get("ue"));
-            } else if (params.has("pe")) {
-                $("#password").addClass("is-invalid").parent().find(".invalid-feedback").html(params.get("pe"));
-            }
-        </script>
+        <script src="/assets/js/validation.js"></script>
         <title>Nano Cooperative</title>
     </head>
     <body>

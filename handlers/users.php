@@ -36,15 +36,15 @@
         return $rows >= 1;
     }
 
-    function update_user($id, $username, $email, $displayname, $password) {
+    function update_user($id, $username, $email, $displayname, $administrator, $password) {
         global $con;
 
         if ($password) {
-            $stmt = $con->prepare("UPDATE users SET username=?, email=?, displayname=?, password=? WHERE id='$id'");
-            $stmt->bind_param("ssss", $username, $email, $displayname, $password);
+            $stmt = $con->prepare("UPDATE users SET username=?, email=?, displayname=?, administrator=?, password=? WHERE id='$id'");
+            $stmt->bind_param("ssss", $username, $email, $displayname, $administrator, $password);
         } else {
-            $stmt = $con->prepare("UPDATE users SET username=?, email=?, displayname=? WHERE id='$id'");
-            $stmt->bind_param("sss", $username, $email, $displayname);
+            $stmt = $con->prepare("UPDATE users SET username=?, email=?, displayname=?, administrator=? WHERE id='$id'");
+            $stmt->bind_param("sss", $username, $email, $displayname, $administrator);
         }
         $stmt->execute();
         

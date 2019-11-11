@@ -10,12 +10,9 @@ function searchMembers() {
 }
 
 $(document).ready(function() {
-    const form = $(".needs-validation");
-
     $(".needs-validation").submit(event => {
-        if (!form[0].checkValidity()) {
-            event.preventDefault();
-        }
-        form.addClass('was-validated');
+        if (!event.target.checkValidity()) event.preventDefault();
+        
+        $(event.target).addClass('was-validated');
     });
 });

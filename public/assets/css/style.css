@@ -100,7 +100,7 @@ body {
 
 @media (min-width: 1200px) {
     .container.index {
-        max-width: 1400px !important;
+        max-width: 1500px !important;
     }
 }
 
@@ -279,7 +279,7 @@ body {
     font-variant: small-caps;
 }
 
-/* -----------------------------[ LOGIN ]----------------------------- */
+/* -----------------------------[ LOGIN/REGISTER ]----------------------------- */
 
 .login {
     display: flex;
@@ -304,4 +304,66 @@ body {
 .login .frame .title {
     font-size: 18px;
     font-weight: bold;
+}
+
+/* -----------------------------[ ADMIN ]----------------------------- */
+
+.container-fluid.admin {
+    padding: 0;
+    margin: 0;
+}
+
+.container-fluid.admin .nav.nav-pills {
+    background-color: #3f3f3f;
+    border: none;
+}
+
+.container-fluid.admin .nav.nav-pills .nav-item a {
+    color: white;
+    border-radius: 0;
+    border: none;
+}
+
+.container-fluid.admin .nav.nav-pills .nav-item a:hover {
+    background-color: #1D1C28;
+}
+
+.container-fluid.admin .nav.nav-pills .nav-item a.active {
+    background-color: #1D1C28;
+}
+
+.container-fluid.admin .container.tab-content .tab-pane p.title {
+    font-size: 24px;
+    font-variant: small-caps;
+    margin: 0;
+}
+
+.container-fluid.admin .container.tab-content .tab-pane .custom-file {
+    width: auto;
+}
+
+.container-fluid.admin .container.tab-content .tab-pane .image-preview {
+    height: 60px;
+}
+
+.container-fluid.admin .container.tab-content .tab-pane .btn.action {
+    background-color: #1D1C28;
+    color: white;
+}
+
+.container-fluid.admin .container.tab-content .tab-pane .btn.action.disabled {
+    background-color: #3f3f3f;
+}
+
+.container-fluid.admin .container.tab-content .tab-pane .btn.action:hover {
+    background-color: #3f3f3f;
+}
+
+.modal .btn.action {
+    background-color: #1D1C28;
+    color: white;
+}
+
+.modal .btn.action:hover {
+    background-color: #3f3f3f;
 }
