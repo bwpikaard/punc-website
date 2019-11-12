@@ -43,14 +43,14 @@
                     <label class="title">Login</label>
                     <div class="form-group">
                         <label for="username">Username or Email</label>
-                        <input name="username" type="text" class="form-control" id="username" placeholder="Username or Email" data-toggle="popover" data-content="Popover" data-trigger="manual" <?php if ($username) echo "value=\"$username\""; ?> required>
+                        <input name="username" type="text" class="form-control" id="username" placeholder="Username or Email" <?php if ($username) echo "value=\"$username\""; ?> required>
                         <div class="invalid-feedback">
                             Please enter your username or email.
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input name="password" type="password" class="form-control" id="password" placeholder="Password" data-toggle="popover" data-content="Popover" data-trigger="manual" required>
+                        <input name="password" type="password" class="form-control" id="password" placeholder="Password" required>
                         <div class="invalid-feedback">
                             Please enter your password.
                         </div>

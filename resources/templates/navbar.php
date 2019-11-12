@@ -11,13 +11,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item <?php if ($path === "/") echo "active"; ?>">
-            <a class="nav-link" href="/">Home</a>
+                <a class="nav-link" href="/">Home</a>
             </li>
             <li class="nav-item <?php if ($path === "/conference") echo "active"; ?>">
-            <a class="nav-link" href="/conference">Conference</a>
+                <a class="nav-link" href="/conference">Conference</a>
             </li>
             <li class="nav-item <?php if ($path === "/members") echo "active"; ?>">
-            <a class="nav-link" href="/members">Members</a>
+                <a class="nav-link" href="/members">Members</a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">

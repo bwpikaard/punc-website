@@ -79,7 +79,7 @@
                                             data-displayname="<?php echo $row["displayname"]; ?>"
                                             data-administrator="<?php echo $row["administrator"]; ?>"
                                         >Edit</a>
-                                        <a class="btn btn-sm action<?php if ($row["administrator"] == 1) echo " disabled"; ?>" href="/utilities/user?delete&id=<?php echo $row["id"]; ?>">Remove</a>
+                                        <a class="btn btn-sm action<?php if ($row["administrator"] == 1) echo " disabled"; ?>" href="/utilities/users?delete&id=<?php echo $row["id"]; ?>">Remove</a>
                                     </td>
                                 </tr>
                             <?php } ?>

@@ -46,28 +46,28 @@
                     <label class="title">Create an Account</label>
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input <?php if ($disabled) echo "disabled "; ?>name="username" type="text" class="form-control" id="username" placeholder="Username" data-toggle="popover" data-content="Popover" data-trigger="manual" <?php if ($username) echo "value=\"$username\""; ?> required>
+                        <input <?php if ($disabled) echo "disabled "; ?>name="username" type="text" class="form-control" id="username" placeholder="Username" <?php if ($username) echo "value=\"$username\""; ?> required>
                         <div class="invalid-feedback">
                             Please enter a username.
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="displayname">Display Name</label>
-                        <input <?php if ($disabled) echo "disabled "; ?>name="displayname" type="text" class="form-control" id="displayname" placeholder="Display Name" data-toggle="popover" data-content="Popover" data-trigger="manual" required>
+                        <input <?php if ($disabled) echo "disabled "; ?>name="displayname" type="text" class="form-control" id="displayname" placeholder="Display Name" required>
                         <div class="invalid-feedback">
                             Please enter a display name.
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input <?php if ($disabled) echo "disabled "; ?>name="email" type="email" class="form-control" id="email" placeholder="Email" data-toggle="popover" data-content="Popover" data-trigger="manual" required>
+                        <input <?php if ($disabled) echo "disabled "; ?>name="email" type="email" class="form-control" id="email" placeholder="Email" required>
                         <div class="invalid-feedback">
                             Please enter a valid email.
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input <?php if ($disabled) echo "disabled "; ?>name="password" type="password" class="form-control" id="password" minlength="6" maxlength="20" placeholder="Password" data-toggle="popover" data-content="Popover" data-trigger="manual" required>
+                        <input <?php if ($disabled) echo "disabled "; ?>name="password" type="password" class="form-control" id="password" minlength="6" maxlength="20" placeholder="Password" required>
                         <small id="passwordHelpBlock" class="form-text text-muted">Your password must be between 6 and 20 characters.</small>
                         <div class="invalid-feedback">
                             Please enter your password.
