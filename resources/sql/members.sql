@@ -8,5 +8,6 @@ CREATE TABLE IF NOT EXISTS `members` (
     `expertise` varchar(100) NOT NULL,
     `instrumentation` varchar(1000) NOT NULL,
     `biography` varchar(5000),
+    `approved` tinyint(1) NOT NULL,
     PRIMARY KEY (`id`)
 );

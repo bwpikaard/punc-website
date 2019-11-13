@@ -41,10 +41,10 @@
 
         if ($password) {
             $stmt = $con->prepare("UPDATE users SET username=?, email=?, displayname=?, administrator=?, password=? WHERE id='$id'");
-            $stmt->bind_param("ssss", $username, $email, $displayname, $administrator, $password);
+            $stmt->bind_param("sssss", $username, $email, $displayname, $administrator, $password);
         } else {
             $stmt = $con->prepare("UPDATE users SET username=?, email=?, displayname=?, administrator=? WHERE id='$id'");
-            $stmt->bind_param("sss", $username, $email, $displayname, $administrator);
+            $stmt->bind_param("ssss", $username, $email, $displayname, $administrator);
         }
         $stmt->execute();
         

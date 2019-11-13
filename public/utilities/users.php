@@ -1,5 +1,4 @@
 <?php
-    require_once("../../resources/errors.php");
     session_start();
     require_once("../../handlers/users.php");
     require_once("../../handlers/authorization.php");
@@ -98,10 +97,10 @@
         $displayname = $_POST["displayname"];
         $password = $_POST["password"];
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $administrator = ($_POST["administrator"] == "on" ? 1 : 0);
+        $administrator = isset($_POST["administrator"]) ? ($_POST["administrator"] == "on" ? 1 : 0) : 0;
 
         $result = update_user($id, $username, $email, $displayname, $administrator, $password);
-                
+
         header("Location: /admin#users");
     } else if (isset($_GET["delete"])) {
         not_administrator();

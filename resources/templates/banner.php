@@ -1,4 +1,4 @@
-<div class="carousel slide">
+<div class="carousel slide <?php echo $banner["class"]; ?>">
     <div class="carousel-inner">
         <div class="carousel-item active">
             <div class="carousel-text-container">

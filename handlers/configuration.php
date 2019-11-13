@@ -20,10 +20,25 @@
         return $result;
     }
 
+    function insert_configuration($key, $value) {
+        global $con;
+        
+        $stmt = $con->prepare("INSERT INTO configuration (`key`, value) VALUES (?, ?)");
+
+        $stmt->bind_param("ss", $key, $value);
+        $stmt->execute();
+        
+        $rows = $stmt->affected_rows;
+
+        $stmt->close();
+
+        return $rows >= 1;
+    }
+
     function update_configuration($key, $updatedkey, $value) {
         global $con;
 
-        $stmt = $con->prepare("UPDATE configuration SET key=?, value=? WHERE key='$key'");
+        $stmt = $con->prepare("UPDATE configuration SET `key`=?, value=? WHERE `key`='$key'");
         $stmt->bind_param("ss", $updatedkey, $value);
         $stmt->execute();
         
@@ -37,7 +52,7 @@
     function delete_configuration($key) {
         global $con;
 
-        $stmt = "DELETE FROM configuration WHERE key='$key'";
+        $stmt = "DELETE FROM configuration WHERE `key`='$key'";
         $result = $con->query($stmt);
         
         return $result;

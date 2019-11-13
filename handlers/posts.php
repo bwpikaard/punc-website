@@ -20,10 +20,15 @@
         return $result->get_results()->fetch_assoc();
     }
 
-    function select_posts() {
+    function select_posts($published) {
         global $con;
 
-        $stmt = "SELECT * FROM posts";
+        if ($published) {
+            $stmt = "SELECT * FROM posts WHERE published='1'";
+        } else {
+            $stmt = "SELECT * FROM posts";
+        }
+
         $result = $con->query($stmt);
 
         return $result;
@@ -45,13 +50,13 @@
         return $rows >= 1;
     }
 
-    function update_post($id, $author, $title, $content) {
+    function update_post($id, $title, $content) {
         global $con;
         
         $modified = date("Y-m-d H:i:s");
 
-        $stmt = $con->prepare("UPDATE posts SET author=?, title=?, content=?, modified='$modified' WHERE id='$id'");
-        $stmt->bind_param("sss", $author, $title, $content);
+        $stmt = $con->prepare("UPDATE posts SET title=?, content=?, modified='$modified' WHERE id='$id'");
+        $stmt->bind_param("ss", $title, $content);
         $stmt->execute();
         
         $rows = $stmt->affected_rows;

@@ -1,5 +1,5 @@
 body {
-    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: 'Raleway', sans-serif;
 }
 
 /* -----------------------------[ NAVBAR ]----------------------------- */
@@ -42,6 +42,10 @@ body {
 .carousel .carousel-item img {
     height: 400px;
     object-fit: cover;
+}
+
+.carousel.conference .carousel-item img {
+    object-position: bottom;
 }
 
 .carousel .carousel-text-container {
@@ -147,7 +151,9 @@ body {
     padding: 20px;
 }
 
-.container-fluid.members .list .member {}
+.container-fluid.members .list .member {
+    padding: 16px;
+}
 
 .container-fluid.members .list .member .information {
     display: flex;
@@ -278,6 +284,10 @@ body {
     font-size: 20px;
     font-variant: small-caps;
 }
+
+/* -----------------------------[ CONFERENCE ]----------------------------- */
+
+.container.conference {}
 
 /* -----------------------------[ LOGIN/REGISTER ]----------------------------- */
 

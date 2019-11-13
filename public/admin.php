@@ -17,24 +17,7 @@
 
 <html>
     <head>
-        <meta charset="utf-8">
-        <meta property="og:type" content="website">
-        <meta property="og:url" content="https://nanocooperative.com">
-        <meta property="og:title" content="Nano Cooperative">
-        <meta property="og:description" content="Primarily Undergraduate Nanomaterials Cooperative (PUNK)">
-        <meta property="og:site_name" content="Nano Cooperative">
-        <meta property="og:image" content="https://nanocooperative.com/assets/images/icon.png">
-        <meta name="viewport" content="width=device-width,initial-scale=1">
-        <link href="/assets/images/icon.png" rel="icon" type="image/x-icon">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
-        <link rel="stylesheet" href="/assets/css/style.css">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
-        <script src="/assets/js/index.js"></script>
+        <?php include "../resources/templates/head.php"; ?>
         <title>Nano Cooperative</title>
     </head>
     <body>
@@ -90,19 +73,19 @@
                     <p class="title">Organization Members</p>
                     <table class="table table-borderless table-hover">
                         <tr>
-                            <th style="width: 20%;">Name</th>
+                            <th style="width: 30%;">Name</th>
                             <th style="width: 30%;">Institution</th>
-                            <th style="width: 30%;">Expertise</th>
+                            <th style="width: 20%;">Approved</th>
                             <th style="width: 20%;">Actions</th>
                         </tr>
                         <?php
-                            $result = select_members();
+                            $result = select_members(false);
 
                             while($row = $result->fetch_assoc()) { ?>
                                 <tr>
                                     <td><?php echo $row["name"]; ?></td>
                                     <td><?php echo $row["institution"]; ?></td>
-                                    <td><?php echo $row["expertise"]; ?></td>
+                                    <td><?php if ($row["approved"] == 1) echo "True"; else echo "False"; ?></td>
                                     <td>
                                         <a class="btn btn-sm action" href="#"
                                             data-toggle="modal"
@@ -116,8 +99,9 @@
                                             data-expertise="<?php echo $row["expertise"]; ?>"
                                             data-instrumentation="<?php echo $row["instrumentation"]; ?>"
                                             data-biography="<?php echo $row["biography"]; ?>"
+                                            data-approved="<?php echo $row["approved"]; ?>"
                                         >Edit</a>
-                                        <a class="btn btn-sm action" href="/utilities/members?delete-member&id=<?php echo $row["id"]; ?>">Remove</a>
+                                        <a class="btn btn-sm action" href="/utilities/members?delete&id=<?php echo $row["id"]; ?>">Remove</a>
                                     </td>
                                 </tr>
                             <?php } ?>
@@ -196,7 +180,7 @@
                             <th style="width: 20%;">Actions</th>
                         </tr>
                         <?php
-                            $result = select_posts();
+                            $result = select_posts(false);
 
                             while($row = $result->fetch_assoc()) { ?>
                                 <tr>
@@ -207,11 +191,11 @@
                                     <td>
                                         <a class="btn btn-sm action" href="edit?id=<?php echo $row["id"]; ?>">Edit</a>
                                         <?php if ($row["published"] == 1) { ?>
-                                            <a class="btn btn-sm action" href="?id=<?php echo $row["id"]; ?>&action=unpublish" href="#">Unpublish</a>
+                                            <a class="btn btn-sm action" href="/utilities/posts?id=<?php echo $row["id"]; ?>&unpublish" href="#">Unpublish</a>
                                         <?php } else { ?>
-                                            <a class="btn btn-sm action" href="?id=<?php echo $row["id"]; ?>&action=publish" href="#">Publish</a>
+                                            <a class="btn btn-sm action" href="/utilities/posts?id=<?php echo $row["id"]; ?>&publish" href="#">Publish</a>
                                         <?php } ?>
-                                        <a class="btn btn-sm action" href="?id=<?php echo $row["id"]; ?>&action=delete">Delete</a>
+                                        <a class="btn btn-sm action" href="/utilities/posts?id=<?php echo $row["id"]; ?>&delete">Delete</a>
                                     </td>
                                 </tr>
                             <?php } ?>
@@ -219,6 +203,7 @@
                     <div class="divider"></div>
                     <p class="title">Compose a Draft</p>
                     <form action="/utilities/posts" method="post">
+                        <input name="register" type="hidden">
                         <input class="form-control" name="title" type="text" placeholder="Post Title" id="post-title" required>
                         <textarea name="content" id="summernote" required></textarea>
                         <button type="submit" class="btn btn-sm action" id="post-submit">Create</button>
@@ -264,7 +249,7 @@
                     </div>
                     <div class="modal-body">
                         <form class="needs-validation" action="/utilities/members" method="post" novalidate>
-                            <input name="register" type="hidden" id="member-action">
+                            <input name="action" type="hidden" id="action">
                             <input name="id" type="hidden" id="id">
                             <div class="form-group">
                                 <label>Name</label>
@@ -322,6 +307,12 @@
                                     Please enter a value.
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <div class="custom-control custom-switch">
+                                    <input name="approved" type="checkbox" class="custom-control-input" id="approved">
+                                    <label class="custom-control-label" for="approved">Approved</label>
+                                </div>
+                            </div>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn action" id="submit">Add Member</button>
                         </form>
@@ -340,7 +331,7 @@
                         <form class="needs-validation" action="/utilities/users" method="post" novalidate>
                             <input name="callback" type="hidden" value="/admin#users">
                             <input name="register" type="hidden" id="action">
-                            <input name="id" type="hidden" id="user-id">
+                            <input name="id" type="hidden" id="id">
                             <div class="form-group">
                                 <label>Username</label>
                                 <input name="username" type="text" class="form-control" id="username" placeholder="Username" required>
@@ -459,6 +450,7 @@
         const expertise = button.data("expertise");
         const instrumentation = button.data("instrumentation");
         const biography = button.data("biography");
+        const approved = button.data("approved");
 
         const modal = $(this);
         modal.find("#id").val(id);
@@ -470,6 +462,7 @@
         modal.find("#expertise").val(expertise);
         modal.find("#instrumentation").val(instrumentation);
         modal.find("#biography").val(biography);
+        modal.find("#approved").prop("checked", approved);
         modal.find("#action").attr("name", name ? "update" : "register");
         modal.find("#submit").html(name ? "Update Member" : "Add Member");
     })
@@ -502,7 +495,7 @@
         modal.find("#id").val(key);
         modal.find("#key").val(key);
         modal.find("#value").val(value);
-        modal.find("#action").val(key ? "update" : "add");
+        modal.find("#action").attr("name", key ? "update" : "register");
         modal.find("#submit").html(key ? "Update Configuration" : "Add Configuration");
     })
 </script>
