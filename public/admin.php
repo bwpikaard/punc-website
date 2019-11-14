@@ -93,6 +93,7 @@
                                             data-id="<?php echo $row["id"]; ?>"
                                             data-name="<?php echo $row["name"]; ?>"
                                             data-image-name="<?php echo $row["image"]; ?>"
+                                            data-email="<?php echo $row["email"]; ?>"
                                             data-website="<?php echo $row["website"]; ?>"
                                             data-institution="<?php echo $row["institution"]; ?>"
                                             data-institution-image-name="<?php echo $row["institution_image"]; ?>"
@@ -109,7 +110,38 @@
                     <button type="button" class="btn btn-sm action" data-toggle="modal" data-target="#register-member">Add Member</button>
                 </div>
                 <div class="tab-pane fade table-responsive-md" id="images">
-                    <p class="title">Images</p>
+                    <p class="title">Content Images</p>
+                    <table class="table table-borderless table-hover">
+                        <tr>
+                            <th style="width: 5%;"></th>
+                            <th style="width: 30%;">Name</th>
+                            <th style="width: 65%;">Image</th>
+                        </tr>
+                        <?php
+                            $files = array_diff(scandir("./assets/images/content", 1), array('..', '.'));
+
+                            foreach ($files as $file) { ?>
+                                <tr>
+                                    <td><a href="/utilities/images?delete&location=content&name=<?php echo $file; ?>"><i class="far fa-times-circle"></i></a></td>
+                                    <td><?php echo $file; ?></td>
+                                    <td><img class="image-preview" src="/assets/images/content/<?php echo $file; ?>" /></td>
+                                </tr>
+                            <?php }
+                        ?>
+                    </table>
+                    <form class="form-inline" action="/utilities/images" method="post" enctype="multipart/form-data">
+                        <input name="upload" type="hidden">
+                        <input name="location" type="hidden" value="content">
+                        <input class="form-control" name="name" type="text" placeholder="File Name" required>
+                        <div class="custom-file">
+                            <input name="file" type="file" class="custom-file-input" id="validatedCustomFile" required>
+                            <label class="custom-file-label">Choose file...</label>
+                            <div class="invalid-feedback">Example invalid custom file feedback</div>
+                        </div>
+                        <button type="submit" class="btn btn-sm action">Upload Image</button>
+                    </form>
+                    <div class="divider"></div>
+                    <p class="title">Member Images</p>
                     <table class="table table-borderless table-hover">
                         <tr>
                             <th style="width: 5%;"></th>
@@ -121,16 +153,17 @@
 
                             foreach ($files as $file) { ?>
                                 <tr>
-                                    <td><a href="/utilities/images?delete&file_location=members&file_name=<?php echo $file; ?>"><i class="far fa-times-circle"></i></a></td>
+                                    <td><a href="/utilities/images?delete&location=members&name=<?php echo $file; ?>"><i class="far fa-times-circle"></i></a></td>
                                     <td><?php echo $file; ?></td>
                                     <td><img class="image-preview" src="/assets/images/members/<?php echo $file; ?>" /></td>
                                 </tr>
                             <?php }
                         ?>
                     </table>
-                    <form class="form-inline" id="image-upload" action="/utilities/images" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="location" value="members">
-                        <input class="form-control" name="file-name" type="text" placeholder="File Name" required>
+                    <form class="form-inline" action="/utilities/images" method="post" enctype="multipart/form-data">
+                        <input name="upload" type="hidden">
+                        <input name="location" type="hidden" value="members">
+                        <input class="form-control" name="name" type="text" placeholder="File Name" required>
                         <div class="custom-file">
                             <input name="file" type="file" class="custom-file-input" id="validatedCustomFile" required>
                             <label class="custom-file-label">Choose file...</label>
@@ -151,16 +184,17 @@
 
                             foreach ($files as $file) { ?>
                                 <tr>
-                                    <td><a href="/utilities/images?delete&file_location=institutions&file_name=<?php echo $file; ?>"><i class="far fa-times-circle"></i></a></td>
+                                    <td><a href="/utilities/images?delete&location=institutions&name=<?php echo $file; ?>"><i class="far fa-times-circle"></i></a></td>
                                     <td><?php echo $file; ?></td>
                                     <td><img class="image-preview" src="/assets/images/institutions/<?php echo $file; ?>" /></td>
                                 </tr>
                             <?php }
                         ?>
                     </table>
-                    <form class="form-inline" id="image-upload" action="/utilities/images" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="location" value="institutions">
-                        <input class="form-control" name="file-name" type="text" placeholder="File Name" required>
+                    <form class="form-inline" action="/utilities/images" method="post" enctype="multipart/form-data">
+                        <input name="upload" type="hidden">
+                        <input name="location" type="hidden" value="institutions">
+                        <input class="form-control" name="name" type="text" placeholder="File Name" required>
                         <div class="custom-file">
                             <input name="file" type="file" class="custom-file-input" id="validatedCustomFile" required>
                             <label class="custom-file-label">Choose file...</label>
@@ -266,6 +300,13 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label>Contact Email</label>
+                                <input name="email" type="email" class="form-control" id="email" placeholder="Email">
+                                <div class="invalid-feedback">
+                                    Please enter a valid email.
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label>Website</label>
                                 <input name="website" type="text" class="form-control" id="website" placeholder="Website" required>
                                 <div class="invalid-feedback">
@@ -301,7 +342,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Biography</label>
+                                <label>Background & Research Interests</label>
                                 <textarea name="biography" class="form-control" id="biography" placeholder="Biography" required></textarea>
                                 <div class="invalid-feedback">
                                     Please enter a value.
@@ -444,6 +485,7 @@
         const id = button.data("id");
         const name = button.data("name");
         const image = button.data("image-name");
+        const email = button.data("email");
         const website = button.data("website");
         const institution = button.data("institution");
         const institution_image = button.data("institution-image-name");
@@ -456,6 +498,7 @@
         modal.find("#id").val(id);
         modal.find("#name").val(name);
         modal.find("#image-name").val(image);
+        modal.find("#email").val(email);
         modal.find("#website").val(website);
         modal.find("#institution").val(institution);
         modal.find("#institution-image-name").val(institution_image);

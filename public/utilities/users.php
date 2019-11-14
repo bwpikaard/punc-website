@@ -99,7 +99,7 @@
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $administrator = isset($_POST["administrator"]) ? ($_POST["administrator"] == "on" ? 1 : 0) : 0;
 
-        $result = update_user($id, $username, $email, $displayname, $administrator, $password);
+        $result = update_user($id, $username, $email, $displayname, $administrator, $hashed_password);
 
         header("Location: /admin#users");
     } else if (isset($_GET["delete"])) {

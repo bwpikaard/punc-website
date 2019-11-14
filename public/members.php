@@ -31,7 +31,7 @@
                             <div class="information">
                                 <img src="/assets/images/members/<?php echo $row["image"]; ?>" />
                                 <a class="field name" href="/member?id=<?php echo $row["id"]; ?>"><?php echo $row["name"]; ?></a>
-                                <a class="field website" href="<?php echo $row["website"]; ?>"><?php echo $row["website"]; ?></a>
+                                <a class="field website" href="<?php echo $row["website"]; ?>">Website</a>
                                 <p class="field institution">
                                     <img class="field institution-image" src="/assets/images/institutions/<?php echo $row["institution_image"]; ?>" />
                                     <?php echo $row["institution"]; ?>

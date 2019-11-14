@@ -51,7 +51,7 @@
                     <div class="flex-content center">
                         <p class="title" style="font-size: 24px;">Becoming a Member</p>
                         <p class="content">Fill out the form below to request membership. It will be submitted to the organization managers and you will be notified when a decision is made.</p>
-                        <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#membership-request" style="margin-top: 10px;">Request Membership</button>
+                        <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#request-membership" style="margin-top: 10px;">Request Membership</button>
                     </div>
                 </div>
             </div>
@@ -71,6 +71,91 @@
                                     <div class="content"><?php echo $row["content"]; ?></div>
                                 </div>
                         <?php } ?>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="request-membership" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Request Membership</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="needs-validation" action="/utilities/members" method="post" enctype="multipart/form-data" novalidate>
+                            <input name="request" type="hidden">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input name="name" type="text" class="form-control" required>
+                                <div class="invalid-feedback">
+                                    Please enter a value.
+                                </div>
+                            </div>
+                            <div class="custom-file">
+                                <input name="image" type="file" class="form-control-file custom-file-input">
+                                <label class="custom-file-label">Image of Yourself (PNG or JPG)</label>
+                                <div class="invalid-feedback">
+                                    Please choose a file.
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label>Contact Email</label>
+                                <input name="email" type="email" class="form-control" required>
+                                <div class="invalid-feedback">
+                                    Please enter a valid email.
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Website</label>
+                                <input name="website" type="text" class="form-control" required>
+                                <div class="invalid-feedback">
+                                    Please enter a value.
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Institution</label>
+                                <br>
+                                <input name="institution" type="text" class="form-control" required>
+                                <div class="invalid-feedback">
+                                    Please enter a value.
+                                </div>
+                            </div>
+                            <div class="custom-file">
+                                <input name="institution-image" type="file" class="form-control-file custom-file-input">
+                                <label class="custom-file-label">Your Institution's Logo (PNG or JPG)</label>
+                                <div class="invalid-feedback">
+                                    Please choose a file.
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label>Expertise</label>
+                                <input name="expertise" type="text" class="form-control" required>
+                                <small class="form-text text-muted">Please keep it short.</small>
+                                <div class="invalid-feedback">
+                                    Please enter a value.
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Institution's Instrumentation</label>
+                                <textarea name="instrumentation" class="form-control" required></textarea>
+                                <div class="invalid-feedback">
+                                    Please enter a value.
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Background & Research Interests</label>
+                                <textarea name="biography" class="form-control" required></textarea>
+                                <div class="invalid-feedback">
+                                    Please enter a value.
+                                </div>
+                            </div>
+                            <small class="form-text text-muted">All of the above information will be publicly displayed on acceptance.</small>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn action" id="submit">Request Membership</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,6 +1,7 @@
 <?php
     require_once("../../resources/errors.php");
     session_start();
+    require_once("./images.php");
     require_once("../../handlers/members.php");
     require_once("../../handlers/users.php");
     require_once("../../handlers/authorization.php");
@@ -18,6 +19,7 @@
 
         $name = $_POST["name"];
         $image = $_POST["image-name"];
+        $email = $_POST["email"];
         $website = $_POST["website"];
         $institution = $_POST["institution"];
         $institution_image = $_POST["institution-image-name"];
@@ -26,18 +28,30 @@
         $biography = $_POST["biography"];
         $approved = isset($_POST["approved"]) ? ($_POST["approved"] == "on" ? 1 : 0) : 0;
             
-        $result = insert_member($name, $image, $website, $institution, $institution_image, $expertise, $instrumentation, $biography, $approved);
+        $result = insert_member($name, $image, $email, $website, $institution, $institution_image, $expertise, $instrumentation, $biography, $approved);
 
-        if ($result) {
-            header("Location: /admin#members");
-        }
+        header("Location: /admin#members");
+    } else if (isset($_POST["request"])) {
+        $name = $_POST["name"];
+        $image = upload_image("image", "members");
+        $email = $_POST["email"];
+        $website = $_POST["website"];
+        $institution = $_POST["institution"];
+        $institution_image = upload_image("institution-image", "institutions");
+        $expertise = $_POST["expertise"];
+        $instrumentation = $_POST["instrumentation"];
+        $biography = $_POST["biography"];
+            
+        $result = insert_member($name, $image, $email, $website, $institution, $institution_image, $expertise, $instrumentation, $biography, "0");
+
+        header("Location: /?success");
     } else if (isset($_POST["update"])) {
-        echo "Update!";
         not_administrator();
 
         $id = $_POST["id"];
         $name = $_POST["name"];
         $image = $_POST["image-name"];
+        $email = $_POST["email"];
         $website = $_POST["website"];
         $institution = $_POST["institution"];
         $institution_image = $_POST["institution-image-name"];
@@ -46,11 +60,7 @@
         $biography = $_POST["biography"];
         $approved = isset($_POST["approved"]) ? ($_POST["approved"] == "on" ? 1 : 0) : 0;
 
-        $result = update_member($id, $name, $image, $website, $institution, $institution_image, $expertise, $instrumentation, $biography, $approved);
+        $result = update_member($id, $name, $image, $email, $website, $institution, $institution_image, $expertise, $instrumentation, $biography, $approved);
 
-        if ($result) {
-            header("Location: /admin#members");
-        } else {
-            echo "No result?";
-        }
+        header("Location: /admin#members");
     }

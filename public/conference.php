@@ -23,34 +23,25 @@
         <?php include "../resources/templates/banner.php"; ?>
         <div class="container index conference">
             <div class="row information">
-                <div>
+                <div class="col-lg-4">
                     <i class="<?php echo select_configuration("conference-information-1-icon"); ?>"></i>
                     <div class="flex-content">
                         <p class="title"><?php echo select_configuration("conference-information-1"); ?></p>
                         <p class="content"><?php echo select_configuration("conference-information-1-content"); ?></p>
                     </div>
                 </div>
-            </div>
-            <div class="row information">
-                <div>
-                    <i class="<?php echo select_configuration("conference-information-1-icon"); ?>"></i>
+                <div class="col-lg-4">
+                    <i class="<?php echo select_configuration("conference-information-2-icon"); ?>"></i>
                     <div class="flex-content">
-                        <p class="title"><?php echo select_configuration("conference-information-1"); ?></p>
-                        <p class="content"><?php echo select_configuration("conference-information-1-content"); ?></p>
+                        <p class="title"><?php echo select_configuration("conference-information-2"); ?></p>
+                        <p class="content"><?php echo select_configuration("conference-information-2-content"); ?></p>
                     </div>
                 </div>
-            </div>
-            <div class="row information">
-                <div>
-                    <i class="<?php echo select_configuration("conference-information-1-icon"); ?>"></i>
+                <div class="col-lg-4">
                     <div class="flex-content">
-                        <p class="title"><?php echo select_configuration("conference-information-1"); ?></p>
-                        <p class="content"><?php echo select_configuration("conference-information-1-content"); ?></p>
+                        <img class="photograph" src="/assets/images/content/<?php echo select_configuration("conference-information-3"); ?>" />
                     </div>
                 </div>
-            </div>
-            <div class="details">
-                <p>Details to come soon!</p>
             </div>
         </div>
     </body>

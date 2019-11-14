@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS `members` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     `name` varchar(50) NOT NULL,
+    `email` varchar(50),
     `website` varchar(200),
     `image` varchar(50) NOT NULL,
     `institution` varchar(50) NOT NULL,

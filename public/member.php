@@ -44,7 +44,7 @@
                 </div>
                 <div class="divider"></div>
                 <div class="personal-information">
-                    <p class="title">Biography</p>
+                    <p class="title">Background & Research Interests</p>
                     <p class="field"><?php echo $member["biography"]; ?></p>
                     <br>
                     <p class="title">Instrumentation</p>

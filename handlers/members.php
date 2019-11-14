@@ -24,11 +24,11 @@
         return $result;
     }
 
-    function insert_member($name, $image, $website, $institution, $institution_image, $expertise, $instrumentation, $biography, $approved) {
+    function insert_member($name, $image, $email, $website, $institution, $institution_image, $expertise, $instrumentation, $biography, $approved) {
         global $con;
         
-        $stmt = $con->prepare("INSERT INTO members (name, image, website, institution, institution_image, expertise, instrumentation, biography, approved) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssssssi", $name, $image, $website, $institution, $institution_image, $expertise, $instrumentation, $biography, $approved);
+        $stmt = $con->prepare("INSERT INTO members (name, image, email, website, institution, institution_image, expertise, instrumentation, biography, approved) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssssssssi", $name, $image, $email, $website, $institution, $institution_image, $expertise, $instrumentation, $biography, $approved);
         $stmt->execute();
         
         $rows = $stmt->affected_rows;
@@ -38,11 +38,11 @@
         return $rows >= 1;
     }
 
-    function update_member($id, $name, $image, $website, $institution, $institution_image, $expertise, $instrumentation, $biography, $approved) {
+    function update_member($id, $name, $image, $email, $website, $institution, $institution_image, $expertise, $instrumentation, $biography, $approved) {
         global $con;
         
-        $stmt = $con->prepare("UPDATE members SET name=?, image=?, website=?, institution=?, institution_image=?, expertise=?, instrumentation=?, biography=?, approved=? WHERE id='$id'");
-        $stmt->bind_param("ssssssssi", $name, $image, $website, $institution, $institution_image, $expertise, $instrumentation, $biography, $approved);
+        $stmt = $con->prepare("UPDATE members SET name=?, image=?, email=?, website=?, institution=?, institution_image=?, expertise=?, instrumentation=?, biography=?, approved=? WHERE id='$id'");
+        $stmt->bind_param("sssssssssi", $name, $image, $email, $website, $institution, $institution_image, $expertise, $instrumentation, $biography, $approved);
         $stmt->execute();
         
         $rows = $stmt->affected_rows;
