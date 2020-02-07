@@ -28,7 +28,7 @@
                     <div class="flex-column">
                         <div class="flex-grow"></div>
                         <p class="field name"><?php echo $member["name"]; ?></p>
-                        <a class="field website" href="<?php echo $member["website"]; ?>"><?php echo $member["website"]; ?></a>
+                        <a class="field website" href="<?php echo $member["website"]; ?>">Website</a>
                         <div class="flex-grow"></div>
                     </div>
                 </div>
@@ -52,5 +52,6 @@
                 </div>
             </div>
         </div>
+        <?php include "../resources/templates/foot.php"; ?>
     </body>
 </html>

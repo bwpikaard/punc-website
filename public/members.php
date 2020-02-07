@@ -44,5 +44,6 @@
                     <?php $i++; } ?>
             </div>
         </div>
+        <?php include "../resources/templates/foot.php"; ?>
     </body>
 </html>
