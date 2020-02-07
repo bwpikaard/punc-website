@@ -65,12 +65,14 @@
 
                         while($row = $posts->fetch_assoc()) {
                     ?>
-                                <div class="post">
-                                    <h2 class="title"><?php echo $row["title"]; ?></h2>
-                                    <p class="author">By <?php echo select_author($row["author"])["displayname"]; ?> on <?php echo $row["created"]; ?></p>
-                                    <div class="content"><?php echo $row["content"]; ?></div>
-                                </div>
-                        <?php } ?>
+                        <div class="post">
+                            <h2 class="title"><?php echo $row["title"]; ?></h2>
+                            <p class="author">By <?php echo select_author($row["author"])["displayname"]; ?> on <?php echo $row["created"]; ?></p>
+                            <div class="content"><?php echo $row["content"]; ?></div>
+                        </div>
+                    <?php
+                        }
+                    ?>
                 </div>
             </div>
         </div>
@@ -82,6 +84,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
+                        <p>Please review one of our current member’s pages for an example of content for the following fields. <a id="title" href="/member?id=1" target="_blank">Steve Hughes</a></p>
                         <form class="needs-validation" action="/utilities/members" method="post" enctype="multipart/form-data" novalidate>
                             <input name="request" type="hidden">
                             <div class="form-group">
@@ -159,5 +162,27 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="request-membership-success" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Request Membership</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Your request has been sumitted. You will be notified when a decision is made.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php include "../resources/templates/foot.php"; ?>
     </body>
 </html>
+
+<?php if (isset($_GET["success"])) echo '
+<script>
+    $(document).ready(function() {
+        $("#request-membership-success").modal("show");
+    })
+</script>
+'; ?>

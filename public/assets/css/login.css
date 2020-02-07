@@ -1,0 +1,84 @@
+body {
+    width: 100%;
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+}
+
+.login {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login .panel {
+    display: flex;
+    flex-direction: column;
+    border-radius: 2px;
+    width: 350px;
+    padding: 60px 40px;
+    background-color: white;
+    box-shadow: 0 5px 10px 0 rgba(0,0,0,.1);
+    -moz-box-shadow: 0 5px 10px 0 rgba(0,0,0,.1);
+    -webkit-box-shadow: 0 5px 10px 0 rgba(0,0,0,.1);
+}
+
+.login img {
+    text-align: center;
+    height: 80px;
+    margin-bottom: 20px;
+}
+
+.login .panel h2 {
+    text-align: center;
+    font-weight: bold;
+}
+
+.login .panel form input {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #3f3f3f;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: 0;
+    transition: border-color 0.5s ease;
+}
+
+.login .panel form input:focus {
+    border-color: #1D1C28;
+}
+
+.login .panel form label {
+    margin-bottom: 0;
+}
+
+.login .panel form .btn-submit {
+    border-radius: 2px;
+    padding: 2px 14px;
+    background-color: #1D1C28;
+    border: #252149;
+    color: white;
+    font-size: 14px;
+    transition: background-color 0.5s ease;
+}
+
+.login .panel form .btn-submit:hover {
+    background-color: #3f3f3f;
+}
+
+.login .panel .signup {
+    color: rgba(26, 26, 26, 0.5);
+    text-align: center;
+    font-size: 13px;
+    margin: 50px 0 0 0;
+    transition: color 0.5s ease;
+}
+
+.login .panel .signup a {
+    text-decoration: none;
+    color: #3f3f3f;
+}
+
+.login .panel .signup a:hover {
+    color: #1D1C28;
+}

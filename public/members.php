@@ -13,6 +13,7 @@
     <body>
         <?php include "../resources/templates/navbar.php"; ?>
         <div class="container-fluid members">
+            <p>Click a member’s name to learn more about their background and research interests.</p>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-text1">

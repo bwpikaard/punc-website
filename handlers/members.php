@@ -26,8 +26,11 @@
 
     function insert_member($name, $image, $email, $website, $institution, $institution_image, $expertise, $instrumentation, $biography, $approved) {
         global $con;
-        
-        $stmt = $con->prepare("INSERT INTO members (name, image, email, website, institution, institution_image, expertise, instrumentation, biography, approved) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+        if (!isset($image)) $image = "";
+        if (!isset($institution_image)) $institution_image = "";
+
+        $stmt = $con->prepare("INSERT INTO members (name, image, email, website, institution, institution_image, expertise, instrumentation, biography, approved) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("sssssssssi", $name, $image, $email, $website, $institution, $institution_image, $expertise, $instrumentation, $biography, $approved);
         $stmt->execute();
         

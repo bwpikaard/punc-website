@@ -110,6 +110,10 @@ body {
     margin-bottom: 1rem;
 }
 
+#request-membership #title {
+    text-decoration: none;
+}
+
 /* -----------------------------[ HOME - POSTS ]----------------------------- */
 
 .container.index .posts>.title {
@@ -196,10 +200,10 @@ body {
 
 .container-fluid.members .list .member .information .field.institution-image {
     display: block;
-    height: 60px;
-    width: 60px;
+    height: 50px;
+    max-width: 80%;
     object-fit: contain;
-    margin: 0 auto;
+    margin: 10px auto 0 auto;
 }
 
 .container-fluid.members .list .member .information .field.expertise {
@@ -307,34 +311,7 @@ body {
     margin: 0 auto;
 }
 
-/* -----------------------------[ LOGIN/REGISTER ]----------------------------- */
-
-.login {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    margin-top: 40px;
-}
-
-.login .frame {
-    background: #1D1C28;
-    border-radius: 2px;
-    box-shadow: 0 1.5px 0 0 rgba(0, 0, 0, 0.1);
-    width: 500px;
-    display: flex;
-    flex-direction: column;
-    padding: 40px 60px;
-    margin: 20px;
-    border-radius: 3px;
-}
-
-.login .frame .title {
-    font-size: 18px;
-    font-weight: bold;
-}
-
-/* -----------------------------[ ADMIN ]----------------------------- */
+//* -----------------------------[ ADMIN ]----------------------------- */
 
 .container-fluid.admin {
     padding: 0;
@@ -394,4 +371,108 @@ body {
 
 .modal .btn.action:hover {
     background-color: #3f3f3f;
+}
+
+/* -----------------------------[ FOOTER ]----------------------------- */
+
+footer {
+    background-color: #1a1a1a;
+    padding: 2rem 2rem 0.5rem 2rem;
+}
+
+footer .columns {
+    display: flex;
+}
+
+footer .columns .flex-grow {
+    flex-grow: 1;
+}
+
+footer .columns div p {
+    margin: 0;
+}
+
+footer .columns div p:first-of-type {
+    font-size: .75rem;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+footer .columns div a {
+    font-size: .75rem;
+    color: #6e6e6e;
+    text-decoration: none;
+}
+
+footer .columns div a:hover {
+    color: white;
+}
+
+footer .columns div.socialmedia {
+    padding: 0 15px;
+}
+
+footer .columns div.socialmedia a {
+    display: inline-block;
+    padding: 8px;
+    border-radius: 100%;
+    background-color: #6e6e6e;
+}
+
+footer .columns div.socialmedia a:hover {
+    background-color: white;
+}
+
+footer .columns div.socialmedia a img {
+    height: 20px;
+}
+
+footer .service {
+    display: flex;
+    border-top: 1px solid #414141;
+    margin-top: 20px;
+    padding: 20px 10px 10px 10px;
+}
+
+footer .service p {
+    color: white;
+    margin: 0;
+    font-size: 0.5rem;
+}
+
+footer .service a {
+    margin: 0 0.25rem;
+    font-size: 0.5rem;
+    color: #6e6e6e;
+    text-decoration: none;
+}
+
+footer .service a:hover {
+    color: white;
+}
+
+footer .service .left {
+    display: inline-flex;
+}
+
+footer .service .right {
+    display: inline-flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
+@media (max-width: 767px) {
+    footer .columns {
+        display: block;
+    }
+    footer .service {
+        display: block;
+    }
+    footer .service .left {
+        display: block;
+    }
+    footer .service .right {
+        display: block;
+    }
 }

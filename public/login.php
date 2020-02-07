@@ -15,32 +15,33 @@
     <head>
         <?php include "../resources/templates/head.php"; ?>
         <script src="/assets/js/validation.js"></script>
-        <title>Nano Cooperative</title>
+        <link rel="stylesheet" href="/assets/css/login.css">
+        <title>Nevis Investing</title>
     </head>
     <body>
-        <?php include "../resources/templates/navbar.php"; ?>
         <div class="login">
-            <div class="frame">
+            <div class="panel">
+                <h2>Welcome</h2>
+                <br>
                 <form class="needs-validation" action="/utilities/users" method="post" novalidate>
                     <input type="hidden" name="login">
-                    <label class="title">Login</label>
                     <div class="form-group">
-                        <label for="username">Username or Email</label>
-                        <input name="username" type="text" class="form-control" id="username" placeholder="Username or Email" <?php if ($username) echo "value=\"$username\""; ?> required>
+                        <label for="username">Email</label>
+                        <input name="username" type="text" class="form-control" id="username" <?php if ($username) echo "value=\"$username\""; ?> required>
                         <div class="invalid-feedback">
                             Please enter your username or email.
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input name="password" type="password" class="form-control" id="password" placeholder="Password" required>
+                        <input name="password" type="password" class="form-control" id="password" required>
                         <div class="invalid-feedback">
                             Please enter your password.
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-outline-primary btn-sm">Login</button>
-                    <a class="btn btn-outline-light btn-sm" href="/register">Need an account?</a>
+                    <button type="submit" class="btn-submit">Login</button>
                 </form>
+                <p class="signup">Don't have an account? <a href="/register">Sign Up</a></p>
             </div>
         </div>
     </body>
