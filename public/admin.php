@@ -53,7 +53,7 @@
                                     <td><?php echo $row["email"]; ?></td>
                                     <td><?php if ($row["administrator"] == 1) echo "True"; else echo "False"; ?></td>
                                     <td>
-                                        <a class="btn btn-sm action" href="#"
+                                        <a class="atn atn-sm action" href="#"
                                             data-toggle="modal"
                                             data-target="#register-user"
                                             data-id="<?php echo $row["id"]; ?>"
@@ -62,12 +62,12 @@
                                             data-displayname="<?php echo $row["displayname"]; ?>"
                                             data-administrator="<?php echo $row["administrator"]; ?>"
                                         >Edit</a>
-                                        <a class="btn btn-sm action<?php if ($row["administrator"] == 1) echo " disabled"; ?>" href="/utilities/users?delete&id=<?php echo $row["id"]; ?>">Remove</a>
+                                        <a class="atn atn-sm<?php if ($row["administrator"] == 1) echo " disabled"; ?>" href="/utilities/users?delete&id=<?php echo $row["id"]; ?>">Remove</a>
                                     </td>
                                 </tr>
                             <?php } ?>
                     </table>
-                    <button type="button" class="btn btn-sm action" data-toggle="modal" data-target="#register-user">Add User</button>
+                    <button type="button" class="atn atn-sm" data-toggle="modal" data-target="#register-user">Add User</button>
                 </div>
                 <div class="tab-pane fade table-responsive-md" id="members">
                     <p class="title">Organization Members</p>
@@ -87,7 +87,7 @@
                                     <td><?php echo $row["institution"]; ?></td>
                                     <td><?php if ($row["approved"] == 1) echo "True"; else echo "False"; ?></td>
                                     <td>
-                                        <a class="btn btn-sm action" href="#"
+                                        <a class="atn atn-sm" href="#"
                                             data-toggle="modal"
                                             data-target="#register-member"
                                             data-id="<?php echo $row["id"]; ?>"
@@ -102,12 +102,12 @@
                                             data-biography="<?php echo $row["biography"]; ?>"
                                             data-approved="<?php echo $row["approved"]; ?>"
                                         >Edit</a>
-                                        <a class="btn btn-sm action" href="/utilities/members?delete&id=<?php echo $row["id"]; ?>">Remove</a>
+                                        <a class="atn atn-sm" href="/utilities/members?delete&id=<?php echo $row["id"]; ?>">Remove</a>
                                     </td>
                                 </tr>
                             <?php } ?>
                     </table>
-                    <button type="button" class="btn btn-sm action" data-toggle="modal" data-target="#register-member">Add Member</button>
+                    <button type="button" class="atn atn-sm" data-toggle="modal" data-target="#register-member">Add Member</button>
                 </div>
                 <div class="tab-pane fade table-responsive-md" id="images">
                     <p class="title">Content Images</p>
@@ -138,7 +138,7 @@
                             <label class="custom-file-label">Choose file...</label>
                             <div class="invalid-feedback">Example invalid custom file feedback</div>
                         </div>
-                        <button type="submit" class="btn btn-sm action">Upload Image</button>
+                        <button type="submit" class="atn ml-2">Upload Image</button>
                     </form>
                     <div class="divider"></div>
                     <p class="title">Member Images</p>
@@ -169,7 +169,7 @@
                             <label class="custom-file-label">Choose file...</label>
                             <div class="invalid-feedback">Example invalid custom file feedback</div>
                         </div>
-                        <button type="submit" class="btn btn-sm action">Upload Image</button>
+                        <button type="submit" class="atn ml-2">Upload Image</button>
                     </form>
                     <div class="divider"></div>
                     <p class="title">Institution Images</p>
@@ -200,7 +200,7 @@
                             <label class="custom-file-label">Choose file...</label>
                             <div class="invalid-feedback">Example invalid custom file feedback</div>
                         </div>
-                        <button type="submit" class="btn btn-sm action">Upload Image</button>
+                        <button type="submit" class="atn ml-2">Upload Image</button>
                     </form>
                 </div>
                 <div class="tab-pane fade table-responsive-md" id="posts">
@@ -223,13 +223,13 @@
                                     <td><?php echo $row["title"]; ?></td>
                                     <td><?php echo select_author($row["author"])["displayname"]; ?></td>
                                     <td>
-                                        <a class="btn btn-sm action" href="edit?id=<?php echo $row["id"]; ?>">Edit</a>
+                                        <a class="atn atn-sm" href="edit?id=<?php echo $row["id"]; ?>">Edit</a>
                                         <?php if ($row["published"] == 1) { ?>
-                                            <a class="btn btn-sm action" href="/utilities/posts?id=<?php echo $row["id"]; ?>&unpublish" href="#">Unpublish</a>
+                                            <a class="atn atn-sm" href="/utilities/posts?id=<?php echo $row["id"]; ?>&unpublish" href="#">Unpublish</a>
                                         <?php } else { ?>
-                                            <a class="btn btn-sm action" href="/utilities/posts?id=<?php echo $row["id"]; ?>&publish" href="#">Publish</a>
+                                            <a class="atn atn-sm" href="/utilities/posts?id=<?php echo $row["id"]; ?>&publish" href="#">Publish</a>
                                         <?php } ?>
-                                        <a class="btn btn-sm action" href="/utilities/posts?id=<?php echo $row["id"]; ?>&delete">Delete</a>
+                                        <a class="atn atn-sm" href="/utilities/posts?id=<?php echo $row["id"]; ?>&delete">Delete</a>
                                     </td>
                                 </tr>
                             <?php } ?>
@@ -240,7 +240,7 @@
                         <input name="register" type="hidden">
                         <input class="form-control" name="title" type="text" placeholder="Post Title" id="post-title" required>
                         <textarea name="content" id="summernote" required></textarea>
-                        <button type="submit" class="btn btn-sm action" id="post-submit">Create</button>
+                        <button type="submit" class="atn atn-sm" id="post-submit">Create</button>
                     </form>
                 </div>
                 <div class="tab-pane fade table-responsive-md" id="configuration">
@@ -259,18 +259,18 @@
                                     <td><?php echo $row["key"]; ?></td>
                                     <td><?php echo $row["value"] ?></td>
                                     <td>
-                                        <a class="btn btn-sm action" href="#"
+                                        <a class="atn atn-sm" href="#"
                                             data-toggle="modal"
                                             data-target="#register-configuration"
                                             data-key="<?php echo $row["key"]; ?>"
                                             data-value="<?php echo $row["value"]; ?>"
                                         >Edit</a>
-                                        <a class="btn btn-sm action" href="/utilities/configuration?delete&key=<?php echo $row["key"]; ?>">Delete</a>
+                                        <a class="atn atn-sm" href="/utilities/configuration?delete&key=<?php echo $row["key"]; ?>">Delete</a>
                                     </td>
                                 </tr>
                             <?php } ?>
                     </table>
-                    <button type="button" class="btn btn-sm action" data-toggle="modal" data-target="#register-configuration">Add Configuration</button>
+                    <button type="button" class="atn atn-sm" data-toggle="modal" data-target="#register-configuration">Add Configuration</button>
                 </div>
             </div>
         </div>
@@ -354,8 +354,8 @@
                                     <label class="custom-control-label" for="approved">Approved</label>
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn action" id="submit">Add Member</button>
+                            <button type="button" class="atn atn-light" data-dismiss="modal">Close</button>
+                            <button type="submit" class="atn" id="submit">Add Member</button>
                         </form>
                     </div>
                 </div>
@@ -409,8 +409,8 @@
                                 </div>
                             </div>
                             <br>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn action" id="submit">Add User</button>
+                            <button type="button" class="atn atn-light" data-dismiss="modal">Close</button>
+                            <button type="submit" class="atn" id="submit">Add User</button>
                         </form>
                     </div>
                 </div>
@@ -442,8 +442,8 @@
                                 </div>
                             </div>
                             <br>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn action" id="submit">Add Configuration</button>
+                            <button type="button" class="atn atn-light" data-dismiss="modal">Close</button>
+                            <button type="submit" class="atn" id="submit">Add Configuration</button>
                         </form>
                     </div>
                 </div>

@@ -1,5 +1,7 @@
 body {
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    background-color: #eee;
+    min-height: 100vh;
 }
 
 /* -----------------------------[ NAVBAR ]----------------------------- */
@@ -29,6 +31,41 @@ body {
     width: 100%;
     background-color: #1D1C28;
     margin: 20px 0;
+}
+
+.atn {
+    border-radius: 2px;
+    padding: 4px 16px;
+    background-color: #1D1C28;
+    border: #343a40;
+    color: white;
+    font-size: 16px;
+    transition: background-color 0.5s ease;
+}
+
+.atn:hover {
+    text-decoration: none;
+    color: white;
+    background-color: #343a40;
+}
+
+.atn-sm {
+    padding: 2px 10px;
+    font-size: 14px;
+}
+
+.atn.disabled {
+    pointer-events: none;
+    opacity: .65;
+    /*background-color: #3f3f3f;*/
+}
+
+.atn-light {
+    background-color: #6c757d;
+}
+
+.atn-light:hover {
+    background-color: #5a6268;
 }
 
 /* -----------------------------[ CAROUSEL ]----------------------------- */
@@ -311,7 +348,7 @@ body {
     margin: 0 auto;
 }
 
-//* -----------------------------[ ADMIN ]----------------------------- */
+/* -----------------------------[ ADMIN ]----------------------------- */
 
 .container-fluid.admin {
     padding: 0;

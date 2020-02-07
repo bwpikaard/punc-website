@@ -51,7 +51,7 @@
                     <div class="flex-content center">
                         <p class="title" style="font-size: 24px;">Becoming a Member</p>
                         <p class="content">Fill out the form below to request membership. It will be submitted to the organization managers and you will be notified when a decision is made.</p>
-                        <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#request-membership" style="margin-top: 10px;">Request Membership</button>
+                        <button type="button" class="atn" data-toggle="modal" data-target="#request-membership" style="margin-top: 10px;">Request Membership</button>
                     </div>
                 </div>
             </div>
@@ -155,8 +155,8 @@
                                 </div>
                             </div>
                             <small class="form-text text-muted">All of the above information will be publicly displayed on acceptance.</small>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn action" id="submit">Request Membership</button>
+                            <button type="button" class="atn atn-light" data-dismiss="modal">Close</button>
+                            <button type="submit" class="atn action" id="submit">Request Membership</button>
                         </form>
                     </div>
                 </div>

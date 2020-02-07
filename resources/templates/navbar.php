@@ -1,7 +1,7 @@
 <?php $path = preg_replace('/\?.*/', '', $_SERVER['REQUEST_URI']); ?>
 <nav class="navbar navbar-expand-lg navbar-dark">
     <a class="navbar-brand" href="/">
-        <img class="navbar-brand-image" src="/assets/images/logo.png" />
+        <!--<img class="navbar-brand-image" src="/assets/images/logo.png" />-->
         Nano Cooperative
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
