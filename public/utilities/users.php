@@ -77,7 +77,7 @@
             exit;
         }
         
-        $hpassword = mysqli_real_escape_string($con, password_hash($password, PASSWORD_DEFAULT));
+        $hpassword = password_hash($password, PASSWORD_DEFAULT);
 
         $result = insert_user($username, $email, $displayname, $hpassword);
 
