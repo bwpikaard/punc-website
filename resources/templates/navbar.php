@@ -21,18 +21,23 @@
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-            <?php if (isset($_SESSION["id"]) && $_SESSION["administrator"] == 1) { ?>
-                <li class="nav-item <?php if ($path === "/admin") echo "active"; ?>">
-                    <a class="nav-link" href="/admin" tabindex="-1">Admin</a>
+            <?php if (isset($_SESSION["id"])) { ?>
+                <div class="dropdown">
+                    <a class="nav-link dropdown-toggle <?php if ($path === "/user") echo "active"; ?>" href="#" data-toggle="dropdown"><?php echo $_SESSION["firstname"]; ?></a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item dropdown-tab" data-tab="users" href="/me">My Profile</a>
+                        <div class="dropdown-divider"></div>
+                        <?php if (isset($_SESSION["id"]) && $_SESSION["administrator"] == 1) { ?>
+                            <a class="dropdown-item dropdown-tab" data-tab="users" href="/admin">Admin Panel</a>
+                        <?php } ?>
+                        <a class="dropdown-item" href="/logout">Logout</a>
+                    </div>
+                </div>
+            <?php } else { ?>
+                <li class="nav-item <?php if ($path === "/login") echo "active"; ?>">
+                    <a class="nav-link" href="/login" tabindex="-1">Login</a>
                 </li>
             <?php } ?>
-            <li class="nav-item <?php if ($path === "/login") echo "active"; ?>">
-                <?php if (isset($_SESSION["id"])) { ?>
-                    <a class="nav-link" href="/logout" tabindex="-1">Logout</a>
-                <?php } else { ?>
-                    <a class="nav-link" href="/login" tabindex="-1">Login</a>
-                <?php } ?>
-            </li>
         </ul>
     </div>
 </nav>

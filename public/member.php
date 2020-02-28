@@ -1,15 +1,14 @@
 <?php
     session_start();
-    require_once('../handlers/members.php');
+    require_once('../handlers/accounts.php');
     
     $id = $_GET["id"];
 
-    if (empty($id)) {
-        header("Location: /members");
-        exit;
-    }
+    if (empty($id)) return header("Location: /members");
 
-    $member = select_member($id)->fetch_assoc();
+    $member = select_account_by_id($id)->fetch_assoc();
+
+    if (!isset($member) || $member["type"] !== 1) return header("Location: /members");
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +26,7 @@
                     <img src="/assets/images/members/<?php echo $member["image"]; ?>" />
                     <div class="flex-column">
                         <div class="flex-grow"></div>
-                        <p class="field name"><?php echo $member["name"]; ?></p>
+                        <p class="field name"><?php echo $member["firstname"] . " " . $member["lastname"]; ?></p>
                         <a class="field website" href="<?php echo $member["website"]; ?>">Website</a>
                         <div class="flex-grow"></div>
                     </div>

@@ -6,10 +6,10 @@
     session_start();
     require_once("../handlers/authorization.php");
     require_once('../handlers/users.php');
+    require_once('../handlers/accounts.php');
     require_once('../handlers/members.php');
     require_once('../handlers/posts.php');
     require_once('../handlers/configuration.php');
-
     not_administrator();
 ?>
 
@@ -24,8 +24,7 @@
         <?php include "../resources/templates/navbar.php"; ?>
         <div class="container-fluid admin">
             <ul class="nav nav-pills" id="myTab" role="tablist">
-                <li class="nav-item"><a class="nav-link btn active" data-toggle="tab" href="#users" role="tab" aria-controls="home" aria-selected="true">Users</a></li>
-                <li class="nav-item"><a class="nav-link btn" data-toggle="tab" href="#members" role="tab" aria-controls="profile" aria-selected="false">Members</a></li>
+                <li class="nav-item"><a class="nav-link btn active" data-toggle="tab" href="#users" role="tab" aria-controls="home" aria-selected="false">Users</a></li>
                 <li class="nav-item"><a class="nav-link btn" data-toggle="tab" href="#images" role="tab" aria-controls="profile" aria-selected="false">Images</a></li>
                 <li class="nav-item"><a class="nav-link btn" data-toggle="tab" href="#posts" role="tab" aria-controls="profile" aria-selected="false">Posts</a></li>
                 <li class="nav-item"><a class="nav-link btn" data-toggle="tab" href="#configuration" role="tab" aria-controls="contact" aria-selected="false">Configuration</a></li>
@@ -35,79 +34,40 @@
                     <p class="title">Users</p>
                     <table class="table table-borderless table-hover">
                         <tr>
+                            <th style="width: 5%;"></th>
                             <th style="width: 5%;">ID</th>
-                            <th style="width: 20%;">Display Name</th>
-                            <th style="width: 15%;">Username</th>
-                            <th style="width: 25%;">Email</th>
-                            <th style="width: 15%;">Administrator</th>
-                            <th style="width: 20%;">Actions</th>
-                        </tr>
-                        <?php
-                            $result = select_users();
-
-                            while($row = $result->fetch_assoc()) { ?>
-                                <tr>
-                                    <td><?php echo $row["id"]; ?></td>
-                                    <td><?php echo $row["displayname"]; ?></td>
-                                    <td><?php echo $row["username"]; ?></td>
-                                    <td><?php echo $row["email"]; ?></td>
-                                    <td><?php if ($row["administrator"] == 1) echo "True"; else echo "False"; ?></td>
-                                    <td>
-                                        <a class="atn atn-sm action" href="#"
-                                            data-toggle="modal"
-                                            data-target="#register-user"
-                                            data-id="<?php echo $row["id"]; ?>"
-                                            data-username="<?php echo $row["username"]; ?>"
-                                            data-email="<?php echo $row["email"]; ?>"
-                                            data-displayname="<?php echo $row["displayname"]; ?>"
-                                            data-administrator="<?php echo $row["administrator"]; ?>"
-                                        >Edit</a>
-                                        <a class="atn atn-sm<?php if ($row["administrator"] == 1) echo " disabled"; ?>" href="/utilities/users?delete&id=<?php echo $row["id"]; ?>">Remove</a>
-                                    </td>
-                                </tr>
-                            <?php } ?>
-                    </table>
-                    <button type="button" class="atn atn-sm" data-toggle="modal" data-target="#register-user">Add User</button>
-                </div>
-                <div class="tab-pane fade table-responsive-md" id="members">
-                    <p class="title">Organization Members</p>
-                    <table class="table table-borderless table-hover">
-                        <tr>
                             <th style="width: 30%;">Name</th>
-                            <th style="width: 30%;">Institution</th>
-                            <th style="width: 20%;">Approved</th>
-                            <th style="width: 20%;">Actions</th>
+                            <th style="width: 30%;">Type</th>
+                            <th style="width: 30%;">Email</th>
                         </tr>
                         <?php
-                            $result = select_members(false);
+                            $result = select_accounts();
 
                             while($row = $result->fetch_assoc()) { ?>
                                 <tr>
-                                    <td><?php echo $row["name"]; ?></td>
-                                    <td><?php echo $row["institution"]; ?></td>
-                                    <td><?php if ($row["approved"] == 1) echo "True"; else echo "False"; ?></td>
                                     <td>
-                                        <a class="atn atn-sm" href="#"
-                                            data-toggle="modal"
-                                            data-target="#register-member"
-                                            data-id="<?php echo $row["id"]; ?>"
-                                            data-name="<?php echo $row["name"]; ?>"
-                                            data-image-name="<?php echo $row["image"]; ?>"
-                                            data-email="<?php echo $row["email"]; ?>"
-                                            data-website="<?php echo $row["website"]; ?>"
-                                            data-institution="<?php echo $row["institution"]; ?>"
-                                            data-institution-image-name="<?php echo $row["institution_image"]; ?>"
-                                            data-expertise="<?php echo $row["expertise"]; ?>"
-                                            data-instrumentation="<?php echo $row["instrumentation"]; ?>"
-                                            data-biography="<?php echo $row["biography"]; ?>"
-                                            data-approved="<?php echo $row["approved"]; ?>"
-                                        >Edit</a>
-                                        <a class="atn atn-sm" href="/utilities/members?delete&id=<?php echo $row["id"]; ?>">Remove</a>
+                                        <div class="action-dropdown">
+                                            <button class="action-dropdown-btn" data-toggle="dropdown">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="/me?id=<?php echo $row["id"]; ?>">Edit</a>
+                                                <button type="button" class="dropdown-item" data-toggle="modal" data-target="#delete-user" <?php if ($row["administrator"] == 1) echo "disabled"; ?>>Delete</button>
+                                            </div>
+                                        </div>
                                     </td>
+                                    <td><?php echo $row["id"]; ?></td>
+                                    <td <?php if ($row["administrator"] == 1) echo "class=\"administrator\""; ?>><?php echo $row["firstname"] . " " . $row["lastname"]; ?></td>
+                                    <td><?php
+                                        if ($row["type"] == 1) echo "Listed Member";
+                                        else if ($row["type"] == 0) echo "Normal User";
+                                        else echo "Pending";
+                                    ?></td>
+                                    <td><?php echo $row["email"]; ?></td>
                                 </tr>
                             <?php } ?>
                     </table>
-                    <button type="button" class="atn atn-sm" data-toggle="modal" data-target="#register-member">Add Member</button>
+                    <button type="button" class="atn atn-sm disabled" data-toggle="modal" data-target="#register-user">Add User</button>
                 </div>
                 <div class="tab-pane fade table-responsive-md" id="images">
                     <p class="title">Content Images</p>

@@ -85,11 +85,26 @@
                     </div>
                     <div class="modal-body">
                         <p>Please review one of our current member’s pages for an example of content for the following fields. <a id="title" href="/member?id=1" target="_blank">Steve Hughes</a></p>
-                        <form class="needs-validation" action="/utilities/members" method="post" enctype="multipart/form-data" novalidate>
+                        <form class="needs-validation" action="/utilities/accounts" method="post" enctype="multipart/form-data" novalidate>
                             <input name="request" type="hidden">
                             <div class="form-group">
-                                <label>Name</label>
-                                <input name="name" type="text" class="form-control" required>
+                                <label>First Name</label>
+                                <input name="firstname" type="text" class="form-control" required>
+                                <div class="invalid-feedback">
+                                    Please enter a value.
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input name="lastname" type="text" class="form-control" required>
+                                <div class="invalid-feedback">
+                                    Please enter a value.
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Nano Cooperative Username</label>
+                                <input name="username" type="text" class="form-control" required>
+                                <small class="form-text text-muted">This will be your username to sign in to your Nano Cooperative account.</small>
                                 <div class="invalid-feedback">
                                     Please enter a value.
                                 </div>
@@ -118,7 +133,6 @@
                             </div>
                             <div class="form-group">
                                 <label>Institution</label>
-                                <br>
                                 <input name="institution" type="text" class="form-control" required>
                                 <div class="invalid-feedback">
                                     Please enter a value.
@@ -156,7 +170,7 @@
                             </div>
                             <small class="form-text text-muted">All of the above information will be publicly displayed on acceptance.</small>
                             <button type="button" class="atn atn-light" data-dismiss="modal">Close</button>
-                            <button type="submit" class="atn action" id="submit">Request Membership</button>
+                            <button type="submit" class="atn disabled" id="submit">Request Membership</button>
                         </form>
                     </div>
                 </div>

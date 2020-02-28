@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require_once('../handlers/members.php');
+    require_once('../handlers/accounts.php');
 ?>
 
 <!DOCTYPE html>
@@ -24,14 +24,14 @@
             </div>
             <div class="row no-gutters list">
                 <?php
-                    $result = select_members(true);
+                    $result = select_accounts_by_type('1');
                     $i = 1;
 
                     while($row = $result->fetch_assoc()) { ?>
                         <div class="member col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3" id="member-<?php echo $i; ?>">
                             <div class="information">
                                 <img src="/assets/images/members/<?php echo $row["image"]; ?>" />
-                                <a class="field name" href="/member?id=<?php echo $row["id"]; ?>"><?php echo $row["name"]; ?></a>
+                                <a class="field name" href="/member?id=<?php echo $row["id"]; ?>"><?php echo $row["firstname"] . " " . $row["lastname"]; ?></a>
                                 <a class="field website" href="<?php echo $row["website"]; ?>">Website</a>
                                 <p class="field institution">
                                     <img class="field institution-image" src="/assets/images/institutions/<?php echo $row["institution_image"]; ?>" />

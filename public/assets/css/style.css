@@ -68,6 +68,34 @@ body {
     background-color: #5a6268;
 }
 
+.modal .btn.action {
+    background-color: #1D1C28;
+    color: white;
+}
+
+.modal .btn.action:hover {
+    background-color: #3f3f3f;
+}
+
+.modal .modal-content {
+    background: transparent;
+}
+
+.modal .modal-content .modal-header {
+    background-color: #1D1C28;
+    color: white;
+}
+
+.modal .modal-content .modal-header .close {
+    color: white;
+}
+
+.modal .modal-content .modal-body {
+    background-color: white;
+    border-bottom-left-radius: .3rem;
+    border-bottom-right-radius: .3rem;
+}
+
 /* -----------------------------[ CAROUSEL ]----------------------------- */
 
 .carousel .carousel-item {
@@ -375,6 +403,22 @@ body {
     background-color: #1D1C28;
 }
 
+.action-dropdown {
+}
+
+.action-dropdown .action-dropdown-btn {
+    background: none;
+    border: none;
+}
+
+.action-dropdown .dropdown-menu {
+    padding: 0;
+}
+
+.action-dropdown .dropdown-menu .dropdown-item {
+    padding: .25rem 1rem;
+}
+
 .container-fluid.admin .container.tab-content .tab-pane p.title {
     font-size: 24px;
     text-transform: uppercase;
@@ -399,15 +443,6 @@ body {
 }
 
 .container-fluid.admin .container.tab-content .tab-pane .btn.action:hover {
-    background-color: #3f3f3f;
-}
-
-.modal .btn.action {
-    background-color: #1D1C28;
-    color: white;
-}
-
-.modal .btn.action:hover {
     background-color: #3f3f3f;
 }
 

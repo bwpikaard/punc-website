@@ -23,7 +23,7 @@
             <div class="panel">
                 <h2>Welcome</h2>
                 <br>
-                <form class="needs-validation" action="/utilities/users" method="post" novalidate>
+                <form class="needs-validation" action="/utilities/accounts" method="post" novalidate>
                     <input type="hidden" name="login">
                     <div class="form-group">
                         <label for="username">Email</label>

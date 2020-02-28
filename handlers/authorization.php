@@ -16,7 +16,7 @@
 
     function not_administrator() {
         if (!is_administrator()) {
-            header("Location: /?access-denied");
+            header("Location: /login");
             exit;
         }
     }
