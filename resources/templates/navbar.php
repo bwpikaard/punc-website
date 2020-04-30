@@ -1,4 +1,8 @@
-<?php $path = preg_replace('/\?.*/', '', $_SERVER['REQUEST_URI']); ?>
+<?php
+    require_once("../app/authorization.php");
+
+    $path = preg_replace('/\?.*/', '', $_SERVER['REQUEST_URI']);
+?>
 <nav class="navbar navbar-expand-lg navbar-dark">
     <a class="navbar-brand" href="/">
         <!--<img class="navbar-brand-image" src="/assets/images/logo.png" />-->
@@ -21,13 +25,13 @@
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-            <?php if (isset($_SESSION["id"])) { ?>
+            <?php if (has_session()) { ?>
                 <div class="dropdown">
-                    <a class="nav-link dropdown-toggle <?php if ($path === "/user") echo "active"; ?>" href="#" data-toggle="dropdown"><?php echo $_SESSION["firstname"]; ?></a>
+                    <a class="nav-link dropdown-toggle <?php if ($path === "/user") echo "active"; ?>" href="#" data-toggle="dropdown"><?php echo $_SESSION["user"]["firstname"]; ?></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                         <a class="dropdown-item dropdown-tab" data-tab="users" href="/me">My Profile</a>
                         <div class="dropdown-divider"></div>
-                        <?php if (isset($_SESSION["id"]) && $_SESSION["administrator"] == 1) { ?>
+                        <?php if (admin_panel()) { ?>
                             <a class="dropdown-item dropdown-tab" data-tab="users" href="/admin">Admin Panel</a>
                         <?php } ?>
                         <a class="dropdown-item" href="/logout">Logout</a>

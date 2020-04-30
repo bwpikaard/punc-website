@@ -1,25 +1,23 @@
 <?php
     session_start();
-    require_once('../handlers/accounts.php');
-    require_once("../handlers/authorization.php");
-
-    not_logged();
     
-    $id = $_GET["id"];
-    $logged_id = $_SESSION["id"];
+    require_once("../resources/errors.php");
+    require_once("../app/authorization.php");
+    require_once('../app/users.php');
 
-    $admin = is_administrator();
+    if (!has_session()) return header("Location: /login");
 
-    if (!isset($id)) {
-        $id = $logged_id;
-    } else if ($id !== $logged_id && !$admin) {
-        header("Location: /?access-denied");
-    }
+    $id = isset($_GET["id"]) ? $_GET["id"] : $_SESSION["user"]["id"];
+    $user_id = $_SESSION["user"]["id"];
 
-    $user = select_account_by_id($id)->fetch_assoc();
+    $update_users = check_permission("USER", 3);
+
+    if ($id !== $user_id && !$update_users) return header("Location: /403");
+
+    $user = select_user_by_id($id)->fetch_assoc();
+
+    if (!$user) return header("Location: /me");
 ?>
-
-<!DOCTYPE html>
 
 <html>
     <head>
@@ -33,27 +31,27 @@
                 <button class="atn atn-sm mb-3 disabled" data-toggle="modal" data-target="#update-password">Update Password</button>
                 <form class="needs-validation" action="/utilities/accounts" method="post" enctype="multipart/form-data" novalidate>
                     <input name="id" type="hidden" value="<?php echo $user["id"]; ?>">
-                    <?php if ($admin) { ?>
+                    <?php if ($update_users) { ?>
                         <input name="update-admin" type="hidden">
                         <div class="form-group">
                             <label>Type</label>
                             <select name="type">
-                                <option <?php if ($user["type"] == 0) echo "selected" ?> value="0">Regular Account</option>
-                                <option <?php if ($user["type"] == 1) echo "selected" ?> value="1">Listed Member</option>
+                                <option <?php if ($user["type"] == 0) echo "selected" ?> value="0">Unlisted</option>
+                                <option <?php if ($user["type"] == 1) echo "selected" ?> value="1">Listed</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Active</label>
+                            <label>Status</label>
                             <select name="active">
-                                <option <?php if ($user["active"] == 0) echo "selected" ?> value="0">Disabled</option>
-                                <option <?php if ($user["active"] == 1) echo "selected" ?> value="1">Enabled</option>
+                                <option <?php if ($user["status"] == 0) echo "selected" ?> value="0">Disabled</option>
+                                <option <?php if ($user["status"] == 1) echo "selected" ?> value="1">Enabled</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Permission Level</label>
-                            <select name="administrator">
-                                <option <?php if ($user["administrator"] == 0) echo "selected" ?> value="0">User</option>
-                                <option <?php if ($user["administrator"] == 1) echo "selected" ?> value="1">Administrator</option>
+                            <label>Role</label>
+                            <select name="role">
+                                <option <?php if ($user["role_id"] == 1) echo "selected" ?> value="1">User</option>
+                                <option <?php if ($user["role_id"] == 2) echo "selected" ?> value="2">Administrator</option>
                             </select>
                         </div>
                     <?php } else {?>
@@ -61,7 +59,7 @@
                     <?php } ?>
                     <div class="form-group">
                         <label>Username</label>
-                        <input name="username" type="text" class="form-control" value="<?php echo $user["username"]; ?>" <?php if (!$admin) echo "readonly='readonly'"; ?> required>
+                        <input name="username" type="text" class="form-control" value="<?php echo $user["username"]; ?>" <?php if (!$update_users) echo "readonly='readonly'"; ?> required>
                         <div class="invalid-feedback">
                             Please enter a value.
                         </div>

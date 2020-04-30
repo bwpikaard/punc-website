@@ -1,11 +1,10 @@
 <?php
     session_start();
 
-    if (isset($_SESSION["id"])) {
-        header("Location: /");
-        exit;
-    }
-    
+    require_once("../app/authorization.php");
+
+    if (has_session()) return header("Location: /");
+
     if (isset($_GET["username"])) $username = $_GET["username"];
 ?>
 
@@ -15,7 +14,7 @@
     <head>
         <?php include "../resources/templates/head.php"; ?>
         <script src="/assets/js/validation.js"></script>
-        <link rel="stylesheet" href="/assets/css/login.css">
+        <link rel="stylesheet" href="/css/login.css">
         <title>Nevis Investing</title>
     </head>
     <body>
@@ -23,7 +22,7 @@
             <div class="panel">
                 <h2>Welcome</h2>
                 <br>
-                <form class="needs-validation" action="/utilities/accounts" method="post" novalidate>
+                <form class="needs-validation" action="/forms/users" method="post" novalidate>
                     <input type="hidden" name="login">
                     <div class="form-group">
                         <label for="username">Email</label>
