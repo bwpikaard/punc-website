@@ -1,0 +1,35 @@
+{% extends "template.twig" %}
+
+{% block pageclass %}member
+{% endblock %}
+
+{% block content %}
+	<div class="section-content">
+		<div class="member">
+			<div class="header">
+				<div class="image">
+					<img src="/images/users/{{ nuser.id }}.png?{{ random() }}" onerror="this.src='/images/missing.png'">
+				</div>
+				<div class="details">
+					<h3>{{ nuser.firstname ~ " " ~ nuser.lastname }}</h3>
+					<h5>
+						<a class="nlink" href="mailto:{{ nuser.email }}">{{ nuser.email }}</a>
+						{% if nuser.role_id == 2 %}<small>- Administrator</small>
+						{% endif %}
+					</h5>
+					<h5><a class="nlink website" href="{{ nuser.website }}" target="_blank">{{ nuser.website }}</a></h5>
+				</div>
+            </div>
+            <div class="body">
+                <h5><small>Expertise</small><br>{{ nuser.expertise }}</h5>
+                <br>
+                <h5><small>Instrumentation</small><br>{{ nuser.instrumentation }}</h5>
+                <br>
+                <h5 style="white-space: pre-line;"><small>Background & Research Interest</small><br>{{ nuser.biography }}</h5>
+            </div>
+            <div class="footer">
+                <img src="/images/institutions/{{ nuser.id }}.png?{{ random() }}" onerror="this.src='/images/missing.png'">
+            </div>
+		</div>
+	</div>
+{% endblock %}

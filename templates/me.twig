@@ -1,0 +1,129 @@
+{% extends "template.twig" %}
+
+{% block pageclass %}user
+{% endblock %}
+
+{% block content %}
+	<div class="section-content">
+		<div class="card mb-3">
+			<div class="row no-gutters" id="upload-image">
+				<div>
+					<img class="card-img" src="/images/users/{{ user.id }}.png?{{ random() }}" onerror="this.src='/images/missing.png'">
+				</div>
+				<div>
+					<div class="card-body">
+						<h5 class="card-title">Change Image</h5>
+						<form class="needs-validation mb-0" action="/me/image" method="post" enctype="multipart/form-data" novalidate>
+							<input type="hidden" name="location" value="users">
+							<div class="input-group mb-3">
+								<div class="custom-file">
+									<input type="file" name="image" class="custom-file-input" id="imageInput" accept=".png,.jpg" required>
+									<label class="custom-file-label" for="imageInput">Choose file</label>
+								</div>
+							</div>
+							<button class="nanobtn nanobtn-sm" type="submit">Upload</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card mb-3">
+			<div class="row no-gutters" id="upload-image">
+				<div>
+					<img class="card-img" src="/images/institutions/{{ user.id }}.png?{{ random() }}" onerror="this.src='/images/missing.png'">
+				</div>
+				<div>
+					<div class="card-body">
+						<h5 class="card-title">Change Institution Image</h5>
+						<form class="needs-validation mb-0" action="/me/image" method="post" enctype="multipart/form-data" novalidate>
+							<input type="hidden" name="location" value="institutions">
+							<div class="input-group mb-3">
+								<div class="custom-file">
+									<input type="file" name="image" class="custom-file-input" id="imageInput" accept=".png,.jpg" required>
+									<label class="custom-file-label" for="imageInput">Choose file</label>
+								</div>
+							</div>
+							<button class="nanobtn nanobtn-sm" type="submit">Upload</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<form class="needs-validation" action="/me" method="post" enctype="multipart/form-data" novalidate>
+			<input name="method" type="hidden" value="PATCH">
+			<div class="form-group">
+				<label>First Name</label>
+				<input name="firstname" type="text" class="form-control" value="{{ user.firstname }}" required>
+				<div class="invalid-feedback">
+					Please enter a value.
+				</div>
+			</div>
+			<div class="form-group">
+				<label>Last Name</label>
+				<input name="lastname" type="text" class="form-control" value="{{ user.lastname }}" required>
+				<div class="invalid-feedback">
+					Please enter a value.
+				</div>
+			</div>
+			<div class="form-group">
+				<label>Username</label>
+				<input name="username" type="text" class="form-control" value="{{ user.username }}" disabled>
+				<div class="invalid-feedback">
+					Please enter a value.
+				</div>
+			</div>
+			<div class="form-group">
+				<label>Email</label>
+				<input name="email" type="text" class="form-control" value="{{ user.email }}" required>
+				<div class="invalid-feedback">
+					Please enter a value.
+				</div>
+			</div>
+			<div class="form-group">
+				<label>Website URL</label>
+				<input name="website" type="text" class="form-control" value="{{ user.website }}">
+				<div class="invalid-feedback">
+					Please enter a value.
+				</div>
+			</div>
+			<div class="form-group">
+				<label>Institution</label>
+				<input name="institution" type="text" class="form-control" value="{{ user.institution }}">
+				<div class="invalid-feedback">
+					Please enter a value.
+				</div>
+			</div>
+			<div class="form-group">
+				<label>Expertise</label>
+				<textarea name="expertise" class="form-control">{{ user.expertise }}</textarea>
+				<div class="invalid-feedback">
+					Please enter a value.
+				</div>
+			</div>
+			<div class="form-group">
+				<label>Institution's Instrumentation</label>
+				<textarea name="instrumentation" class="form-control">{{ user.instrumentation }}</textarea>
+				<div class="invalid-feedback">
+					Please enter a value.
+				</div>
+			</div>
+			<div class="form-group">
+				<label>Background & Research Interests</label>
+				<textarea name="biography" class="form-control">{{ user.biography }}</textarea>
+				<div class="invalid-feedback">
+					Please enter a value.
+				</div>
+			</div>
+			<button class="nanobtn" type="submit">Update User</button>
+		</form>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+	{{ parent() }}
+	<script>
+		$(document).ready(function () {
+			bsCustomFileInput.init();
+		});
+	</script>
+{% endblock %}

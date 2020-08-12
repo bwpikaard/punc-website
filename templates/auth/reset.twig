@@ -1,0 +1,35 @@
+{% extends "template.twig" %}
+
+{% block title %}Reset Password | Nano Cooperative{% endblock %}
+
+{% block head %}
+    {{ parent() }}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <link rel="stylesheet" href="/css/login.css">
+{% endblock %}
+
+{% block body %}
+    <div class="login">
+        <div class="panel">
+            <h2>Reset Password</h2>
+            <br>
+            {% if error %}
+                <div class="error">
+                    <h6><i class="fas fa-times-circle"></i> {{ error }}</h6>
+                </div>
+            {% endif %}
+            <form class="needs-validation" action="/auth/reset" method="post" novalidate>
+                <div class="form-group mb-1">
+                    <label for="email">Email</label>
+                    <input name="email" type="email" class="form-control" id="email" value="{{ data.email }}" required>
+                    <div class="invalid-feedback">
+                        Please enter a email.
+                    </div>
+                </div>
+                <small><a class="nanolink" href="/auth/login">Login Instead</a></small>
+                <div class="g-recaptcha" data-sitekey="6LdRoaUZAAAAACC6Tzktcty8LxsSF5WO8qk9ksS1"></div>
+                <button type="submit" class="btn-submit">Reset Password</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

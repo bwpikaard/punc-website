@@ -2,6 +2,8 @@ body {
     font-family: 'Poppins', sans-serif;
     background-color: #eee;
     min-height: 100vh;
+    margin: 0;
+    padding: 0;
 }
 
 .login {
@@ -13,14 +15,30 @@ body {
 
 .login .panel {
     display: flex;
+    position: relative;
     flex-direction: column;
     border-radius: 2px;
-    width: 350px;
-    padding: 60px 40px;
+    min-width: 350px;
+    max-width: 420px;
+    padding: 60px 0;
+    margin: 2rem;
     background-color: white;
     box-shadow: 0 5px 10px 0 rgba(0,0,0,.1);
     -moz-box-shadow: 0 5px 10px 0 rgba(0,0,0,.1);
     -webkit-box-shadow: 0 5px 10px 0 rgba(0,0,0,.1);
+}
+
+.login .panel > *:not(.error) {
+    padding: 0 40px;
+}
+
+.login .panel #back {
+    position: absolute;
+    top: .5rem;
+    left: .5rem;
+    padding: 0;
+    font-size: 0.75em;
+    font-weight: bold;
 }
 
 .login img {
@@ -32,6 +50,10 @@ body {
 .login .panel h2 {
     text-align: center;
     font-weight: bold;
+}
+
+.login .panel form {
+    margin: 0;
 }
 
 .login .panel form input {
@@ -62,6 +84,18 @@ body {
     transition: background-color 0.5s ease;
 }
 
+.nanolink {
+    display: block;
+    margin-bottom: 1rem;
+    color: #003a86;
+    text-decoration: none !important;
+    transition: color .5s ease;
+}
+
+.nanolink:hover {
+    color: var(--secondary-dark-color);
+}
+
 .login .panel form .btn-submit:hover {
     background-color: #3f3f3f;
 }
@@ -81,4 +115,25 @@ body {
 
 .login .panel .signup a:hover {
     color: #1D1C28;
+}
+
+.login .panel .error {
+    background-color: #ff3232;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login .panel .error h6 {
+    margin: 0;
+    color: white;
+}
+
+.g-recaptcha>div {
+    margin: 10px auto;
+}
+
+.red {
+    color: red;
+    font-size: 8px;
 }

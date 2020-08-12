@@ -1,0 +1,32 @@
+{% extends "template.twig" %}
+
+{% block pageclass %}members{% endblock %}
+
+{% block content %}
+    <div class="section-content">
+        <div class="divider">Organization Members</div>
+        <ul class="users">
+            {% for nuser in users %}
+                <li>
+                    <div class="image">
+                        <img src="/images/users/{{ nuser.id }}.png?{{ random() }}" onerror="this.src='/images/missing.png'">
+                        <div class="institution">
+                            <!--<img src="/images/institutions/roanoke-college.jpg" />-->
+                            {{ nuser.institution }}
+                        </div>
+                    </img>
+                    </div>
+                    <div class="information">
+                        <h4><a class="nlink" href="/members/{{ nuser.id }}">{{ nuser.firstname }} {{ nuser.lastname }}</a></h4>
+                        <small>Expertise</small>
+                        <h6>{{ nuser.expertise }}</h6>
+                        <small>Instrumentation</small>
+                        <h6>{{ nuser.instrumentation }}</h6>
+                        <small>Background & Research Interests</small>
+                        <p class="biography">{{ nuser.biography }}</p>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

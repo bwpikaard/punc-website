@@ -1,0 +1,59 @@
+{% extends "template.twig" %}
+
+{% block pageclass %}admin post
+{% endblock %}
+
+{% block content %}
+	<div class="section-content">
+        <div class="white-set">
+            <form action="/admin/posts/{{ post.id ? post.id : "new" }}" method="post">
+                <input type="hidden" name="method" value="{% if post %}PATCH{% else %}POST{% endif %}">
+                <input class="form-control mb-2" name="title" type="text" placeholder="Post Title" id="post-title" value="{{ post.title }}" required>
+                <textarea name="content" id="summernote" required>{{ post.content }}</textarea>
+                <button class="nanobtn mt-2" type="submit">{% if post %}Update{% else %}Create{% endif %}</button>
+            </form>
+            {% if post %}<button type="button" class="nanobtn nanobtn-red" data-toggle="modal" data-target="#confirm-delete">Delete Post</button>{% endif %}
+        </div>
+	</div>
+{% endblock %}
+
+{% block modals %}
+	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Are you sure?</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p style="margin: 0;">Are you sure you want to delete this post?</p>
+                    <br>
+                    <button class="nanobtn nanobtn-light" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="nanobtn nanobtn-red" href="/admin/posts/{{ post.id }}/delete">Delete Post</a>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        $('#summernote').summernote({
+            toolbar: [
+                ["do", ["undo", "redo"]],
+                ["style1", ["fontname", "fontsize", "height", "color"]],
+                ["style2", ["bold","italic","underline", "strikethrough", "superscript", "subscript", "clear"]],
+                ["style3", ["style", "ol", "ul", "paragraph"]],
+                ["insert", ["picture", "link", "video", "table", "hr"]],
+                ["misc", ["fullscreen"]],
+                ["help", ["help"]]
+            ],
+            placeholder: "Write your article here.",
+            codeviewFilter: true,
+            codeviewIframeFilter: true
+        });
+    </script>
+{% endblock %}

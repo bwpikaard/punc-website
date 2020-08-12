@@ -1,0 +1,73 @@
+{% extends "template.twig" %}
+
+{% block pageclass %}admin users
+{% endblock %}
+
+{% block content %}
+	<div class="section-content">
+		<div class="nanolist white-set">
+			<div class="table-header">
+				<div class="header-left">
+					<h5>Users</h5>
+				</div>
+				<form class="header-right form-inline search" onsubmit="return false;">
+					<div class="form-group">
+						<input type="radio" name="approved-filter" id="users-all" value="1" checked>
+						<label for="users-all">All Users</label>
+						<input type="radio" name="approved-filter" id="users-pending" value="2">
+						<label for="users-pending">Pending Users</label>
+						<input type="radio" name="approved-filter" id="users-approved" value="3">
+						<label for="users-approved">Approved Users</label>
+					</div>
+					<input class="form-control mr-sm-2" id="search" type="search" onsearch="filter" placeholder="Search">
+				</form>
+			</div>
+			<div class="table-responsive">
+				<table class="table table-sm" cellspacing="0" width="100%">
+					<tbody>
+						{% for nuser in users %}
+							<tr data-approved="{{ nuser.approved }}">
+								<td>
+									<img class="avatar" src="/images/users/{{ nuser.id }}.png?{{ random() }}" onerror="this.src='/images/missing.png'">
+								</td>
+								<td>
+									<a class="nlink" href="/admin/users/{{ nuser.id }}">{{ nuser.firstname ~ " " ~ nuser.lastname}}</a>
+								</td>
+								<td></td>
+								<td>{{ nuser.email }}</td>
+								<td>{{ nuser.institution }}</td>
+								<td>{{ ["Unlisted", "Listed"][nuser.type] }}</td>
+								<td>{{ ["Disabled", "Enabled"][nuser.status] }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+	{{ parent() }}
+	<script>
+		function filter() {
+			const searchFilter = $("#search").val().toLowerCase();
+			const appFilter = $(".search input[type='radio']:checked").val();
+
+			$(".nanolist table tr").filter(function () {
+				$(this).toggle(
+					$(this).text().toLowerCase().indexOf(searchFilter) > -1 &&
+					(appFilter == 1 ? $(this).data("approved") == 0 || $(this).data("approved")  == 1 : 
+					appFilter == 2 ? $(this).data("approved") == 0 : 
+					$(this).data("approved") == 1)
+				)
+			});
+		}
+
+		$(document).ready(function () {
+			$("#search").on("keyup", filter);
+			$('#search').on("search", filter);
+			$("input[type='radio']").click(filter);
+		});
+	</script>
+{% endblock %}

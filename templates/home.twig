@@ -1,0 +1,106 @@
+{% extends "template.twig" %}
+
+{% block title %}Nano Cooperative
+{% endblock %}
+
+{% block bodyclass %}landing
+{% endblock %}
+{% block pageclass %}home
+{% endblock %}
+
+{% block content %}
+	<div class="banner">
+		<ul class="cover">
+			<li>
+				<span>P</span>rimarily</li>
+			<li>
+				<span>U</span>ndergraduate</li>
+			<li>
+				<span>N</span>anomaterials</li>
+			<li>
+				<span>C</span>ooperative</li>
+		</ul>
+	</div>
+	<div class="section-content information">
+		<div class="col-lg-4">
+			<i class="{{ configuration["index-information-1-icon"] }}"></i>
+			<div class="flex-content">
+				<p class="title">{{ configuration["index-information-1"] }}</p>
+				<p class="body">{{ configuration["index-information-1-content"] }}</p>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<i class="{{ configuration["index-information-2-icon"] }}"></i>
+			<div class="flex-content">
+				<p class="title">{{ configuration["index-information-2"] }}</p>
+				<p class="body">{{ configuration["index-information-2-content"] }}</p>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<i class="{{ configuration["index-information-3-icon"] }}"></i>
+			<div class="flex-content">
+				<p class="title">{{ configuration["index-information-3"] }}</p>
+				<p class="body">{{ configuration["index-information-3-content"] }}</p>
+			</div>
+		</div>
+	</div>
+	<br><br>
+	<div class="section-content information justify-content-center dark">
+		<div class="col-lg-5">
+			<div class="flex-content center">
+				<p class="title" style="font-size: 24px;">Becoming a Member</p>
+				<p class="content">Fill out the form below to request membership. It will be submitted to the organization managers and you will be notified when a decision is made.</p>
+				<a href="/auth/register" class="nanobtn nanobtn-white" style="margin-top: 10px;">Request Membership</a>
+			</div>
+		</div>
+	</div>
+	<div class="divider">Recent Updates</div>
+	<div class="section-content posts">
+		<div class="frame">
+			{% for post in posts %}
+				<div class="post">
+					<h2 class="title">{{ post.title }}</h2>
+					<p class="author">By
+						<a class="nlink" href="/members/{{ post.author }}">{{ post.author_firstname ~ " " ~ post.author_lastname }}</a>
+						on
+						{{ post.created|date("l\\, F jS\\, Y \\a\\t g:iA") }}
+					</p>
+					<div class="content">{{ post.content|raw }}</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
+
+{% block modals %}
+	<div class="modal fade" id="requested" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Membership Requested</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p style="margin: 0;">Your request has been sumitted. You will be notified when a decision is made.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+	{{ parent() }}
+	<script>
+		if (window.location.search.includes("requested")) $("#requested").modal("show");
+
+		$(window).scroll(function () {
+			if ($(document).scrollTop() > 10) {
+				$('nav').addClass('affix');
+			} else {
+				$('nav').removeClass('affix');
+			}
+		});
+	</script>
+{% endblock %}

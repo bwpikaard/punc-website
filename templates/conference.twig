@@ -1,0 +1,37 @@
+{% extends "template.twig" %}
+
+{% block title %}Conference | Nano Cooperative
+{% endblock %}
+
+{% block pageclass %}conference
+{% endblock %}
+
+{% block content %}
+	<div class="banner">
+		<ul class="cover">
+			<li><span><b>Nano Cooperative</b></span></li>
+			<li>Upcoming Conference</li>
+		</ul>
+	</div>
+	<div class="section-content information">
+		<div class="col-lg-4">
+			<i class="{{ configuration["conference-information-1-icon"] }}"></i>
+			<div class="flex-content">
+				<p class="title">{{ configuration["conference-information-1"] }}</p>
+				<p class="content">{{ configuration["conference-information-1-content"] }}</p>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<i class="{{ configuration["conference-information-2-icon"] }}"></i>
+			<div class="flex-content">
+				<p class="title">{{ configuration["conference-information-2"] }}</p>
+				<p class="content">{{ configuration["conference-information-2-content"] }}</p>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="flex-content">
+				<img class="photograph" src="/images/content/{{ configuration["conference-information-3"] }}"/>
+			</div>
+		</div>
+	</div>
+{% endblock %}

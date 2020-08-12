@@ -1,0 +1,127 @@
+<html lang="en">
+	<head>
+		{% block head %}
+			<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width,initial-scale=1">
+            <meta name="turbolinks-visit-control" content="reload">
+			<title>{% block title %}Nano Cooperative{% endblock %}</title>
+            <link rel="dns-prefetch" href="https://stackpath.bootstrapcdn.com"/>
+            <link rel="dns-prefetch" href="https://code.jquery.com"/>
+            <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+            <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
+            <link rel="dns-prefetch" href="https://cdn.datatables.net"/>
+			<meta property="og:type" content="website">
+            <meta property="og:url" content="https://nanocooperative.com">
+            <meta property="og:title" content="Nano Cooperative">
+            <meta property="og:description" content="Primarily Undergraduate Nanomaterials Cooperative (PUNC)">
+            <meta property="og:site_name" content="Nano Cooperative">
+            <meta property="og:image" content="https://nanocooperative.com/images/icon.png">
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+			<script src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>
+			<script src="https://kit.fontawesome.com/2439580dcc.js" crossorigin="anonymous"></script>
+            <script src="https://unpkg.com/nprogress@0.2.0/nprogress.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
+			<script src="/js/index.js"></script>
+            <link href="/images/a.png" rel="icon" type="image/x-icon">
+			<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css">
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css">
+            <link rel="stylesheet" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>
+            <link rel="stylesheet" href="/css/main.css">
+		{% endblock head %}
+	</head>
+	<body class="{% block bodyclass %}{% endblock bodyclass %}">
+        {% block body %}
+            <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand" href="/">
+                    <span>Nano Cooperative</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMainCollapse" aria-controls="navbarMainCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarMainCollapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/members" tabindex="-1">Members</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/conference" tabindex="-1">Conference</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        {% if user %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="/me" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">{{ user.firstname }}</a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="/me">Profile</a>
+                                    {% if user.role_id == 2 %}
+                                        <div class="dropdown-divider"></div>
+                                        <h6 class="dropdown-header">Admin</h6>
+                                        <a class="dropdown-item" href="/admin/users">Users</a>
+                                        <a class="dropdown-item" href="/admin/posts">Posts</a>
+                                        <a class="dropdown-item" href="/admin/configuration">Configuration</a>
+                                    {% endif %}
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="/auth/logout">Log Out</a>
+                                </div>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/auth/login" tabindex="-1">Login</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+            <div class="page {% block pageclass %}{% endblock %}">
+                {% block page %}
+                    <div class="content">{% block content %}{% endblock content %}</div>
+                    <footer>
+                        <div class="columns">
+                            <div class="col-xs-12 col-md-3">
+                                <p>Nano Cooperative</p>
+                                <a href="/members">Members</a>
+                                <a href="/conference">Conference</a>
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <p>Support</p>
+                                <a href="mailto:shughes@roanoke.edu">Contact</a>
+                            </div>
+                            <div class="flex-grow"></div>
+                        </div>
+                        <div class="service">
+                            <div class="left">
+                                <p>Copyright © 2019 Nano Cooperative All Rights Reserved</p>
+                            </div>
+                            <!--<div class="right">
+                                <a href="/legal/terms">Terms of Service</a>
+                                <a href="/legal/privacy">Privacy Policy</a>
+                            </div>-->
+                        </div>
+                    </footer>
+                {% endblock page %}
+            </div>
+            {% block modals %}{% endblock modals %}
+        {% endblock body %}
+    </body>
+</html>
+
+{% block scripts %}
+<script type="text/javascript">
+    $(document).ready(() => {
+        $(".dropdown").hover(function(){
+            $(this).children(".dropdown-toggle").toggleClass("dropdown-active");
+            $(this).children(".dropdown-menu").toggleClass("show");
+        });
+        
+        $(".needs-validation").submit(event => {
+            if (!event.target.checkValidity()) event.preventDefault();
+            
+            $(event.target).addClass('was-validated');
+        });
+    });
+</script>
+{% endblock %}

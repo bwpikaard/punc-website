@@ -1,0 +1,167 @@
+{% extends "template.twig" %}
+
+{% block pageclass %}admin user
+{% endblock %}
+
+{% block content %}
+	<div class="section-content">
+		{% if nuser.approved == 0 %}
+			<div class="notice">
+				<h6>
+					<i class="fas fa-exclamation-circle"></i>
+					This user has not been approved.
+					<a class="nanobtn nanobtn-sm nanobtn-green" href="/admin/users/{{ nuser.id }}/approve">Approve</a>
+					<a class="nanobtn nanobtn-sm nanobtn-red" href="/admin/users/{{ nuser.id }}/delete">Delete</a>
+				</h6>
+			</div>
+		{% endif %}
+		<div class="card mb-3">
+			<div class="row no-gutters" id="upload-image">
+				<div>
+					<img class="card-img" src="/images/users/{{ nuser.id }}.png?{{ random() }}" onerror="this.src='/images/missing.png'">
+				</div>
+				<div>
+					<div class="card-body">
+						<h5 class="card-title">Change Image</h5>
+						<form class="needs-validation mb-0" action="/admin/users/{{ nuser.id }}/image" method="post" enctype="multipart/form-data" novalidate>
+							<input type="hidden" name="location" value="users">
+							<div class="input-group mb-3">
+								<div class="custom-file">
+									<input type="file" name="image" class="custom-file-input" id="imageInput" accept=".png,.jpg" required>
+									<label class="custom-file-label" for="imageInput">Choose file</label>
+								</div>
+							</div>
+							<button class="nanobtn nanobtn-sm" type="submit">Upload</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card mb-3">
+			<div class="row no-gutters" id="upload-image">
+				<div>
+					<img class="card-img" src="/images/institutions/{{ nuser.id }}.png?{{ random() }}" onerror="this.src='/images/missing.png'">
+				</div>
+				<div>
+					<div class="card-body">
+						<h5 class="card-title">Change Institution Image</h5>
+						<form class="needs-validation mb-0" action="/admin/users/{{ nuser.id }}/image" method="post" enctype="multipart/form-data" novalidate>
+							<input type="hidden" name="location" value="institutions">
+							<div class="input-group mb-3">
+								<div class="custom-file">
+									<input type="file" name="image" class="custom-file-input" id="imageInput" accept=".png,.jpg" required>
+									<label class="custom-file-label" for="imageInput">Choose file</label>
+								</div>
+							</div>
+							<button class="nanobtn nanobtn-sm" type="submit">Upload</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<form class="needs-validation" action="/admin/users/{{ nuser.id }}" method="post" enctype="multipart/form-data" novalidate>
+			<input name="id" type="hidden" value="{{ nuser.id }}">
+			<input name="method" type="hidden" value="PATCH">
+			<div class="form-group">
+				<label>Type</label>
+				<div class="spacer"></div>
+				<input type="radio" name="type" id="unlisted" {% if nuser.type == 0 %} checked {% endif %} value="0">
+				<label for="unlisted">Unlisted</label>
+				<div class="spacer"></div>
+				<input type="radio" name="type" id="listed" {% if nuser.type == 1 %} checked {% endif %} value="1">
+				<label for="listed">Listed</label>
+			</div>
+			<div class="form-group">
+				<label>Status</label>
+				<div class="spacer"></div>
+				<input type="radio" name="status" id="disabled" {% if nuser.status == 0 %} checked {% endif %} value="0">
+				<label for="disabled">Disabled</label>
+				<div class="spacer"></div>
+				<input type="radio" name="status" id="enabled" {% if nuser.status == 1 %} checked {% endif %} value="1">
+				<label for="enabled">Enabled</label>
+			</div>
+			<div class="form-group">
+				<label>Role</label>
+				<div class="spacer"></div>
+				<input type="radio" name="role_id" id="user" {% if nuser.role_id == 1 %} checked {% endif %} value="1">
+				<label for="user">User</label>
+				<div class="spacer"></div>
+				<input type="radio" name="role_id" id="administrator" {% if nuser.role_id == 2 %} checked {% endif %} value="2">
+				<label for="administrator">Administrator</label>
+			</div>
+			<div class="form-group">
+				<label>First Name</label>
+				<input name="firstname" type="text" class="form-control" value="{{ nuser.firstname }}" required>
+				<div class="invalid-feedback">
+					Please enter a value.
+				</div>
+			</div>
+			<div class="form-group">
+				<label>Last Name</label>
+				<input name="lastname" type="text" class="form-control" value="{{ nuser.lastname }}" required>
+				<div class="invalid-feedback">
+					Please enter a value.
+				</div>
+			</div>
+			<div class="form-group">
+				<label>Username</label>
+				<input name="username" type="text" class="form-control" value="{{ nuser.username }}" required>
+				<div class="invalid-feedback">
+					Please enter a value.
+				</div>
+			</div>
+			<div class="form-group">
+				<label>Email</label>
+				<input name="email" type="text" class="form-control" value="{{ nuser.email }}" required>
+				<div class="invalid-feedback">
+					Please enter a value.
+				</div>
+			</div>
+			<div class="form-group">
+				<label>Website URL</label>
+				<input name="website" type="text" class="form-control" value="{{ nuser.website }}">
+				<div class="invalid-feedback">
+					Please enter a value.
+				</div>
+			</div>
+			<div class="form-group">
+				<label>Institution</label>
+				<input name="institution" type="text" class="form-control" value="{{ nuser.institution }}">
+				<div class="invalid-feedback">
+					Please enter a value.
+				</div>
+			</div>
+			<div class="form-group">
+				<label>Expertise</label>
+				<textarea name="expertise" class="form-control">{{ nuser.expertise }}</textarea>
+				<div class="invalid-feedback">
+					Please enter a value.
+				</div>
+			</div>
+			<div class="form-group">
+				<label>Institution's Instrumentation</label>
+				<textarea name="instrumentation" class="form-control">{{ nuser.instrumentation }}</textarea>
+				<div class="invalid-feedback">
+					Please enter a value.
+				</div>
+			</div>
+			<div class="form-group">
+				<label>Background & Research Interests</label>
+				<textarea name="biography" class="form-control">{{ nuser.biography }}</textarea>
+				<div class="invalid-feedback">
+					Please enter a value.
+				</div>
+			</div>
+			<button class="nanobtn" type="submit">Update User</button>
+		</form>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+	{{ parent() }}
+	<script>
+		$(document).ready(function () {
+			bsCustomFileInput.init();
+		});
+	</script>
+{% endblock %}

@@ -1,0 +1,797 @@
+:root {
+    --main-dark-color: #1a1a1a;
+    --secondary-dark-color: #343a40;
+    --secondary-dark-transparent-color: #343a4023;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #eee;
+    min-height: 100vh;
+    padding-top: calc(40px + .4rem);
+}
+
+/* --------------------[ NAVBAR ]-------------------- */
+
+.navbar {
+    padding: .2rem 3rem;
+    background-color: var(--main-dark-color) !important;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .2);
+    -moz-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .2);
+    -webkit-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .2);
+}
+
+.navbar .navbar-brand {
+    font-weight: bold;
+}
+
+.navbar .navbar-brand-image {
+    height: 30px;
+    float: left;
+    margin-right: 10px;
+}
+
+.navbar .navbar-nav .nav-item .nav-link {
+    padding: .5rem 0rem;
+    margin: 0 .5rem;
+    position: relative;
+    transition: color ease .5s;
+}
+
+.navbar .navbar-nav .nav-item.dropdown .dropdown-menu {
+    margin: 0;
+}
+
+.navbar .navbar-nav .nav-item.dropdown .dropdown-menu .dropdown-header {
+    text-transform: uppercase;
+    font-size: 12px;
+    padding: .5rem 1.5rem 0 1.5rem;
+}
+
+/* --------------------[ NANOBTN ]-------------------- */
+
+.nanobtn {
+    display: inline-block;
+    padding: 3px 14px;
+    font-size: 16px;
+    border: none;
+    border-radius: 2px;
+    color: white;
+    background-color: var(--main-dark-color);
+    transition: background-color 0.25s ease;
+}
+
+.nanobtn:hover {
+    text-decoration: none;
+    color: white;
+    background-color: var(--secondary-dark-color);
+}
+
+.nanobtn-sm {
+    padding: 2px 10px;
+    font-size: 14px;
+}
+
+.nanobtn-light {
+    background-color: #6c757d;
+}
+
+.nanobtn-light:hover {
+    background-color: #5a6268;
+}
+
+.nanobtn-red {
+    background-color: #bd3434;
+}
+
+.nanobtn-red:hover {
+    background-color: #752a2a;
+}
+
+.nanobtn-green {
+    background-color: #53a153;
+}
+
+.nanobtn-green:hover {
+    background-color: #3d703d;
+}
+
+.nanobtn-white {
+    background-color: white;
+    color: black;
+}
+
+.nanobtn-white:hover {
+    background-color: #9e9e9e;
+    color: black;
+}
+
+.nanobtn.disabled {
+    pointer-events: none;
+    opacity: .65;
+}
+
+.nanolink {
+    color: #003a86;
+    text-decoration: none !important;
+    transition: color .5s ease;
+}
+
+.nanolink:hover {
+    color: var(--secondary-dark-color);
+}
+
+.nanolink-light {
+    color: #0066ec;
+}
+
+.nanolink-light:hover {
+    color: #003a86;
+}
+
+.nanolink.disabled {
+    pointer-events: none;
+    opacity: .65;
+}
+
+/* --------------------[ PAGE ]-------------------- */
+
+.page .content .section-title {
+    text-transform: uppercase;
+    display: block;
+    margin: 10px 0;
+    padding: 6px 0;
+    font-size: 24px;
+    text-align: center;
+    background-color: #2E3192;
+    color: white;
+    text-shadow: 1px 1px black;
+}
+
+.page .content .divider {
+    margin: 40px 0 20px 0;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    width: 100%;
+    padding: .1rem 0;
+    text-align: center;
+    color: white;
+    background-color: var(--main-dark-color);
+}
+
+.page .content .section-subtitle {
+    font-size: 20px;
+}
+
+.page .content .section-content.dark {
+    background-color: var(--main-dark-color);
+    color: white;
+}
+
+.page .content .section-content {
+    padding: 1rem 2rem;
+}
+
+.page .content .banner {
+    height: 28rem;
+    margin-bottom: 40px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.page.home .content .banner {
+    background-image: url(/images/splash.png);
+}
+
+.page.conference .content .banner {
+    background-image: url(/images/roanokecollegecampus.jpg);
+}
+
+.page .content .banner .cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    padding-left: 10em;
+    list-style-type: none;
+    background-color: #1a1a1a70;
+}
+
+.page .content .banner .cover li {
+    color: white;
+    font-size: 2.4em;
+}
+
+.page .content .banner .cover span {
+    font-size: 1.4em;
+}
+
+.white-set {
+    background-color: white;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1);
+    -moz-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1);
+    -webkit-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1);
+    padding: 1rem;
+}
+
+/* --------------------[ NANOLIST ]-------------------- */
+
+.page .nanolist .table-header {
+    display: flex;
+    align-items: center;
+}
+
+.page .nanolist .table-header .header-left {
+    display: flex;
+}
+
+.page .nanolist .table-header .header-left h5 {
+    margin: 0;
+    font-weight: bold;
+}
+
+.page .nanolist .table-header .header-left a {
+    margin-left: .5rem;
+}
+
+.page .nanolist .table-header .header-right {
+    margin: 0 0 0 auto;
+    display: inline-flex;
+}
+
+.page .nanolist .table-header .header-right.form-inline input[type="radio"] {
+    margin-right: .25rem;
+}
+
+.page .nanolist .table-header .header-right.form-inline label {
+    margin-right: 1rem;
+}
+
+.page .nanolist .table-responsive table {
+    margin-top: 6px;
+    margin-bottom: 0;
+    border-collapse: collapse !important;
+}
+
+.page .nanolist .table-responsive table tbody tr td {
+    padding: 1rem 1rem;
+    line-height: 32px;
+}
+
+.page .nanolist .table-responsive table tbody tr td .avatar {
+    height: 2rem;
+    width: 2rem;
+    object-fit: contain;
+    border-radius: 100%;
+}
+
+/* --------------------[ HOME ]-------------------- */
+
+.page.home .content .section-content {
+    padding: .5rem 4rem;
+}
+
+.page.home .content .information {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.page.home .content .information>div {
+    display: flex;
+    flex-direction: row;
+}
+
+.page.home .content .information>div i {
+    font-size: 30px;
+    color: #1D1C28;
+    margin: 6px 18px;
+}
+
+.page.home .content .information>div .flex-content {
+    flex-grow: 1;
+}
+
+.page.home .content .information>div .flex-content .title {
+    font-size: 20x;
+    margin: 0;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.page.home .content .information>div .flex-content.center {
+    text-align: center;
+}
+
+.page.home .content .information>div .flex-content .content {
+    font-size: 14px;
+    margin: 0;
+}
+
+/* --------------------[ CONFERENCE ]-------------------- */
+
+.page.conference .content .section-content {
+    padding: .5rem 1rem;
+}
+
+.page.conference .content .information {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.page.conference .content .information>div {
+    display: flex;
+    flex-direction: row;
+}
+
+.page.conference .content .information>div i {
+    font-size: 30px;
+    color: #1D1C28;
+    margin: 6px 18px;
+}
+
+.page.conference .content .information>div .flex-content {
+    flex-grow: 1;
+}
+
+.page.conference .content .information>div .flex-content .title {
+    font-size: 20x;
+    margin: 0;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.page.conference .content .information>div .flex-content.center {
+    text-align: center;
+}
+
+.page.conference .content .information>div .flex-content .content {
+    font-size: 14px;
+    margin: 0;
+}
+
+.page.conference .content .photograph {
+    width: 100%;
+    height: 500px;
+    object-fit: contain;
+    margin: 0 auto;
+}
+
+/* --------------------[ USERS ]-------------------- */
+
+/* --------------------[ USER ]-------------------- */
+
+.page.user .section-content {
+    padding: 1rem 20%;
+}
+
+.page.user .spacer {
+    display: inline-block;
+    width: 1rem;
+}
+
+.page.user #upload-image img {
+    height: 10rem;
+    width: 10rem;
+    object-fit: contain;
+}
+
+.page.user form input {
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid #7e7e7e;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    transition: all 0.5s ease;
+}
+
+.page.user form input:disabled {
+    background-color: #dadada;
+}
+
+.page.user form input:focus {
+    background-color: white;
+    border-color: var(--secondary-dark-color);
+}
+
+.page.user form textarea {
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid #7e7e7e;
+    background-color: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    transition: all 0.5s ease;
+}
+
+.page.user form textarea:focus {
+    background-color: white;
+}
+
+.page.user .notice {
+    background-color: var(--main-dark-color);
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.page.user .notice h6 {
+    margin: 0;
+    color: white;
+}
+
+/* --------------------[ MEMBERS ]-------------------- */
+
+.page.members .users {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.page.members .users li {
+    background-color: white;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1);
+    -moz-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1);
+    -webkit-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1);
+    display: flex;
+    padding: 1rem;
+    margin: 1rem 0;
+    max-height: calc(240px + 2rem);
+}
+
+.page.members .users .image {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.page.members .users .image>img {
+    height: 15rem;
+    width: 15rem;
+    object-fit: contain;
+}
+
+.page.members .users .image .institution {
+    position: absolute;
+    bottom: 15;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    color: white;
+    background-color: var(--main-dark-color);
+}
+
+.page.members .users .image .institution img {
+    display: block;
+    height: 4rem;
+    width: 4rem;
+    object-fit: contain;
+    margin-right: .5rem;
+}
+
+.page.members .users li .information {
+    overflow: hidden;
+    padding-left: 1rem;
+}
+
+.page.members .users li .information .biography {
+    white-space: pre-line;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.page.members .divider {
+    margin-top: 0;
+}
+
+/* --------------------[ MEMBER ]-------------------- */
+
+.page.member .section-content .member {
+    background-color: white;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1);
+    -moz-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1);
+    -webkit-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1);
+    padding: 1rem;
+}
+
+.page.member .section-content .header {
+    display: flex;
+}
+
+.page.member .section-content .member .header .image {
+    height: calc(16rem + 8px);
+    width: calc(16rem + 8px);
+    padding: 4px;
+    border-radius: 100%;
+    background-color: #cacaca8e;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1);
+    -moz-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1);
+    -webkit-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .1);
+}
+
+.page.member .section-content .member .header .image img {
+    height: 16rem;
+    width: 16rem;
+    object-fit: contain;
+    border-radius: 100%;
+}
+
+.page.member .section-content .header .details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 2rem;
+}
+
+.page.member .section-content .header .details .website {
+    display: block;
+    max-width: 500px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.page.member .section-content .body {
+    padding: 1rem 2rem 0 2rem;
+}
+
+.page.member .section-content .footer {
+    display: flex;
+    margin-top: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.page.member .section-content .footer img {
+    height: 10rem;
+    width: 10rem;
+    object-fit: contain;
+    margin-right: 3rem;
+}
+
+/* --------------------[ POSTS ]-------------------- */
+
+/* --------------------[ POST ]-------------------- */
+
+.page.post form input {
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid #7e7e7e;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    transition: all 0.5s ease;
+}
+
+.page.post form input:focus {
+    background-color: white;
+    border-color: var(--secondary-dark-color);
+}
+
+/* --------------------[ MODAL ]-------------------- */
+
+.modal .btn.action {
+    background-color: #1D1C28;
+    color: white;
+}
+
+.modal .btn.action:hover {
+    background-color: #3f3f3f;
+}
+
+.modal .modal-content {
+    background: transparent;
+}
+
+.modal .modal-content .modal-header {
+    background-color: #1D1C28;
+    color: white;
+}
+
+.modal .modal-content .modal-header .close {
+    color: white;
+}
+
+.modal .modal-content .modal-body {
+    background-color: white;
+    border-bottom-left-radius: .3rem;
+    border-bottom-right-radius: .3rem;
+}
+
+.modal .modal-content .modal-footer {
+    background-color: white;
+}
+
+/* --------------------[ FOOTER ]-------------------- */
+
+footer {
+    background-color: var(--main-dark-color);
+    padding: 2rem 2rem 0.5rem 2rem;
+    margin-top: 10px;
+}
+
+footer .columns {
+    display: flex;
+}
+
+footer .columns .flex-grow {
+    flex-grow: 1;
+}
+
+footer .columns div p {
+    margin: 0;
+}
+
+footer .columns div p:first-of-type {
+    font-size: .9rem;
+    margin-bottom: .5rem;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+footer .columns div a {
+    display: block;
+    font-size: .9rem;
+    color: #6e6e6e;
+    text-decoration: none;
+}
+
+footer .columns div a:hover {
+    color: white;
+}
+
+footer .columns div.socialmedia {
+    padding: 0 15px;
+}
+
+footer .columns div.socialmedia a {
+    display: inline-block;
+    padding: 8px;
+    border-radius: 100%;
+    background-color: #6e6e6e;
+}
+
+footer .columns div.socialmedia a:hover {
+    background-color: white;
+}
+
+footer .columns div.socialmedia a img {
+    height: 20px;
+}
+
+footer .service {
+    display: flex;
+    border-top: 1px solid #414141;
+    margin-top: 20px;
+    padding: 20px 10px 10px 10px;
+}
+
+footer .service p {
+    color: white;
+    margin: 0;
+    font-size: 0.5rem;
+}
+
+footer .service a {
+    margin: 0 0.25rem;
+    font-size: 0.5rem;
+    color: #6e6e6e;
+    text-decoration: none;
+}
+
+footer .service a:hover {
+    color: white;
+}
+
+footer .service .left {
+    display: inline-flex;
+}
+
+footer .service .right {
+    display: inline-flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
+@media (min-width: 992px) {
+    body.landing {
+        padding-top: calc(40px + 1rem);
+    }
+    .landing .navbar {
+        padding: 1rem 6rem;
+        transition: padding 0.25s ease;
+    }
+    .navbar .navbar-nav .nav-item .nav-link:not(.dropdown-toggle)::after {
+        content: '';
+        position: absolute;
+        width: 0px;
+        height: 2px;
+        left: 50%;
+        bottom: 0;
+        background-color: white;
+        transition: all ease-in-out .2s;
+    }
+    .navbar .navbar-nav .nav-item .nav-link:not(.dropdown-toggle):hover::after {
+        width: 100%;
+        left: 0;
+    }
+    .landing .navbar .navbar-nav .nav-item .nav-link:not(.dropdown-toggle)::after {
+        bottom: -12;
+    }
+    .landing .navbar.affix .navbar-nav .nav-item .nav-link:not(.dropdown-toggle)::after {
+        bottom: 0;
+    }
+    .landing .navbar.affix {
+        padding: .2rem 3rem;
+    }
+    .page.conference .content .section-content {
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .navbar {
+        padding: .2rem .5rem;
+    }
+    .page .content .banner .cover {
+        padding-left: 0;
+    }
+    .page .content .banner .cover li {
+        text-align: center;
+        font-size: 2em;
+    }
+    .page .nanolist .table-header {
+        display: block;
+    }
+    .page.home .content .section-content, .page.conference .content .section-content {
+        padding: .5rem;
+    }
+    .page.home .content .information>div, .page.conference .content .information>div {
+        display: block;
+        margin-top: 1rem;
+    }
+    .page.home .content .information>div i, .page.conference .content .information>div i {
+        width: 100%;
+        margin: 0 0 1rem 0;
+        text-align: center;
+        font-size: 2.5rem;
+    }
+    .page.home .content .information>div .flex-content, .page.conference .content .information>div .flex-content {
+        text-align: center;
+    }
+    .page.user .section-content {
+        padding: 1rem 1rem;
+    }
+    .page.members .content .divider {
+        display: none;
+    }
+    .page.members .users li {
+        flex-direction: column;
+        max-height: none;
+    }
+    .page.member .section-content .member .header {
+        display: block;
+        text-align: center;
+    }
+    .page.member .section-content .member .header .image {
+        margin: 0 auto 1rem auto;
+    }
+    footer .columns {
+        display: block;
+    }
+    footer .service {
+        display: block;
+    }
+    footer .service .left {
+        display: block;
+    }
+    footer .service .right {
+        display: block;
+    }
+}

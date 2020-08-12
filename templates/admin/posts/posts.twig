@@ -1,0 +1,113 @@
+{% extends "template.twig" %}
+
+{% block pageclass %}admin posts
+{% endblock %}
+
+{% block content %}
+	<div class="section-content">
+		<div class="post-list" style="display: none;">
+			<h5 class="tableHeader">Posts
+				<a class="nanobtn nanobtn-sm" href="/admin/posts/new">New Post</a>
+			</h5>
+			<div class="table-responsive">
+				<table class="table table-sm dtFormatting" cellspacing="0" width="100%">
+					<tbody>
+						{% for post in posts %}
+							<tr>
+								<td>
+									<a class="nlink" href="/admin/posts/{{ post.id }}">{{ post.title }}</a>
+								</td>
+								<td>
+									<a class="nlink" href="/members/{{ post.author }}">{{ post.author_firstname ~ " " ~ post.author_lastname }}</a>
+								</td>
+								<td>{{ ["Unpublished", "Published"][post.published] }}</td>
+								<td>
+									{% if post.published %}
+										<a href="/admin/posts/{{ post.id }}/publish">
+											<i class="fas fa-eye-slash"></i>
+										</a>
+									{% else %}
+										<a href="/admin/posts/{{ post.id }}/publish">
+											<i class="fas fa-eye"></i>
+										</a>
+									{% endif %}
+
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="nanolist white-set">
+			<div class="table-header">
+				<div class="header-left">
+					<h5>Posts</h5>
+				</div>
+				<form class="header-right form-inline search" onsubmit="return false;">
+					<div class="form-group">
+						<input type="radio" name="approved-filter" id="posts-all" value="1" checked>
+						<label for="posts-all">All Posts</label>
+						<input type="radio" name="approved-filter" id="posts-unpublished" value="2">
+						<label for="posts-unpublished">Unpublished Posts</label>
+						<input type="radio" name="approved-filter" id="posts-published" value="3">
+						<label for="posts-published">Published Posts</label>
+					</div>
+					<input class="form-control mr-sm-2" id="search" type="search" onsearch="filter" placeholder="Search">
+				</form>
+			</div>
+			<div class="table-responsive">
+				<table class="table table-sm" cellspacing="0" width="100%">
+					<tbody>
+						{% for post in posts %}
+							<tr data-published="{{ post.published }}">
+								<td>
+									<a class="nlink" href="/admin/posts/{{ post.id }}">{{ post.title }}</a>
+								</td>
+								<td>
+									<a class="nlink" href="/members/{{ post.author }}">{{ post.author_firstname ~ " " ~ post.author_lastname }}</a>
+								</td>
+								<td>
+									{{ post.created|date("m\\/d\\/Y g:iA") }}
+								</td>
+								<td>
+									{% if post.published %}
+										<a href="/admin/posts/{{ post.id }}/publish">Unpublish</a>
+									{% else %}
+										<a href="/admin/posts/{{ post.id }}/publish">Publish</a>
+									{% endif %}
+
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+	{{ parent() }}
+	<script>
+		function filter() {
+			const searchFilter = $("#search").val().toLowerCase();
+			const appFilter = $(".search input[type='radio']:checked").val();
+
+			$(".nanolist table tr").filter(function () {
+				$(this).toggle(
+					$(this).text().toLowerCase().indexOf(searchFilter) > -1 &&
+					(appFilter == 1 ? $(this).data("published") == 0 || $(this).data("published")  == 1 : 
+					appFilter == 2 ? $(this).data("published") == 0 : 
+					$(this).data("published") == 1)
+				)
+			});
+		}
+
+		$(document).ready(function () {
+			$("#search").on("keyup", filter);
+			$('#search').on("search", filter);
+			$("input[type='radio']").click(filter);
+		});
+	</script>
+{% endblock %}
