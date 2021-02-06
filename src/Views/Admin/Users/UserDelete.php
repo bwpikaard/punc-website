@@ -15,7 +15,7 @@ final class UserDelete
 
         $con = new Connection();
         
-        $con->alter("DELETE FROM users WHERE id=?", "i", $args["id"]);
+        $con->alter("DELETE FROM user WHERE id=?", "i", $args["id"]);
 
         $con->done();
         
