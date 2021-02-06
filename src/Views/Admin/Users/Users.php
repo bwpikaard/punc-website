@@ -15,7 +15,7 @@ final class Users
 
         $con = new Connection();
         
-        $users = $con->select("SELECT * FROM users");
+        $users = $con->select("SELECT * FROM user");
 
         $con->done();
         

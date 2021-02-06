@@ -15,7 +15,7 @@ final class Me
 
         $con = new Connection();
         
-        $user = $con->select_where("SELECT * FROM users WHERE id=?", "i", $_SESSION["user"]["id"])->fetch_assoc();
+        $user = $con->select_where("SELECT * FROM user WHERE id=?", "i", $_SESSION["user"]["id"])->fetch_assoc();
 
         $con->done();
 

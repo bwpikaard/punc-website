@@ -44,7 +44,7 @@ final class Register
 
             $con = new Connection();
 
-            $user = $con->select_where("SELECT * FROM users WHERE username=?", "s", $body["username"])->fetch_assoc();
+            $user = $con->select_where("SELECT * FROM user WHERE username=?", "s", $body["username"])->fetch_assoc();
 
             if (isset($user))
                 return $view->render($response, 'auth/register.twig', [
@@ -57,15 +57,15 @@ final class Register
             $date = date("Y-m-d H:i:s");
             $password = bin2hex(openssl_random_pseudo_bytes(4));
             $hpassword = password_hash($password, PASSWORD_DEFAULT);
-
-            $req = $con->alter("INSERT INTO users (type, status, approved, role_id, username, password, firstname, lastname, email, website, institution, expertise, instrumentation, biography, created) VALUES (0, 0, 0, 1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '$date')", "ssssssssss", $body["username"], $hpassword, $body["firstname"], $body["lastname"], $body["email"], $body["website"], $body["institution"], $body["expertise"], $body["instrumentation"], $body["biography"]);
+                
+            $req = $con->alter("INSERT INTO user (permission_level, hidden, username, password, firstname, lastname, email, website, institution, expertise, instrumentation, biography, created) VALUES (0, 1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '$date')", "ssssssssss", $body["username"], $hpassword, $body["firstname"], $body["lastname"], $body["email"], $body["website"], $body["institution"], $body["expertise"], $body["instrumentation"], $body["biography"]);
 
             Mailer::send($body["email"], "Membership Request", "{$body["firstname"]},<br><br>Thank you for submitting your membership request with PUNC!<br><br>After your request has been carefully reviewed and accepted, you will be able to use the password below with your account to modify your member page at any time.  This review process may take some time, so we thank you in advance for your patience.  If you are concerned that your request was missed, or you encountered an error in the request process, please email shughes@nanocooperative.org.<br><br>Username: {$body["username"]}<br>Password: $password");
             Mailer::send("shughes@nanocooperative.org", "New Membership Request", "{$body["firstname"]} {$body["lastname"]} submitted a new membership request. <a href=\"https://nanocooperative.org/admin/users/{$req->insert_id}\">View Request</a>");
 
             $con->done();
 
-            return $response->withHeader("Location", "/?requested");
+            return $response->withStatus(200)->withHeader("Location", "/?requested");
         }
     }
 }

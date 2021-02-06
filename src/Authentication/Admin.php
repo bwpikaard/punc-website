@@ -14,7 +14,7 @@ final class Admin
         $response = $handler->handle($request);
 
         if (isset($_SESSION["user"])) {
-            if ($_SESSION["user"]["role_id"] != 2) {
+            if ($_SESSION["user"]["permission_level"] < 3) {
                 return $response->withStatus(403)->withHeader("Location", "/");
             }
         } else {

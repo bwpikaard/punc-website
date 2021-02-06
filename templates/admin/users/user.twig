@@ -5,7 +5,7 @@
 
 {% block content %}
 	<div class="section-content">
-		{% if nuser.approved == 0 %}
+		{% if nuser.permission_level == 0 %}
 			<div class="notice">
 				<h6>
 					<i class="fas fa-exclamation-circle"></i>
@@ -63,31 +63,31 @@
 			<input name="id" type="hidden" value="{{ nuser.id }}">
 			<input name="method" type="hidden" value="PATCH">
 			<div class="form-group">
-				<label>Type</label>
+				<label>Permission Level</label>
 				<div class="spacer"></div>
-				<input type="radio" name="type" id="unlisted" {% if nuser.type == 0 %} checked {% endif %} value="0">
-				<label for="unlisted">Unlisted</label>
-				<div class="spacer"></div>
-				<input type="radio" name="type" id="listed" {% if nuser.type == 1 %} checked {% endif %} value="1">
-				<label for="listed">Listed</label>
-			</div>
-			<div class="form-group">
-				<label>Status</label>
-				<div class="spacer"></div>
-				<input type="radio" name="status" id="disabled" {% if nuser.status == 0 %} checked {% endif %} value="0">
+				<input type="radio" name="permission_level" id="disabled" {% if nuser.permission_level == 0 %} checked {% endif %} value="0">
 				<label for="disabled">Disabled</label>
 				<div class="spacer"></div>
-				<input type="radio" name="status" id="enabled" {% if nuser.status == 1 %} checked {% endif %} value="1">
-				<label for="enabled">Enabled</label>
-			</div>
-			<div class="form-group">
-				<label>Role</label>
-				<div class="spacer"></div>
-				<input type="radio" name="role_id" id="user" {% if nuser.role_id == 1 %} checked {% endif %} value="1">
+				<input type="radio" name="permission_level" id="user" {% if nuser.permission_level == 1 %} checked {% endif %} value="1">
 				<label for="user">User</label>
 				<div class="spacer"></div>
-				<input type="radio" name="role_id" id="administrator" {% if nuser.role_id == 2 %} checked {% endif %} value="2">
-				<label for="administrator">Administrator</label>
+				<input type="radio" name="permission_level" id="editor" {% if nuser.permission_level == 2 %} checked {% endif %} value="2">
+				<label for="editor">Editor</label>
+				<div class="spacer"></div>
+				<input type="radio" name="permission_level" id="admin" {% if nuser.permission_level == 3 %} checked {% endif %} value="3">
+				<label for="admin">Admin</label>
+				<div class="spacer"></div>
+				<input type="radio" name="permission_level" id="superadmin" {% if nuser.permission_level == 4 %} checked {% endif %} value="4">
+				<label for="superadmin">Super Admin</label>
+			</div>
+			<div class="form-group">
+				<label>Hidden</label>
+				<div class="spacer"></div>
+				<input type="radio" name="hidden" id="not_hidden" {% if nuser.hidden == 0 %} checked {% endif %} value="0">
+				<label for="not_hidden">Not Hidden</label>
+				<div class="spacer"></div>
+				<input type="radio" name="hidden" id="hidden" {% if nuser.hidden == 1 %} checked {% endif %} value="1">
+				<label for="hidden">Hidden</label>
 			</div>
 			<div class="form-group">
 				<label>First Name</label>

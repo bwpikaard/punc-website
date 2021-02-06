@@ -9,7 +9,7 @@ use PHPMailer\PHPMailer\Exception;
 final class Mailer {
     public static function send($email, $subject, $body) {
         $mail = new PHPMailer(false);
-            
+        
         $mail->isSMTP();
         $mail->Host       = "smtp.gmail.com";
         $mail->SMTPAuth   = true;

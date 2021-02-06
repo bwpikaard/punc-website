@@ -15,7 +15,7 @@ final class Member
 
         $con = new Connection();
         
-        $user = $con->select_where("SELECT * FROM users WHERE id=? AND ((type=1 AND approved=1) OR role_id=2)", "i", $args["id"])->fetch_assoc();
+        $user = $con->select_where("SELECT * FROM user WHERE id=? AND ((permission_level > 0 AND hidden != 1) OR permission_level >= 3)", "i", $args["id"])->fetch_assoc();
 
         if (empty($user)) return $response->withHeader("Location", "/members");
 

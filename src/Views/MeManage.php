@@ -15,7 +15,7 @@ final class MeManage
         if ($body["method"] == "PATCH") {
             $con = new Connection();
 
-            $con->alter("UPDATE users SET firstname=?, lastname=?, email=?, website=?, institution=?, expertise=?, instrumentation=?, biography=? WHERE id=?", "ssssssssi", $body["firstname"], $body["lastname"], $body["email"], $body["website"], $body["institution"], $body["expertise"], $body["instrumentation"], $body["biography"], $_SESSION["user"]["id"]);
+            $con->alter("UPDATE user SET firstname=?, lastname=?, email=?, website=?, institution=?, expertise=?, instrumentation=?, biography=? WHERE id=?", "ssssssssi", $body["firstname"], $body["lastname"], $body["email"], $body["website"], $body["institution"], $body["expertise"], $body["instrumentation"], $body["biography"], $_SESSION["user"]["id"]);
 
             $con->done();
             return $response->withHeader('Location', "/me");

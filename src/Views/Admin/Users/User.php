@@ -15,7 +15,7 @@ final class User
 
         $con = new Connection();
         
-        $user = $con->select_where("SELECT * FROM users WHERE id=?", "i", $args["id"])->fetch_assoc();
+        $user = $con->select_where("SELECT * FROM user WHERE id=?", "i", $args["id"])->fetch_assoc();
 
         if (empty($user)) return $response->withHeader("Location", "/admin/users");
 

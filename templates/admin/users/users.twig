@@ -15,9 +15,9 @@
 						<input type="radio" name="approved-filter" id="users-all" value="1" checked>
 						<label for="users-all">All Users</label>
 						<input type="radio" name="approved-filter" id="users-pending" value="2">
-						<label for="users-pending">Pending Users</label>
+						<label for="users-pending">Pending / Disabled</label>
 						<input type="radio" name="approved-filter" id="users-approved" value="3">
-						<label for="users-approved">Approved Users</label>
+						<label for="users-approved">Approved</label>
 					</div>
 					<input class="form-control mr-sm-2" id="search" type="search" onsearch="filter" placeholder="Search">
 				</form>
@@ -26,7 +26,7 @@
 				<table class="table table-sm" cellspacing="0" width="100%">
 					<tbody>
 						{% for nuser in users %}
-							<tr data-approved="{{ nuser.approved }}">
+							<tr data-approved="{{ nuser.permission_level > 0 }}">
 								<td>
 									<img class="avatar" src="/images/users/{{ nuser.id }}.png?{{ random() }}" onerror="this.src='/images/missing.png'">
 								</td>
@@ -36,8 +36,8 @@
 								<td></td>
 								<td>{{ nuser.email }}</td>
 								<td>{{ nuser.institution }}</td>
-								<td>{{ ["Unlisted", "Listed"][nuser.type] }}</td>
-								<td>{{ ["Disabled", "Enabled"][nuser.status] }}</td>
+								<td>{{ ["Disabled", "User", "Editor", "Admin", "Super Admin"][nuser.permission_level] }}</td>
+								<td>{{ ["Not Hidden", "Hidden"][nuser.hidden] }}</td>
 							</tr>
 						{% endfor %}
 					</tbody>
@@ -58,7 +58,7 @@
 				$(this).toggle(
 					$(this).text().toLowerCase().indexOf(searchFilter) > -1 &&
 					(appFilter == 1 ? $(this).data("approved") == 0 || $(this).data("approved")  == 1 : 
-					appFilter == 2 ? $(this).data("approved") == 0 : 
+					appFilter == 2 ? $(this).data("approved") == 0 || !$(this).data("approved") : 
 					$(this).data("approved") == 1)
 				)
 			});

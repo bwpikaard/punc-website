@@ -14,12 +14,12 @@ final class UserApprove
     {
         $con = new Connection();
         
-        $user = $con->select_where("SELECT firstname,email,approved FROM users WHERE id=?", "i", $args["id"])->fetch_assoc();
+        $user = $con->select_where("SELECT firstname,email,permission_level FROM user WHERE id=?", "i", $args["id"])->fetch_assoc();
 
         if (empty($user)) return $response->withHeader("Location", "/admin/users");
-        if ($user["approved"] != 0) return $response->withHeader("Location", "/admin/users/{$args["id"]}");
+        if ($user["permission_level"] != 0) return $response->withHeader("Location", "/admin/users/{$args["id"]}");
 
-        $req = $con->alter("UPDATE users SET approved=1, type=1 WHERE id=?", "i", $args["id"]);
+        $req = $con->alter("UPDATE user SET permission_level=1, hidden=0 WHERE id=?", "i", $args["id"]);
 
         if ($req->affected_rows > 0) Mailer::send($user["email"], "Membership Request Approved", "{$user["firstname"]},<br><br>Welcome to PUNC!<br><br>Your membership request has been approved, and your account is now active.  You may update your profile at any time by using the username and password you were initially sent.  We look forward to having you as part of the cooperative, and hope this is the first step to many future collaborations with your fellow members.<br><br>Sincerely,<br>Steve Hughes<br><br>shughes@roanoke.edu<br><a href=\"https://nanocooperative.org/members/2\">Steve Hughes</a>");
 

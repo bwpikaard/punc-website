@@ -16,7 +16,7 @@ final class UserManage
         if ($body["method"] == "PATCH") {
             $con = new Connection();
 
-            $con->alter("UPDATE users SET type=?, status=?, role_id=?, firstname=?, lastname=?, username=?, email=?, website=?, institution=?, expertise=?, instrumentation=?, biography=? WHERE id=?", "iiisssssssssi", $body["type"], $body["status"], $body["role_id"], $body["firstname"], $body["lastname"], $body["username"], $body["email"], $body["website"], $body["institution"], $body["expertise"], $body["instrumentation"], $body["biography"], $body["id"]);
+            $con->alter("UPDATE user SET permission_level=?, hidden=?, firstname=?, lastname=?, username=?, email=?, website=?, institution=?, expertise=?, instrumentation=?, biography=? WHERE id=?", "iisssssssssi", $body["permission_level"], $body["hidden"], $body["firstname"], $body["lastname"], $body["username"], $body["email"], $body["website"], $body["institution"], $body["expertise"], $body["instrumentation"], $body["biography"], $body["id"]);
 
             $con->done();
 

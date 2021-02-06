@@ -15,7 +15,7 @@ final class Members
 
         $con = new Connection();
         
-        $users = $con->select("SELECT * FROM users WHERE type=1 AND approved=1");
+        $users = $con->select("SELECT * FROM user WHERE permission_level > 0 AND hidden != 1");
 
         $con->done();
 

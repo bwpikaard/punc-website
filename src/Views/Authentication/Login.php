@@ -31,7 +31,7 @@ final class Login
 
             $con = new Connection();
 
-            $user = $con->select_where("SELECT * FROM users WHERE username=?", "s", $body["username"])->fetch_assoc();
+            $user = $con->select_where("SELECT * FROM user WHERE username=?", "s", $body["username"])->fetch_assoc();
 
             $con->done;
 
@@ -53,15 +53,7 @@ final class Login
                     "error" => "Invalid username or password."
                 ]);
             
-            if ($user["approved"] < 1) 
-                return $view->render($response, 'auth/login.twig', [
-                    "user" => isset($_SESSION["user"]) ? $_SESSION["user"] : null,
-                    "path" => $request->getUri()->getPath(),
-                    "username" => $body["username"],
-                    "error" => "Your account has not been approved."
-                ]);
-            
-            if ($user["status"] < 1) 
+            if ($user["permission_level"] == 0) 
                 return $view->render($response, 'auth/login.twig', [
                     "user" => isset($_SESSION["user"]) ? $_SESSION["user"] : null,
                     "path" => $request->getUri()->getPath(),

@@ -15,7 +15,7 @@ final class Posts
 
         $con = new Connection();
         
-        $posts = $con->select("SELECT posts.*, users.firstname AS author_firstname, users.lastname AS author_lastname FROM posts LEFT JOIN users ON posts.author = users.id");
+        $posts = $con->select("SELECT post.*, user.firstname AS author_firstname, user.lastname AS author_lastname FROM post LEFT JOIN user ON post.author = user.id");
 
         $con->done();
         
