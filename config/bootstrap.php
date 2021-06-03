@@ -18,6 +18,7 @@ define("DB_DATABASE", $config["db_database"]);
 define("MAIL_USERNAME", $config["mail_username"]);
 define("MAIL_PASSWORD", $config["mail_password"]);
 define("RECAPTCHA_KEY", $config["recaptcha_key"]);
+define("GITHUB_SECRET", $config["github_secret"]);
 
 use DI\ContainerBuilder;
 use Slim\App;
