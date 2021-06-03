@@ -1,3 +1,7 @@
-config.ini
+*config.ini
 .vscode/*
 .DS_Store
+vendor/*
+composer.lock
+public/images/users/*
+public/images/institutions/*

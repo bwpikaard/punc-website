@@ -6,15 +6,38 @@
     <div class="section-content">
         <div class="divider">Organization Members</div>
         <ul class="users">
-            {% for nuser in users %}
+            {% set shughes_user = users|filter(u => u.username == "shughes")|first %}
+            <li>
+                <div class="image">
+                    <img src="/images/users/{{ shughes_user.id }}.png?{{ random() }}" onerror="this.src='/images/missing.png'">
+                        <div class="institution">
+                            <!--<img src="/images/institutions/roanoke-college.jpg" />-->
+                            {{ shughes_user.institution }}
+                        </div>
+                    </img>
+                </div>
+                <div class="information">
+                    <h4>
+                        <a class="nlink" href="/members/{{ shughes_user.id }}">{{ shughes_user.firstname }} {{ shughes_user.lastname }}</a>
+                        <small><span class="badge badge-primary">Director</span></small>
+                    </h4>
+                    <small>Expertise</small>
+                    <h6>{{ shughes_user.expertise }}</h6>
+                    <small>Instrumentation</small>
+                    <h6>{{ shughes_user.instrumentation }}</h6>
+                    <small>Background & Research Interests</small>
+                    <p class="biography">{{ shughes_user.biography }}</p>
+                </div>
+            </li>
+            {% for nuser in users|filter(u => u.username != "shughes")|sort((a, b) => a.lastname <=> b.lastname) %}
                 <li>
                     <div class="image">
                         <img src="/images/users/{{ nuser.id }}.png?{{ random() }}" onerror="this.src='/images/missing.png'">
-                        <div class="institution">
-                            <!--<img src="/images/institutions/roanoke-college.jpg" />-->
-                            {{ nuser.institution }}
-                        </div>
-                    </img>
+                            <div class="institution">
+                                <!--<img src="/images/institutions/roanoke-college.jpg" />-->
+                                {{ nuser.institution }}
+                            </div>
+                        </img>
                     </div>
                     <div class="information">
                         <h4><a class="nlink" href="/members/{{ nuser.id }}">{{ nuser.firstname }} {{ nuser.lastname }}</a></h4>

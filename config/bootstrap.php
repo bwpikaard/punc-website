@@ -1,5 +1,10 @@
 <?php
 
+ini_set("session.cookie_lifetime", 60 * 60 * 24 * 7 * 4);
+ini_set("session.gc-maxlifetime", 60 * 60 * 24 * 7 * 4);
+ini_set("upload_max_filesize ", "4M");
+ini_set("post_max_size ", "4M");
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);

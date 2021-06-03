@@ -180,6 +180,10 @@ body {
     background-position: center;
 }
 
+.landing .page .content .banner {
+    background-position: center calc(50% + 100px);
+}
+
 .page.home .content .banner {
     background-image: url(/images/splash.png);
 }
@@ -699,9 +703,6 @@ footer .service .right {
 }
 
 @media (min-width: 992px) {
-    body.landing {
-        padding-top: calc(40px + 1rem);
-    }
     .landing .navbar {
         padding: 1rem 6rem;
         transition: padding 0.25s ease;
