@@ -28,7 +28,7 @@ final class PostsNew
 
             $con->done();
 
-            return $response->withStatus(200);//withHeader("Location", "/admin/posts/{$req->insert_id}");
+            return $response->withHeader("Location", "/admin/posts/{$req->insert_id}");
         }
     }
 }
