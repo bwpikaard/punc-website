@@ -16,7 +16,7 @@ final class Deploy
         if (!$request->hasHeader("X-Hub-Signature") || !hash_equals($hash, $request->getHeaderLine("X-Hub-Signature")))
             return $response->withStatus(403);
 
-        if ($parsedBody["ref"] != "refs/heads/main") {
+        if ($parsedBody["ref"] != "refs/heads/master") {
             $response->getBody()->write("Branch is not being watched.");
             return $response->withStatus(200);
         }
