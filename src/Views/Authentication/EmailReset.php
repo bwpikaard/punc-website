@@ -35,7 +35,7 @@ final class EmailReset
             $captchaResponseKeys = json_decode($captchaResponse,true);
 
             if (intval($captchaResponseKeys["success"]) !== 1)
-                return $view->render($response, 'auth/register.twig', [
+                return $view->render($response, 'auth/reset.twig', [
                     "user" => isset($_SESSION["user"]) ? $_SESSION["user"] : null,
                     "path" => $request->getUri()->getPath(),
                     "data" => $body,
@@ -44,15 +44,17 @@ final class EmailReset
 
             $con = new Connection();
 
-            $user = $con->select_where("SELECT * FROM users WHERE username=?", "s", $body["username"])->fetch_assoc();
+            $user = $con->select_where("SELECT * FROM user WHERE email=?", "s", $body["email"])->fetch_assoc();
 
-            if (isset($user))
-                return $view->render($response, 'auth/register.twig', [
+            if (!isset($user))
+                return $view->render($response, 'auth/reset.twig', [
                     "user" => isset($_SESSION["user"]) ? $_SESSION["user"] : null,
                     "path" => $request->getUri()->getPath(),
                     "data" => $body,
-                    "error" => "An account with that username already exists."
+                    "message" => "A message has been sent to you by email with instructions on how to reset your password."
                 ]);
+
+            exit("user!");
 
             $date = date("Y-m-d H:i:s");
             $password = bin2hex(openssl_random_pseudo_bytes(4));

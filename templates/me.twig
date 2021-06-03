@@ -49,6 +49,7 @@
 				</div>
 			</div>
 		</div>
+		<button class="nanobtn nanobtn-red mb-2" data-toggle="modal" data-target="#reset-password">Reset Password</button>
 		<form class="needs-validation" action="/me" method="post" enctype="multipart/form-data" novalidate>
 			<input name="method" type="hidden" value="PATCH">
 			<div class="form-group">
@@ -119,11 +120,43 @@
 	</div>
 {% endblock %}
 
+{% block modals %}
+	<div class="modal fade" id="reset-password" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Reset Password</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form class="mb-0">
+						<div class="form-group">
+							<label for="currentPassword">Current Password</label>
+							<input type="password" class="form-control" id="currentPassword">
+						</div>
+						<div class="form-group">
+							<label for="newPassword">New Password</label>
+							<input type="password" class="form-control" id="newPassword">
+						</div>
+						<div class="form-group">
+							<label for="retypePassword">Retype New Password</label>
+							<input type="password" class="form-control" id="retypePassword">
+						</div>
+						<button class="nanobtn" type="submit">Update Password</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
 {% block scripts %}
 	{{ parent() }}
 	<script>
 		$(document).ready(function () {
-			bsCustomFileInput.init();
-		});
+bsCustomFileInput.init();
+});
 	</script>
 {% endblock %}

@@ -18,6 +18,11 @@
                     <h6><i class="fas fa-times-circle"></i> {{ error }}</h6>
                 </div>
             {% endif %}
+            {% if message %}
+                <div class="error" style="background-color: green;">
+                    <h6><i class="fas fa-check-circle"></i> {{ message }}</h6>
+                </div>
+            {% endif %}
             <form class="needs-validation" action="/auth/reset" method="post" novalidate>
                 <div class="form-group mb-1">
                     <label for="email">Email</label>
