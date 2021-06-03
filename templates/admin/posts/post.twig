@@ -9,7 +9,7 @@
             <form action="/admin/posts/{{ post.id ? post.id : "new" }}" method="post">
                 <input type="hidden" name="method" value="{% if post %}PATCH{% else %}POST{% endif %}">
                 <input class="form-control mb-2" name="title" type="text" placeholder="Post Title" id="post-title" value="{{ post.title }}" required>
-                <textarea name="content" id="summernote" required>{{ post.content }}</textarea>
+                <textarea name="content" id="summernote" required>{{ post.body }}</textarea>
                 <button class="nanobtn mt-2" type="submit">{% if post %}Update{% else %}Create{% endif %}</button>
             </form>
             {% if post %}<button type="button" class="nanobtn nanobtn-red" data-toggle="modal" data-target="#confirm-delete">Delete Post</button>{% endif %}

@@ -13,7 +13,7 @@ final class PostDelete
     {
         $con = new Connection();
 
-        $con->alter("DELETE FROM posts WHERE id=?", "i", $args["id"]);
+        $con->alter("DELETE FROM post WHERE id=?", "i", $args["id"]);
 
         $con->done();
 

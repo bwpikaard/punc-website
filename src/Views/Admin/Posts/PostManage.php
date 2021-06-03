@@ -27,7 +27,7 @@ final class PostManage
         } else if ($body["method"] == "PATCH") {
             $con = new Connection();
 
-            $con->alter("UPDATE posts SET title=?, content=? WHERE id=?", "ssi", $body["title"], $body["content"], $args["id"]);
+            $con->alter("UPDATE post SET title=?, body=? WHERE id=?", "ssi", $body["title"], $body["content"], $args["id"]);
 
             $con->done();
 
