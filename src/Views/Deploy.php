@@ -23,7 +23,7 @@ final class Deploy
 
         $result = array();
 
-        exec("cd /var/www/realityrl.com && git reset --hard && git pull", $result);
+        exec("cd /var/www/nanocooperative && git reset --hard && git pull", $result);
         
         foreach ($result as $line)
             $response->getBody()->write("$line\n");
