@@ -1,0 +1,37 @@
+{% extends "template.twig" %}
+
+{% block pageclass %}admin post
+{% endblock %}
+
+{% block content %}
+	<div class="section-content">
+        <div class="white-set">
+            <h4>Create a New Post</h4>
+            <form class="mb-0" action method="post">
+                <input class="form-control mb-2" name="title" type="text" placeholder="Post Title" id="post-title" required>
+                <textarea name="content" id="summernote" required></textarea>
+                <button class="nanobtn mt-2" type="submit">Create</button>
+            </form>
+        </div>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        $('#summernote').summernote({
+            toolbar: [
+                ["do", ["undo", "redo"]],
+                ["style1", ["fontname", "fontsize", "height", "color"]],
+                ["style2", ["bold","italic","underline", "strikethrough", "superscript", "subscript", "clear"]],
+                ["style3", ["style", "ol", "ul", "paragraph"]],
+                ["insert", ["picture", "link", "video", "table", "hr"]],
+                ["misc", ["fullscreen"]],
+                ["help", ["help"]]
+            ],
+            placeholder: "Write your article here.",
+            codeviewFilter: true,
+            codeviewIframeFilter: true
+        });
+    </script>
+{% endblock %}

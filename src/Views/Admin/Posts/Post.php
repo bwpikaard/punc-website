@@ -13,25 +13,18 @@ final class Post
     {
         $view = Twig::fromRequest($request);
 
-        if ($args["id"] == "new") {
-            return $view->render($response, 'admin/posts/post.twig', [
-                "user" => isset($_SESSION["user"]) ? $_SESSION["user"] : null,
-                "path" => $request->getUri()->getPath()
-            ]);
-        } else {
-            $con = new Connection();
+        $con = new Connection();
         
-            $post = $con->select_where("SELECT * FROM posts WHERE id=?", "i", $args["id"])->fetch_assoc();
+        $post = $con->select_where("SELECT * FROM post WHERE id=?", "i", $args["id"])->fetch_assoc();
 
-            $con->done();
+        $con->done();
 
-            if (empty($post)) return $response->withHeader("Location", "/admin/posts");
+        if (empty($post)) return $response->withHeader("Location", "/admin/posts");
             
-            return $view->render($response, 'admin/posts/post.twig', [
-                "user" => isset($_SESSION["user"]) ? $_SESSION["user"] : null,
-                "path" => $request->getUri()->getPath(),
-                "post" => $post
-            ]);
-        }
+        return $view->render($response, 'admin/posts/post.twig', [
+            "user" => isset($_SESSION["user"]) ? $_SESSION["user"] : null,
+            "path" => $request->getUri()->getPath(),
+            "post" => $post
+        ]);
     }
 }

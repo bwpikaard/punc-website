@@ -15,14 +15,14 @@ final class PostTogglePublish
 
         $con = new Connection();
         
-        $post = $con->select_where("SELECT * FROM posts WHERE id=?", "i", $args["id"])->fetch_assoc();
+        $post = $con->select_where("SELECT * FROM post WHERE id=?", "i", $args["id"])->fetch_assoc();
 
         if (empty($post)) return $response->withHeader('Location', "/admin/posts");
 
         if ($post["published"]) {
-            $con->alter("UPDATE posts SET published=0 WHERE id=?", "i", $args["id"]);
+            $con->alter("UPDATE post SET published=0 WHERE id=?", "i", $args["id"]);
         } else {
-            $con->alter("UPDATE posts SET published=1 WHERE id=?", "i", $args["id"]);
+            $con->alter("UPDATE post SET published=1 WHERE id=?", "i", $args["id"]);
         }
 
         $con->done();

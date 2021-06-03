@@ -50,6 +50,9 @@ return function (App $app) {
             $group2->map(["GET"], "[/]", \App\Views\Admin\Posts\Posts::class)
                 ->setName("admin.posts");
 
+            $group2->map(["GET", "POST"], "/new[/]", \App\Views\Admin\Posts\PostsNew::class)
+                ->setName("admin.posts.new");
+
             $group2->map(["GET"], "/{id}[/]", \App\Views\Admin\Posts\Post::class)
                 ->setName("admin.posts.post");
 
