@@ -6,6 +6,8 @@ use Slim\Routing\RouteCollectorProxy;
 use Slim\App;
 
 return function (App $app) {
+    $app->map(["POST"], "/deploy", \App\Views\Deploy::class);
+    
     $app->map(["GET"], "/", \App\Views\Home::class)
         ->setName("home");
 
