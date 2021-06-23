@@ -13,7 +13,7 @@ final class UserPassword
     {
         $con = new Connection();
         
-        $user = $con->select_where("SELECT email, firstname FROM user WHERE id=?", "i", $args["id"])->fetch_assoc();
+        $user = $con->select_where("SELECT email, username, firstname FROM user WHERE id=?", "i", $args["id"])->fetch_assoc();
 
         if (is_null($user)) return $response->withHeader("Location", "/admin/users");
 
@@ -22,7 +22,7 @@ final class UserPassword
                 
         $con->alter("UPDATE user SET password=?", "s", $hpassword);
 
-        Mailer::send($user["email"], "Password Reset", "{$user["firstname"]},<br><br>A PUNC Administrator has generated a new password for you.<br><br>New Password: $password<br><br>Thanks,<br>PUNC Administrators");
+        Mailer::send($user["email"], "Password Reset", "{$user["firstname"]},<br><br>A PUNC Administrator has generated a new password for you.<br><br>Username: {$user["username"]}<br>New Password: $password<br><br>Thanks,<br>PUNC Administrators");
 
         $con->done();
         
