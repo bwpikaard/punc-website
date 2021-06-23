@@ -20,7 +20,7 @@ final class UserPassword
         $password = bin2hex(openssl_random_pseudo_bytes(4));
         $hpassword = password_hash($password, PASSWORD_DEFAULT);
                 
-        $con->alter("UPDATE user SET password=?", "s", $hpassword);
+        $con->alter("UPDATE user SET password=? WHERE id=?", "si", $hpassword, $args["id"]);
 
         Mailer::send($user["email"], "Password Reset", "{$user["firstname"]},<br><br>A PUNC Administrator has generated a new password for you.<br><br>Username: {$user["username"]}<br>New Password: $password<br><br>Thanks,<br>PUNC Administrators");
 
