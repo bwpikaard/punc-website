@@ -89,4 +89,7 @@ return function (App $app) {
                 ->setName("admin.users.user.delete");
         });
     })->add(new \App\Authentication\Admin());
+    
+    $app->map(["GET"], "/pages/{slug}", \App\Views\Page::class)
+        ->setName("page");
 };
