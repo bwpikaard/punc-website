@@ -87,6 +87,9 @@ return function (App $app) {
 
             $group2->map(["GET"], "/{id}/delete[/]", \App\Views\Admin\Users\UserDelete::class)
                 ->setName("admin.users.user.delete");
+
+            $group2->map(["POST"], "/{id}/emailpassword[/]", \App\Views\Admin\Users\UserPassword::class)
+                ->setName("admin.users.user.password");
         });
     })->add(new \App\Authentication\Admin());
     

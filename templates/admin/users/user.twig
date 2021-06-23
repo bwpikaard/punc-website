@@ -59,6 +59,7 @@
 				</div>
 			</div>
 		</div>
+		<button class="nanobtn nanobtn-red mb-2" data-toggle="modal" data-target="#reset-password">Reset Password</button>
 		<form class="needs-validation" action="/admin/users/{{ nuser.id }}" method="post" enctype="multipart/form-data" novalidate>
 			<input name="id" type="hidden" value="{{ nuser.id }}">
 			<input name="method" type="hidden" value="PATCH">
@@ -154,6 +155,27 @@
 			</div>
 			<button class="nanobtn" type="submit">Update User</button>
 		</form>
+	</div>
+{% endblock %}
+
+{% block modals %}
+	<div class="modal fade" id="reset-password" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Reset Password</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form class="mb-0" action="/admin/users/{{ nuser.id }}/emailpassword" method="post">
+						<p>This will send the user an email with a new password.</p>
+						<button class="nanobtn" type="submit">Send Email</button>
+					</form>
+				</div>
+			</div>
+		</div>
 	</div>
 {% endblock %}
 
