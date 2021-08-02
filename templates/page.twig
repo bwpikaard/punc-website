@@ -10,7 +10,15 @@
 			<li>{{ page.subheading }}</li>
 		</ul>
 	</div>
-	<div class="section-content information">
-		<p>Hi!</p>
+	<div class="section-content">
+		{% for row in rows|sort((a, b) => a.order <=> b.order) %}
+			<div class="row">
+				{% for column in columns|filter(c => c.row_id == row.id)|sort((a, b) => a.order <=> b.order) %}
+					<div class="col m-1" style="word-wrap: break-word;">
+						{{ column.body|raw }}
+					</div>
+				{% endfor %}
+			</div>
+		{% endfor %}
 	</div>
 {% endblock %}

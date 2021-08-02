@@ -1,0 +1,41 @@
+{% extends "template.twig" %}
+
+{% block pageclass %}admin post
+{% endblock %}
+
+{% block content %}
+	<div class="section-content">
+		<div class="white-set">
+			<form action="/admin/pages/{{ page.id }}/rows/{{ row.id }}/columns/{{ column.id ? column.id : "new" }}" method="post" class="mb-0">
+				<label>Order</label>
+				<input class="form-control mb-2" name="order" type="number" placeholder="Order" id="column-order" value="{{ column.order }}" required>
+				<label>Body</label>
+                <textarea name="body" id="summernote" required>{{ column.body }}</textarea>
+				<button class="nanobtn mt-2" type="submit">
+					{% if column %}Update{% else %}Create
+					{% endif %}
+				</button>
+			</form>
+		</div>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        $('#summernote').summernote({
+            toolbar: [
+                ["do", ["undo", "redo"]],
+                ["style1", ["fontname", "fontsize", "height", "color"]],
+                ["style2", ["bold","italic","underline", "strikethrough", "superscript", "subscript", "clear"]],
+                ["style3", ["style", "ol", "ul", "paragraph"]],
+                ["insert", ["picture", "link", "video", "table", "hr"]],
+                ["misc", ["fullscreen"]],
+                ["help", ["help"]]
+            ],
+            placeholder: "Write your article here.",
+            codeviewFilter: true,
+            codeviewIframeFilter: true
+        });
+    </script>
+{% endblock %}

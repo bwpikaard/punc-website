@@ -1,0 +1,48 @@
+{% extends "template.twig" %}
+
+{% block pageclass %}admin post
+{% endblock %}
+
+{% block content %}
+	<div class="section-content">
+		<div class="white-set">
+			<form action="/admin/pages/{{ page.id ? page.id : "new" }}" method="post" class="mb-0">
+				<input type="hidden" name="method" value="{% if post %}PATCH{% else %}POST{% endif %}">
+				<label>Status</label>
+				<select class="custom-select" name="status" required>
+					<option selected value disabled>Select a Status</option>
+					<option {% if page and page.status == "unpublished" %}selected{% endif %} value="unpublished">Unpublished</option>
+					<option {% if page and page.status == "published" %}selected{% endif %} value="published">Published</option>
+				</select>
+				<label>Navigatable</label>
+				<select class="custom-select" name="navigatable" required>
+					<option selected value disabled>Select if Navigatable</option>
+					<option {% if page and page.navigatable == 0 %}selected{% endif %} value="0">Not Navigatable</option>
+					<option {% if page and page.navigatable == 1 %}selected{% endif %} value="1">In Navigation Bar</option>
+				</select>
+				<label>Slug</label>
+				<input class="form-control mb-2" name="slug" type="text" placeholder="Slug (/pages/<HERE>)" id="page-slug" value="{{ page.slug }}" required>
+				<label>Title</label>
+				<input class="form-control mb-2" name="title" type="text" placeholder="Title" id="page-title" value="{{ page.title }}" required>
+				<label>Heading</label>
+				<input class="form-control mb-2" name="heading" type="text" placeholder="Heading" id="page-heading" value="{{ page.heading }}" required>
+				<label>Sub Heading</label>
+				<textarea class="form-control mb-2" name="subheading" type="text" placeholder="Sub Heading" id="page-subheading" required>{{ page.subheading }}</textarea>
+				<button class="nanobtn mt-2" type="submit">
+					{% if page %}Update{% else %}Create
+					{% endif %}
+				</button>
+			</form>
+			{% if post %}
+				<button type="button" class="nanobtn nanobtn-red" data-toggle="modal" data-target="#confirm-delete">Delete Post</button>
+			{% endif %}
+		</div>
+	</div>
+	{% if page %}
+		<div class="section-content">
+			<div class="white-set">
+				<a href="/admin/pages/{{ page.id }}/rows" class="nanobtn">View Rows</a>
+			</div>
+		</div>
+	{% endif %}
+{% endblock %}

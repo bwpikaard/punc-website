@@ -7,7 +7,7 @@ use Slim\App;
 
 return function (App $app) {
     $app->map(["POST"], "/deploy", \App\Views\Deploy::class);
-    
+
     $app->map(["GET"], "/", \App\Views\Home::class)
         ->setName("home");
 
@@ -45,6 +45,35 @@ return function (App $app) {
 
     $app->group("/admin", function (RouteCollectorProxy $group) {
         $group->redirect("[/]", "/admin/users", 301);
+
+        $group->group("/pages", function (RouteCollectorProxy $group2) {
+            $group2->map(["GET"], "[/]", \App\Views\Admin\Pages\Pages::class)
+                ->setName("admin.pages");
+
+            $group2->map(["GET", "POST"], "/{id}/rows[/]", \App\Views\Admin\Pages\Rows\Rows::class)
+                ->setName("admin.page");
+
+            $group2->map(["GET", "POST"], "/{id}/rows/{rowid}/columns[/]", \App\Views\Admin\Pages\Rows\Columns\Columns::class)
+            ->setName("admin.page");
+
+            $group2->map(["GET", "POST"], "/{id}/rows/{rowid}/columns/new[/]", \App\Views\Admin\Pages\Rows\Columns\ColumnsNew::class)
+            ->setName("admin.page");
+
+            $group2->map(["GET", "POST"], "/{id}/rows/{rowid}/columns/{columnid}[/]", \App\Views\Admin\Pages\Rows\Columns\Column::class)
+            ->setName("admin.page");
+
+            $group2->map(["GET", "POST"], "/{id}/rows/new[/]", \App\Views\Admin\Pages\Rows\RowsNew::class)
+                ->setName("admin.page");
+
+            $group2->map(["GET", "POST"], "/{id}/rows/{rowid}[/]", \App\Views\Admin\Pages\Rows\Row::class)
+                ->setName("admin.page");
+
+            $group2->map(["GET", "POST"], "/new[/]", \App\Views\Admin\Pages\PagesNew::class)
+                ->setName("admin.page.new");
+
+            $group2->map(["GET", "POST"], "/{id}[/]", \App\Views\Admin\Pages\Page::class)
+                ->setName("admin.page");
+        });
 
         $group->group("/posts", function (RouteCollectorProxy $group2) {
             $group2->map(["GET"], "[/]", \App\Views\Admin\Posts\Posts::class)
@@ -92,7 +121,7 @@ return function (App $app) {
                 ->setName("admin.users.user.password");
         });
     })->add(new \App\Authentication\Admin());
-    
+
     $app->map(["GET"], "/pages/{slug}", \App\Views\Page::class)
         ->setName("page");
 };

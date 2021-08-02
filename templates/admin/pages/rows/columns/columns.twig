@@ -1,0 +1,31 @@
+{% extends "template.twig" %}
+
+{% block pageclass %}admin posts
+{% endblock %}
+
+{% block content %}
+	<div class="section-content">
+		<div class="nanolist white-set">
+			<div class="table-header">
+				<div class="header-left">
+					<h5>Columns
+						<a class="nanobtn nanobtn-sm" href="/admin/pages/{{ page.id }}/rows/{{ row.id }}/columns/new">New Column</a></h5>
+				</div>
+			</div>
+			<div class="table-responsive">
+				<table class="table table-sm" cellspacing="0" width="100%">
+					<tbody>
+						{% for column in columns %}
+							<tr>
+								<td>
+									<a class="nlink" href="/admin/pages/{{ page.id }}/rows/{{ row.id }}/columns/{{ column.id }}">{{ column.id }}</a>
+								</td>
+								<td>{{ column.order }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}
