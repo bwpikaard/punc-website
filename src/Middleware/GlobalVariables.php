@@ -20,9 +20,9 @@ final class GlobalVariables
         
         $con = new Connection();
 
-        $pages = $con->select("SELECT * FROM page WHERE `navigatable`=1");
+        $pages = $con->select("SELECT * FROM page WHERE `navigatable`=1 AND `status`='published'");
 
-        $view->getEnvironment()->addGlobal("pages", $pages);
+        $view->getEnvironment()->addGlobal("navpages", $pages);
     
         return $handler->handle($request);
     }
