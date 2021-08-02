@@ -13,6 +13,8 @@ return function (App $app) {
 
     $app->add(ErrorMiddleware::class);
     
+    $app->add(new \App\Middleware\GlobalVariables());
+    
     $twig = Twig::create(__DIR__ . '/../templates');
     $app->add(TwigMiddleware::create($app, $twig));
 };

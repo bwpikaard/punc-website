@@ -1,0 +1,33 @@
+{% extends "template.twig" %}
+
+{% block pageclass %}admin posts
+{% endblock %}
+
+{% block content %}
+	<div class="section-content">
+		<div class="nanolist white-set">
+			<div class="table-header">
+				<div class="header-left">
+					<h5>Pages
+						<a class="nanobtn nanobtn-sm" href="/admin/pages/new">New Page</a></h5>
+				</div>
+			</div>
+			<div class="table-responsive">
+				<table class="table table-sm" cellspacing="0" width="100%">
+					<tbody>
+						{% for page in pages %}
+							<tr>
+								<td>
+									<a class="nlink" href="/admin/pages/{{ page.id }}">{{ page.title }}</a>
+								</td>
+								<td>{{ page.slug }}</td>
+								<td>{{ page.status }}</td>
+								<td>{{ page.navigatable == 1 ? "Navigatable" : "Not on Nav" }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}

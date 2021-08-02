@@ -50,6 +50,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/conference" tabindex="-1">Conference</a>
                         </li>
+                        {% for page in navpages %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/pages/{{ page.slug }}" tabindex="-1">{{ page.title }}</a>
+                            </li>
+                        {% endfor %}
                     </ul>
                     <ul class="navbar-nav ml-auto">
                         {% if user %}
@@ -62,6 +67,7 @@
                                         <h6 class="dropdown-header">Admin</h6>
                                         <a class="dropdown-item" href="/admin/users">Users</a>
                                         <a class="dropdown-item" href="/admin/posts">Posts</a>
+                                        <a class="dropdown-item" href="/admin/pages">Pages</a>
                                         <a class="dropdown-item" href="/admin/configuration">Configuration</a>
                                     {% endif %}
                                     <div class="dropdown-divider"></div>

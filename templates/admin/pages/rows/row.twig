@@ -1,0 +1,26 @@
+{% extends "template.twig" %}
+
+{% block pageclass %}admin post
+{% endblock %}
+
+{% block content %}
+	<div class="section-content">
+		<div class="white-set">
+			<form action="/admin/pages/{{ page.id }}/rows/{{ row.id ? row.id : "new" }}" method="post" class="mb-0">
+				<label>Order</label>
+				<input class="form-control mb-2" name="order" type="number" placeholder="Order" id="row-order" value="{{ row.order }}" required>
+				<button class="nanobtn mt-2" type="submit">
+					{% if row %}Update{% else %}Create
+					{% endif %}
+				</button>
+			</form>
+		</div>
+	</div>
+	{% if row %}
+		<div class="section-content">
+			<div class="white-set">
+				<a href="/admin/pages/{{ page.id }}/rows/{{ row.id }}/columns" class="nanobtn">View Columns</a>
+			</div>
+		</div>
+	{% endif %}
+{% endblock %}

@@ -17,12 +17,17 @@ final class Page
 
         $page = $con->select_where("SELECT * FROM page WHERE slug=?", "s", $args["slug"])->fetch_assoc();
 
-        if (is_null($page)) return $response->withHeader("Location", "/");
+        if (is_null($page) || $page["status"] != "published") return $response->withHeader("Location", "/");
+        
+        $rows = $con->select_where("SELECT * FROM `row` WHERE page_id=?", "i", $page["id"]);
+        $columns = $con->select_where("SELECT `column`.* FROM `column` LEFT JOIN `row` ON `row`.id = `column`.row_id WHERE `row`.page_id=?", "i", $page["id"]);
 
         return $view->render($response, 'page.twig', [
             "user" => isset($_SESSION["user"]) ? $_SESSION["user"] : null,
             "path" => $request->getUri()->getPath(),
-            "page" => $page
+            "page" => $page,
+            "rows" => $rows,
+            "columns" => $columns
         ]);
     }
 }
